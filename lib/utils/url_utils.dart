@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 import '../http/search.dart';
 import 'id_utils.dart';
@@ -44,7 +44,7 @@ class UrlUtils {
       final String bv = matchRes['BV'];
       final int cid = await SearchHttp.ab2c(bvid: bv);
       final String heroTag = Utils.makeHeroTag(bv);
-      await Get.toNamed(
+      await getToNamed(
         '/video?bvid=$bv&cid=$cid',
         arguments: <String, String?>{
           'pic': '',
@@ -52,7 +52,7 @@ class UrlUtils {
         },
       );
     } else {
-      await Get.toNamed(
+      await getToNamed(
         '/webview',
         parameters: {
           'url': redirectUrl,

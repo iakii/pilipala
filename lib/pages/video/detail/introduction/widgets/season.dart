@@ -4,6 +4,7 @@ import 'package:pilipala/models/video_detail_res.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class SeasonPanel extends StatefulWidget {
   const SeasonPanel({
@@ -26,7 +27,7 @@ class _SeasonPanelState extends State<SeasonPanel> {
   late List<EpisodeItem> episodes;
   late int cid;
   late int currentIndex;
-  final String heroTag = Get.arguments['heroTag'];
+  final String heroTag = getArguments['heroTag'];
   late VideoDetailController _videoDetailController;
   final ScrollController _scrollController = ScrollController();
   final ItemScrollController itemScrollController = ItemScrollController();
@@ -70,7 +71,7 @@ class _SeasonPanelState extends State<SeasonPanel> {
       item.aid,
     );
     currentIndex = i;
-    Get.back();
+    getBack();
     setState(() {});
   }
 

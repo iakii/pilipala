@@ -25,7 +25,8 @@ class _FavPageState extends State<FavPage> {
     scrollController = _favController.scrollController;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 300) {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 300) {
           EasyThrottle.throttle('history', const Duration(seconds: 1), () {
             _favController.onLoad();
           });
@@ -50,7 +51,8 @@ class _FavPageState extends State<FavPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () => Get.toNamed('/favSearch?searchType=1&mediaId=${_favController.favFolderData.value.list!.first.id}'),
+            onPressed: () => getToNamed(
+                '/favSearch?searchType=1&mediaId=${_favController.favFolderData.value.list!.first.id}'),
             icon: const Icon(Icons.search_outlined),
           ),
           const SizedBox(width: 6),
@@ -67,7 +69,9 @@ class _FavPageState extends State<FavPage> {
                   controller: scrollController,
                   itemCount: _favController.favFolderData.value.list!.length,
                   itemBuilder: (context, index) {
-                    return FavItem(favFolderItem: _favController.favFolderData.value.list![index]);
+                    return FavItem(
+                        favFolderItem:
+                            _favController.favFolderData.value.list![index]);
                   },
                 ),
               );

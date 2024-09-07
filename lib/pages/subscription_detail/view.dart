@@ -7,6 +7,7 @@ import 'package:pilipala/common/skeleton/video_card_h.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 import '../../models/user/sub_folder.dart';
 import '../../utils/utils.dart';
@@ -31,7 +32,7 @@ class _SubDetailPageState extends State<SubDetailPage> {
   @override
   void initState() {
     super.initState();
-    seasonId = Get.parameters['seasonId']!;
+    seasonId = getParameters['seasonId']!;
     _futureBuilderFuture = _subDetailController.queryUserSubFolderDetail();
     titleStreamC = StreamController<bool>();
     _controller.addListener(
@@ -146,7 +147,7 @@ class _SubDetailPageState extends State<SubDetailPage> {
                               onTap: () {
                                 SubFolderItemData item =
                                     _subDetailController.item;
-                                Get.toNamed(
+                                getToNamed(
                                   '/member?mid=${item.upper!.mid}',
                                   arguments: {
                                     'face': item.upper!.face,

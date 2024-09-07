@@ -8,6 +8,7 @@ import 'package:pilipala/plugin/pl_player/index.dart';
 import '../../models/live/room_info_h5.dart';
 import '../../utils/storage.dart';
 import '../../utils/video_utils.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class LiveRoomController extends GetxController {
   String cover = '';
@@ -31,10 +32,10 @@ class LiveRoomController extends GetxController {
     super.onInit();
     currentQn = setting.get(SettingBoxKey.defaultLiveQa,
         defaultValue: LiveQuality.values.last.code);
-    roomId = int.parse(Get.parameters['roomid']!);
-    if (Get.arguments != null) {
-      liveItem = Get.arguments['liveItem'];
-      heroTag = Get.arguments['heroTag'] ?? '';
+    roomId = int.parse(getParameters['roomid']!);
+    if (getArguments != null) {
+      liveItem = getArguments['liveItem'];
+      heroTag = getArguments['heroTag'] ?? '';
       if (liveItem != null && liveItem.pic != null && liveItem.pic != '') {
         cover = liveItem.pic;
       }

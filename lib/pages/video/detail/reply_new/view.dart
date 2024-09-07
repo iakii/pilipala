@@ -6,6 +6,7 @@ import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/common/reply_type.dart';
 import 'package:pilipala/models/video/reply/emote.dart';
 import 'package:pilipala/models/video/reply/item.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/emote/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
 
@@ -31,7 +32,8 @@ class VideoReplyNewDialog extends StatefulWidget {
   State<VideoReplyNewDialog> createState() => _VideoReplyNewDialogState();
 }
 
-class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsBindingObserver {
+class _VideoReplyNewDialogState extends State<VideoReplyNewDialog>
+    with WidgetsBindingObserver {
   final TextEditingController _replyContentController = TextEditingController();
   final FocusNode replyContentFocusNode = FocusNode();
   final GlobalKey _formKey = GlobalKey<FormState>();
@@ -79,11 +81,13 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
       oid: widget.oid!,
       root: widget.root!,
       parent: widget.parent!,
-      message: widget.replyItem != null && widget.replyItem!.root != 0 ? ' 回复 @${widget.replyItem!.member!.uname!} : $message' : message,
+      message: widget.replyItem != null && widget.replyItem!.root != 0
+          ? ' 回复 @${widget.replyItem!.member!.uname!} : $message'
+          : message,
     );
     if (result['status']) {
       SmartDialog.showToast(result['data']['success_toast']);
-      Get.back(result: {
+      getBack(result: {
         'data': ReplyItemModel.fromJson(result['data']['reply'], ''),
       });
     } else {
@@ -94,10 +98,13 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
   void onChooseEmote(PackageItem package, Emote emote) {
     final int cursorPosition = _replyContentController.selection.baseOffset;
     final String currentText = _replyContentController.text;
-    final String newText = currentText.substring(0, cursorPosition) + emote.text! + currentText.substring(cursorPosition);
+    final String newText = currentText.substring(0, cursorPosition) +
+        emote.text! +
+        currentText.substring(cursorPosition);
     _replyContentController.value = TextEditingValue(
       text: newText,
-      selection: TextSelection.collapsed(offset: cursorPosition + emote.text!.length),
+      selection:
+          TextSelection.collapsed(offset: cursorPosition + emote.text!.length),
     );
   }
 
@@ -105,15 +112,19 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
   void didChangeMetrics() {
     super.didChangeMetrics();
     final String routePath = Get.currentRoute;
-    if (mounted && (routePath.startsWith('/video') || routePath.startsWith('/dynamicDetail'))) {
+    if (mounted &&
+        (routePath.startsWith('/video') ||
+            routePath.startsWith('/dynamicDetail'))) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // 键盘高度
-        final viewInsets = EdgeInsets.fromViewPadding(View.of(context).viewInsets, View.of(context).devicePixelRatio);
+        final viewInsets = EdgeInsets.fromViewPadding(
+            View.of(context).viewInsets, View.of(context).devicePixelRatio);
         _debouncer.run(() {
           if (mounted) {
             if (keyboardHeight == 0 && emoteHeight == 0) {
               setState(() {
-                emoteHeight = keyboardHeight = keyboardHeight == 0.0 ? viewInsets.bottom : keyboardHeight;
+                emoteHeight = keyboardHeight =
+                    keyboardHeight == 0.0 ? viewInsets.bottom : keyboardHeight;
               });
             }
           }
@@ -133,7 +144,9 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
 
   @override
   Widget build(BuildContext context) {
-    double keyboardHeight = EdgeInsets.fromViewPadding(View.of(context).viewInsets, View.of(context).devicePixelRatio).bottom;
+    double keyboardHeight = EdgeInsets.fromViewPadding(
+            View.of(context).viewInsets, View.of(context).devicePixelRatio)
+        .bottom;
     debugPrint('_keyboardHeight: $keyboardHeight');
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -153,7 +166,8 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
               minHeight: 120,
             ),
             child: Container(
-              padding: const EdgeInsets.only(top: 12, right: 15, left: 15, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: 12, right: 15, left: 15, bottom: 10),
               child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
@@ -214,7 +228,8 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
                   selected: toolbarType == 'emote',
                 ),
                 const Spacer(),
-                TextButton(onPressed: () => submitReplyAdd(), child: const Text('发送'))
+                TextButton(
+                    onPressed: () => submitReplyAdd(), child: const Text('发送'))
               ],
             ),
           ),
@@ -223,7 +238,11 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog> with WidgetsB
             duration: const Duration(milliseconds: 300),
             child: SizedBox(
               width: double.infinity,
-              height: toolbarType == 'input' ? (keyboardHeight > keyboardHeight ? keyboardHeight : keyboardHeight) : emoteHeight,
+              height: toolbarType == 'input'
+                  ? (keyboardHeight > keyboardHeight
+                      ? keyboardHeight
+                      : keyboardHeight)
+                  : emoteHeight,
               child: EmotePanel(
                 onChoose: (package, emote) => onChooseEmote(package, emote),
               ),

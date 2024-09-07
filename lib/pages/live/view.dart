@@ -22,7 +22,8 @@ class LivePage extends StatefulWidget {
   State<LivePage> createState() => _LivePageState();
 }
 
-class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin {
+class _LivePageState extends State<LivePage>
+    with AutomaticKeepAliveClientMixin {
   final LiveController _liveController = Get.put(LiveController());
   late Future _futureBuilderFuture;
   late ScrollController scrollController;
@@ -35,17 +36,22 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
     super.initState();
     _futureBuilderFuture = _liveController.queryLiveList('init');
     scrollController = _liveController.scrollController;
-    StreamController<bool> mainStream = Get.find<MainController>().bottomBarStream;
-    StreamController<bool> searchBarStream = Get.find<HomeController>().searchBarStream;
+    StreamController<bool> mainStream =
+        Get.find<MainController>().bottomBarStream;
+    StreamController<bool> searchBarStream =
+        Get.find<HomeController>().searchBarStream;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
-          EasyThrottle.throttle('liveList', const Duration(milliseconds: 200), () {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 200) {
+          EasyThrottle.throttle('liveList', const Duration(milliseconds: 200),
+              () {
             _liveController.onLoad();
           });
         }
 
-        final ScrollDirection direction = scrollController.position.userScrollDirection;
+        final ScrollDirection direction =
+            scrollController.position.userScrollDirection;
         if (direction == ScrollDirection.forward) {
           mainStream.add(true);
           searchBarStream.add(true);
@@ -68,7 +74,8 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
     super.build(context);
     return Container(
       clipBehavior: Clip.hardEdge,
-      margin: const EdgeInsets.only(left: StyleString.safeSpace, right: StyleString.safeSpace),
+      margin: const EdgeInsets.only(
+          left: StyleString.safeSpace, right: StyleString.safeSpace),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(StyleString.imgRadius),
       ),
@@ -81,7 +88,8 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
           slivers: [
             SliverPadding(
               // 单列布局 EdgeInsets.zero
-              padding: const EdgeInsets.fromLTRB(0, StyleString.safeSpace, 0, 0),
+              padding:
+                  const EdgeInsets.fromLTRB(0, StyleString.safeSpace, 0, 0),
               sliver: FutureBuilder(
                 future: _futureBuilderFuture,
                 builder: (context, snapshot) {
@@ -91,15 +99,18 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
                     }
                     Map data = snapshot.data as Map;
                     if (data['status']) {
-                      return SliverLayoutBuilder(builder: (context, boxConstraints) {
-                        return Obx(() => contentGrid(_liveController, _liveController.liveList));
+                      return SliverLayoutBuilder(
+                          builder: (context, boxConstraints) {
+                        return Obx(() => contentGrid(
+                            _liveController, _liveController.liveList));
                       });
                     } else {
                       return HttpError(
                         errMsg: data['msg'],
                         fn: () {
                           setState(() {
-                            _futureBuilderFuture = _liveController.queryLiveList('init');
+                            _futureBuilderFuture =
+                                _liveController.queryLiveList('init');
                           });
                         },
                       );
@@ -120,7 +131,8 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
     return OverlayEntry(
       builder: (context) => AnimatedDialog(
         closeFn: _liveController.popupDialog?.remove,
-        child: OverlayPop(videoItem: liveItem, closeFn: _liveController.popupDialog?.remove),
+        child: OverlayPop(
+            videoItem: liveItem, closeFn: _liveController.popupDialog?.remove),
       ),
     );
   }
@@ -146,7 +158,9 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
         crossAxisSpacing: StyleString.safeSpace,
         // 列数
         crossAxisCount: crossAxisCount,
-        mainAxisExtent: width / crossAxisCount / StyleString.aspectRatio + MediaQuery.textScalerOf(context).scale(crossAxisCount > 5 ? 56 : 56),
+        mainAxisExtent: width / crossAxisCount / StyleString.aspectRatio +
+            MediaQuery.textScalerOf(context)
+                .scale(crossAxisCount > 5 ? 56 : 56),
       ),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
@@ -155,7 +169,8 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
                   liveItem: liveList[index],
                   crossAxisCount: crossAxisCount,
                   longPress: () {
-                    _liveController.popupDialog = _createPopupDialog(liveList[index]);
+                    _liveController.popupDialog =
+                        _createPopupDialog(liveList[index]);
                     Overlay.of(context).insert(_liveController.popupDialog!);
                   },
                   longPressEnd: () {

@@ -28,7 +28,10 @@ class DestktopApp extends GetView<DesktopController> {
               Expanded(
                 child: Column(
                   children: [
-                    SizedBox(height: kWindowCaptionHeight, child: WindowCaption(brightness: Theme.of(context).brightness)),
+                    SizedBox(
+                        height: kWindowCaptionHeight,
+                        child: WindowCaption(
+                            brightness: Theme.of(context).brightness)),
                     GetRouterOutlet(
                       initialRoute: "/desktop/home",
                       anchorRoute: "/desktop",
@@ -54,7 +57,11 @@ final icons = [
 ];
 
 class SlideNavigation extends StatelessWidget {
-  const SlideNavigation({super.key, required this.index, required this.onChange, required this.items});
+  const SlideNavigation(
+      {super.key,
+      required this.index,
+      required this.onChange,
+      required this.items});
   final int index;
   final Function(int) onChange;
   final List<dynamic> items;
@@ -65,7 +72,11 @@ class SlideNavigation extends StatelessWidget {
       width: 66,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Theme.of(context).colorScheme.primary.withOpacity(0.9), Theme.of(context).colorScheme.primary.withOpacity(0.5), Theme.of(context).colorScheme.surface],
+          colors: [
+            Theme.of(context).colorScheme.primary.withOpacity(0.9),
+            Theme.of(context).colorScheme.primary.withOpacity(0.5),
+            Theme.of(context).colorScheme.surface
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           stops: const [0, 0.0034, 0.34],
@@ -77,12 +88,18 @@ class SlideNavigation extends StatelessWidget {
             children: [
               const SizedBox(height: 24),
               ...items.map((e) {
-                final currentRoute = state.delegate.currentConfiguration?.currentPage?.name;
+                final currentRoute =
+                    state.delegate.currentConfiguration?.currentPage?.name;
                 final currentIndex = items.indexOf(e);
-                final selected = currentRoute == '/desktop${state.routeUrl[currentIndex]}';
+                final selected =
+                    currentRoute == '/desktop${state.routeUrl[currentIndex]}';
                 final selectIconColor = selected ? Colors.white : Colors.black;
-                final selectBgColor = selected ? Theme.of(context).primaryColor.withOpacity(1) : Colors.transparent;
-                final selectLabelColor = selected ? Theme.of(context).primaryColor.withOpacity(.9) : Colors.black;
+                final selectBgColor = selected
+                    ? Theme.of(context).primaryColor.withOpacity(1)
+                    : Colors.transparent;
+                final selectLabelColor = selected
+                    ? Theme.of(context).primaryColor.withOpacity(.9)
+                    : Colors.black;
                 return GestureDetector(
                   onTap: () => onChange(currentIndex),
                   child: Column(
@@ -93,16 +110,22 @@ class SlideNavigation extends StatelessWidget {
                           .ripple()
                           .backgroundGradient(
                             LinearGradient(
-                              colors: [selectBgColor, selectBgColor.withOpacity(0.2)],
+                              colors: [
+                                selectBgColor,
+                                selectBgColor.withOpacity(0.2)
+                              ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
                           )
                           .clipRRect(all: 24),
-                      Text("${e['label']}").textColor(selectLabelColor).fontSize(12),
+                      Text("${e['label']}")
+                          .textColor(selectLabelColor)
+                          .fontSize(12),
                     ],
                   )
-                      .parent(({Widget? child}) => MouseRegion(cursor: SystemMouseCursors.click, child: child))
+                      .parent(({Widget? child}) => MouseRegion(
+                          cursor: SystemMouseCursors.click, child: child))
                       .marginOnly(
                         top: 16,
                       )
@@ -121,12 +144,16 @@ class SlideNavigation extends StatelessWidget {
                         IconButton(
                           style: ButtonStyle(
                             padding: WidgetStateProperty.all(EdgeInsets.zero),
-                            backgroundColor: WidgetStateProperty.resolveWith((states) {
-                              return Theme.of(context).colorScheme.onInverseSurface;
+                            backgroundColor:
+                                WidgetStateProperty.resolveWith((states) {
+                              return Theme.of(context)
+                                  .colorScheme
+                                  .onInverseSurface;
                             }),
                           ),
                           onPressed: () => state.toNamed("/setting"),
-                          icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary),
+                          icon: Icon(Icons.settings,
+                              color: Theme.of(context).colorScheme.primary),
                         ),
                         const SizedBox(height: 16),
                         UserInfoWidget(

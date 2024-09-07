@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/models/live/item.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 
@@ -40,7 +40,7 @@ class LiveCardV extends StatelessWidget {
         // },
         child: InkWell(
           onTap: () async {
-            Get.toNamed('/liveRoom?roomid=${liveItem.roomId}',
+            getToNamed('/liveRoom?roomid=${liveItem.roomId}',
                 arguments: {'liveItem': liveItem, 'heroTag': heroTag});
           },
           child: Column(

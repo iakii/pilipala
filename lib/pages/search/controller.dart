@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/search/hot.dart';
 import 'package:pilipala/models/search/suggest.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/storage.dart';
 
 class SSearchController extends GetxController {
@@ -27,12 +28,12 @@ class SSearchController extends GetxController {
   void onInit() {
     super.onInit();
     // 其他页面跳转过来
-    if (Get.parameters.keys.isNotEmpty) {
-      if (Get.parameters['keyword'] != null) {
-        onClickKeyword(Get.parameters['keyword']!);
+    if (getParameters.keys.isNotEmpty) {
+      if (getParameters['keyword'] != null) {
+        onClickKeyword(getParameters['keyword']!);
       }
-      if (Get.parameters['hintText'] != null) {
-        hintText = Get.parameters['hintText']!;
+      if (getParameters['hintText'] != null) {
+        hintText = getParameters['hintText']!;
         searchKeyWord.value = hintText;
       }
     }
@@ -56,7 +57,7 @@ class SSearchController extends GetxController {
       searchKeyWord.value = '';
       searchSuggestList.value = [];
     } else {
-      Get.back();
+      getBack();
     }
   }
 
@@ -75,7 +76,7 @@ class SSearchController extends GetxController {
     historyList.refresh();
     histiryWord.put('cacheList', historyCacheList);
     searchFocusNode.unfocus();
-    Get.toNamed('/searchResult', parameters: {'keyword': searchKeyWord.value});
+    getToNamed('/searchResult', parameters: {'keyword': searchKeyWord.value});
   }
 
   // 获取热搜关键词

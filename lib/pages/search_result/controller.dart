@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class SearchResultController extends GetxController {
   String? keyword;
@@ -7,8 +8,8 @@ class SearchResultController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (Get.parameters.keys.isNotEmpty) {
-      keyword = Get.parameters['keyword'];
+    if (getParameters.keys.isNotEmpty) {
+      keyword = getParameters['keyword'];
     }
   }
 }

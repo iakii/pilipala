@@ -22,7 +22,8 @@ class RcmdPage extends StatefulWidget {
   State<RcmdPage> createState() => _RcmdPageState();
 }
 
-class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin {
+class _RcmdPageState extends State<RcmdPage>
+    with AutomaticKeepAliveClientMixin {
   final RcmdController _rcmdController = Get.put(RcmdController());
   late Future _futureBuilderFuture;
 
@@ -34,17 +35,22 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
     super.initState();
     _futureBuilderFuture = _rcmdController.queryRcmdFeed('init');
     ScrollController scrollController = _rcmdController.scrollController;
-    StreamController<bool> mainStream = Get.find<MainController>().bottomBarStream;
-    StreamController<bool> searchBarStream = Get.find<HomeController>().searchBarStream;
+    StreamController<bool> mainStream =
+        Get.find<MainController>().bottomBarStream;
+    StreamController<bool> searchBarStream =
+        Get.find<HomeController>().searchBarStream;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
-          EasyThrottle.throttle('my-throttler', const Duration(milliseconds: 200), () {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 200) {
+          EasyThrottle.throttle(
+              'my-throttler', const Duration(milliseconds: 200), () {
             _rcmdController.isLoadingMore = true;
             _rcmdController.onLoad();
           });
         }
-        final ScrollDirection direction = scrollController.position.userScrollDirection;
+        final ScrollDirection direction =
+            scrollController.position.userScrollDirection;
         if (direction == ScrollDirection.forward) {
           mainStream.add(true);
           searchBarStream.add(true);
@@ -67,7 +73,8 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
     super.build(context);
     return Container(
       clipBehavior: Clip.hardEdge,
-      margin: const EdgeInsets.only(left: StyleString.safeSpace, right: StyleString.safeSpace),
+      margin: const EdgeInsets.only(
+          left: StyleString.safeSpace, right: StyleString.safeSpace),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(StyleString.imgRadius),
       ),
@@ -81,7 +88,8 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
           physics: const AlwaysScrollableScrollPhysics(),
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(0, StyleString.safeSpace, 0, 0),
+              padding:
+                  const EdgeInsets.fromLTRB(0, StyleString.safeSpace, 0, 0),
               sliver: FutureBuilder(
                 future: _futureBuilderFuture,
                 builder: (context, snapshot) {
@@ -90,11 +98,13 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
                     if (data['status']) {
                       return Obx(
                         () {
-                          if (_rcmdController.isLoadingMore && _rcmdController.videoList.isEmpty) {
+                          if (_rcmdController.isLoadingMore &&
+                              _rcmdController.videoList.isEmpty) {
                             return contentGrid(_rcmdController, []);
                           } else {
                             // 显示视频列表
-                            return contentGrid(_rcmdController, _rcmdController.videoList);
+                            return contentGrid(
+                                _rcmdController, _rcmdController.videoList);
                           }
                         },
                       );
@@ -104,7 +114,8 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
                         fn: () {
                           setState(() {
                             _rcmdController.isLoadingMore = true;
-                            _futureBuilderFuture = _rcmdController.queryRcmdFeed('init');
+                            _futureBuilderFuture =
+                                _rcmdController.queryRcmdFeed('init');
                           });
                         },
                       );
@@ -125,7 +136,8 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
     return OverlayEntry(
       builder: (context) => AnimatedDialog(
         closeFn: _rcmdController.popupDialog?.remove,
-        child: OverlayPop(videoItem: videoItem, closeFn: _rcmdController.popupDialog?.remove),
+        child: OverlayPop(
+            videoItem: videoItem, closeFn: _rcmdController.popupDialog?.remove),
       ),
     );
   }
@@ -143,7 +155,8 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
 
     final width = MediaQuery.of(context).size.width;
     final crossAxisCount = ((width - 66) / 256).floor();
-    double mainAxisExtent = (width / crossAxisCount / StyleString.aspectRatio) + (crossAxisCount == 1 ? 28 : MediaQuery.textScalerOf(context).scale(86));
+    double mainAxisExtent = (width / crossAxisCount / StyleString.aspectRatio) +
+        (crossAxisCount == 1 ? 28 : MediaQuery.textScalerOf(context).scale(86));
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         // 行间距
@@ -161,7 +174,8 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
                   videoItem: videoList[index],
                   crossAxisCount: crossAxisCount,
                   longPress: () {
-                    _rcmdController.popupDialog = _createPopupDialog(videoList[index]);
+                    _rcmdController.popupDialog =
+                        _createPopupDialog(videoList[index]);
                     Overlay.of(context).insert(_rcmdController.popupDialog!);
                   },
                   longPressEnd: () {

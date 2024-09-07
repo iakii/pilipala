@@ -8,6 +8,7 @@ import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/member/archive.dart';
 import 'package:pilipala/models/member/coin.dart';
 import 'package:pilipala/models/member/info.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -29,11 +30,11 @@ class MemberController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mid = int.parse(Get.parameters['mid']!);
+    mid = int.parse(getParameters['mid']!);
     userInfo = userInfoCache.get('userInfoCache');
     ownerMid = userInfo != null ? userInfo.mid : -1;
-    face.value = Get.arguments['face'] ?? '';
-    heroTag = Get.arguments['heroTag'] ?? '';
+    face.value = getArguments['face'] ?? '';
+    heroTag = getArguments['heroTag'] ?? '';
     relationSearch();
   }
 
@@ -209,10 +210,10 @@ class MemberController extends GetxController {
   }
 
   // 跳转查看动态
-  void pushDynamicsPage() => Get.toNamed('/memberDynamics?mid=$mid');
+  void pushDynamicsPage() => getToNamed('/memberDynamics?mid=$mid');
 
   // 跳转查看投稿
-  void pushArchivesPage() => Get.toNamed('/memberArchive?mid=$mid');
+  void pushArchivesPage() => getToNamed('/memberArchive?mid=$mid');
 
   // 跳转查看专栏
   void pushSeasonsPage() {}

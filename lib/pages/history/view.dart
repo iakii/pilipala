@@ -28,7 +28,8 @@ class _HistoryPageState extends State<HistoryPage> {
     scrollController = _historyController.scrollController;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 300) {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 300) {
           if (!_historyController.isLoadingMore.value) {
             EasyThrottle.throttle('history', const Duration(seconds: 1), () {
               _historyController.onLoad();
@@ -44,8 +45,10 @@ class _HistoryPageState extends State<HistoryPage> {
 
   // 选中
   onChoose(index) {
-    _historyController.historyList[index].checked = !_historyController.historyList[index].checked!;
-    _historyController.checkedCount.value = _historyController.historyList.where((item) => item.checked!).length;
+    _historyController.historyList[index].checked =
+        !_historyController.historyList[index].checked!;
+    _historyController.checkedCount.value =
+        _historyController.historyList.where((item) => item.checked!).length;
     _historyController.historyList.refresh();
   }
 
@@ -78,7 +81,7 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           actions: [
             IconButton(
-              onPressed: () => Get.toNamed('/historySearch'),
+              onPressed: () => getToNamed('/historySearch'),
               icon: const Icon(Icons.search_outlined),
             ),
             PopupMenuButton<String>(
@@ -105,7 +108,9 @@ class _HistoryPageState extends State<HistoryPage> {
                 PopupMenuItem<String>(
                   value: 'pause',
                   child: Obx(
-                    () => Text(!_historyController.pauseStatus.value ? '暂停观看记录' : '恢复观看记录'),
+                    () => Text(!_historyController.pauseStatus.value
+                        ? '暂停观看记录'
+                        : '恢复观看记录'),
                   ),
                 ),
                 const PopupMenuItem<String>(
@@ -151,7 +156,8 @@ class _HistoryPageState extends State<HistoryPage> {
                 for (var item in _historyController.historyList) {
                   item.checked = true;
                 }
-                _historyController.checkedCount.value = _historyController.historyList.length;
+                _historyController.checkedCount.value =
+                    _historyController.historyList.length;
                 _historyController.historyList.refresh();
               },
               child: const Text('全选'),
@@ -187,14 +193,18 @@ class _HistoryPageState extends State<HistoryPage> {
                     return Obx(
                       () => _historyController.historyList.isNotEmpty
                           ? SliverList(
-                              delegate: SliverChildBuilderDelegate((context, index) {
+                              delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
                                 return HistoryItem(
-                                  videoItem: _historyController.historyList[index],
+                                  videoItem:
+                                      _historyController.historyList[index],
                                   ctr: _historyController,
                                   onChoose: () => onChoose(index),
                                   onUpdateMultiple: () => onUpdateMultiple(),
                                 );
-                              }, childCount: _historyController.historyList.length),
+                              },
+                                  childCount:
+                                      _historyController.historyList.length),
                             )
                           : _historyController.isLoadingMore.value
                               ? const SliverToBoxAdapter(

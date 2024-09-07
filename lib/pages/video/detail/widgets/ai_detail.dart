@@ -4,6 +4,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/video/ai.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:pilipala/utils/utils.dart';
@@ -29,7 +30,7 @@ class AiDetail extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () => Get.back(),
+            onTap: () => getBack(),
             child: Container(
               height: 35,
               padding: const EdgeInsets.only(bottom: 2),
@@ -111,7 +112,7 @@ class AiDetail extends StatelessWidget {
                                                   // 跳转到指定位置
                                                   try {
                                                     Get.find<VideoDetailController>(
-                                                            tag: Get.arguments[
+                                                            tag: getArguments[
                                                                 'heroTag'])
                                                         .plPlayerController
                                                         .seekTo(
@@ -189,7 +190,7 @@ class AiDetail extends StatelessWidget {
                   ..onTap = () {
                     // 处理点击事件
                     try {
-                      Get.toNamed(
+                      getToNamed(
                         '/webview',
                         parameters: {
                           'url': match.group(0)!,
@@ -221,7 +222,7 @@ class AiDetail extends StatelessWidget {
             style: TextStyle(color: colorSchemePrimary),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.toNamed(
+                getToNamed(
                   '/member?mid=${currentDesc.bizId}',
                   arguments: {'face': '', 'heroTag': heroTag},
                 );

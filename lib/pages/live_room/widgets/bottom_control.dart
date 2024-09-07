@@ -59,7 +59,7 @@ class _BottomControlState extends State<BottomControl> {
           //     size: 18,
           //     color: Colors.white,
           //   ),
-          //   fuc: () => Get.back(),
+          //   fuc: () => getBack(),
           // ),
           const Spacer(),
           // ComBtn(

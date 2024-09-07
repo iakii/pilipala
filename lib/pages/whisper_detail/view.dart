@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/emote/index.dart';
 import 'package:pilipala/pages/whisper_detail/controller.dart';
 import 'package:pilipala/utils/feed_back.dart';
@@ -104,7 +105,7 @@ class _WhisperDetailPageState extends State<WhisperDetailPage>
                           .withOpacity(0.6);
                     }),
                   ),
-                  onPressed: () => Get.back(),
+                  onPressed: () => getBack(),
                   icon: Icon(
                     Icons.arrow_back_outlined,
                     size: 18,
@@ -115,7 +116,7 @@ class _WhisperDetailPageState extends State<WhisperDetailPage>
               GestureDetector(
                 onTap: () {
                   feedBack();
-                  Get.toNamed(
+                  getToNamed(
                     '/member?mid=${_whisperDetailController.mid}',
                     arguments: {
                       'face': _whisperDetailController.face,

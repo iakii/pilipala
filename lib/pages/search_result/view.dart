@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/models/common/search_type.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/search_panel/index.dart';
 import 'controller.dart';
 
@@ -42,7 +43,7 @@ class _SearchResultPageState extends State<SearchResultPage>
         titleSpacing: 0,
         centerTitle: false,
         title: GestureDetector(
-          onTap: () => Get.back(),
+          onTap: () => getBack(),
           child: SizedBox(
             width: double.infinity,
             child: Text(

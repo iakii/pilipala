@@ -8,26 +8,33 @@ void disableAndroidBatteryOpt() async {
     return;
   }
   // 本地缓存中读取 是否禁用了电池优化 默认未禁用
-  bool isDisableBatteryOptLocal = GStrorage.localCache.get('isDisableBatteryOptLocal', defaultValue: false);
+  bool isDisableBatteryOptLocal =
+      GStrorage.localCache.get('isDisableBatteryOptLocal', defaultValue: false);
   if (!isDisableBatteryOptLocal) {
-    final isBatteryOptimizationDisabled = await DisableBatteryOptimization.isBatteryOptimizationDisabled;
+    final isBatteryOptimizationDisabled =
+        await DisableBatteryOptimization.isBatteryOptimizationDisabled;
     if (isBatteryOptimizationDisabled == false) {
-      final hasDisabled = await DisableBatteryOptimization.showDisableBatteryOptimizationSettings();
+      final hasDisabled = await DisableBatteryOptimization
+          .showDisableBatteryOptimizationSettings();
       // 设置为已禁用
       GStrorage.localCache.put('isDisableBatteryOptLocal', hasDisabled == true);
     }
   }
 
-  bool isManufacturerBatteryOptimizationDisabled = GStrorage.localCache.get('isManufacturerBatteryOptimizationDisabled', defaultValue: false);
+  bool isManufacturerBatteryOptimizationDisabled = GStrorage.localCache
+      .get('isManufacturerBatteryOptimizationDisabled', defaultValue: false);
   if (!isManufacturerBatteryOptimizationDisabled) {
-    final isManBatteryOptimizationDisabled = await DisableBatteryOptimization.isManufacturerBatteryOptimizationDisabled;
+    final isManBatteryOptimizationDisabled = await DisableBatteryOptimization
+        .isManufacturerBatteryOptimizationDisabled;
     if (isManBatteryOptimizationDisabled == false) {
-      final hasDisabled = await DisableBatteryOptimization.showDisableManufacturerBatteryOptimizationSettings(
+      final hasDisabled = await DisableBatteryOptimization
+          .showDisableManufacturerBatteryOptimizationSettings(
         "当前设备可能有额外的电池优化",
         "按照步骤操作以禁用电池优化，以保证应用在后台正常运行",
       );
       // 设置为已禁用
-      GStrorage.localCache.put('isManufacturerBatteryOptimizationDisabled', hasDisabled == true);
+      GStrorage.localCache.put(
+          'isManufacturerBatteryOptimizationDisabled', hasDisabled == true);
     }
   }
 }

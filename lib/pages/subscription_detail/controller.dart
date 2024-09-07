@@ -3,6 +3,7 @@ import 'package:pilipala/http/user.dart';
 
 import '../../models/user/sub_detail.dart';
 import '../../models/user/sub_folder.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class SubDetailController extends GetxController {
   late SubFolderItemData item;
@@ -18,10 +19,10 @@ class SubDetailController extends GetxController {
 
   @override
   void onInit() {
-    item = Get.arguments;
-    if (Get.parameters.keys.isNotEmpty) {
-      seasonId = int.parse(Get.parameters['seasonId']!);
-      heroTag = Get.parameters['heroTag']!;
+    item = getArguments;
+    if (getParameters.keys.isNotEmpty) {
+      seasonId = int.parse(getParameters['seasonId']!);
+      heroTag = getParameters['heroTag']!;
     }
     super.onInit();
   }

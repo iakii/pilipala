@@ -36,7 +36,9 @@ void main(List<String> args) async {
   }
 
   MediaKit.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) async {
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((_) async {
     await GStrorage.init();
     await setupServiceLocator();
     clearLogs();
@@ -90,14 +92,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Box setting = GStrorage.setting;
     // 主题色
-    Color defaultColor = colorThemeTypes[setting.get(SettingBoxKey.customColor, defaultValue: 0)]['color'];
+    Color defaultColor =
+        colorThemeTypes[setting.get(SettingBoxKey.customColor, defaultValue: 0)]
+            ['color'];
     Color brandColor = defaultColor;
     // 主题模式
-    ThemeType currentThemeValue = ThemeType.values[setting.get(SettingBoxKey.themeMode, defaultValue: ThemeType.system.code)];
+    ThemeType currentThemeValue = ThemeType.values[setting
+        .get(SettingBoxKey.themeMode, defaultValue: ThemeType.system.code)];
     // 是否动态取色
-    bool isDynamicColor = setting.get(SettingBoxKey.dynamicColor, defaultValue: true);
+    bool isDynamicColor =
+        setting.get(SettingBoxKey.dynamicColor, defaultValue: true);
     // 字体缩放大小
-    double textScale = setting.get(SettingBoxKey.defaultTextScale, defaultValue: 1.0);
+    double textScale =
+        setting.get(SettingBoxKey.defaultTextScale, defaultValue: 1.0);
 
     // 强制设置高帧率
     if (Platform.isAndroid) {
@@ -142,7 +149,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // fontFamily: 'HarmonyOS',
-            colorScheme: currentThemeValue == ThemeType.dark ? darkColorScheme : lightColorScheme,
+            colorScheme: currentThemeValue == ThemeType.dark
+                ? darkColorScheme
+                : lightColorScheme,
             useMaterial3: true,
             snackBarTheme: SnackBarThemeData(
               actionTextColor: lightColorScheme.primary,
@@ -161,7 +170,9 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             // fontFamily: 'HarmonyOS',
-            colorScheme: currentThemeValue == ThemeType.light ? lightColorScheme : darkColorScheme,
+            colorScheme: currentThemeValue == ThemeType.light
+                ? lightColorScheme
+                : darkColorScheme,
             useMaterial3: true,
             snackBarTheme: SnackBarThemeData(
               actionTextColor: darkColorScheme.primary,
@@ -186,7 +197,8 @@ class MyApp extends StatelessWidget {
             return FlutterSmartDialog(
               toastBuilder: (String msg) => CustomToast(msg: msg),
               child: MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScale)),
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: TextScaler.linear(textScale)),
                 child: child!,
               ),
             );

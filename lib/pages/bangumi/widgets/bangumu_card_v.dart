@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/badge.dart';
+import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/models/common/search_type.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
-import 'package:pilipala/common/widgets/network_img_layer.dart';
 
 // 视频卡片 - 垂直布局
 class BangumiCardV extends StatelessWidget {
@@ -57,7 +57,7 @@ class BangumiCardV extends StatelessWidget {
                 int cid = episode.cid!;
                 String pic = episode.cover!;
                 String heroTag = Utils.makeHeroTag(cid);
-                Get.toNamed(
+                getToNamed(
                   '/video?bvid=$bvid&cid=$cid&seasonId=$seasonId',
                   arguments: {
                     'pic': pic,
@@ -93,7 +93,13 @@ class BangumiCardV extends StatelessWidget {
                             height: maxHeight,
                           ),
                         ),
-                        if (bangumiItem.badge != null) PBadge(text: bangumiItem.badge, top: 6, right: 6, bottom: null, left: null),
+                        if (bangumiItem.badge != null)
+                          PBadge(
+                              text: bangumiItem.badge,
+                              top: 6,
+                              right: 6,
+                              bottom: null,
+                              left: null),
                         if (bangumiItem.order != null)
                           PBadge(
                             text: bangumiItem.order,

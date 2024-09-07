@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/http/search.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 /// TODO 点击跳转
 Widget addWidget(item, context, type, {floor = 1}) {
@@ -17,7 +17,9 @@ Widget addWidget(item, context, type, {floor = 1}) {
     // 游戏信息
     'ADDITIONAL_TYPE_COMMON': item.modules.moduleDynamic.additional.common,
   };
-  Color bgColor = floor == 1 ? Theme.of(context).dividerColor.withOpacity(0.08) : Theme.of(context).colorScheme.surface;
+  Color bgColor = floor == 1
+      ? Theme.of(context).dividerColor.withOpacity(0.08)
+      : Theme.of(context).colorScheme.surface;
   switch (type) {
     case 'ADDITIONAL_TYPE_UGC':
       // 转发的投稿
@@ -32,7 +34,8 @@ Widget addWidget(item, context, type, {floor = 1}) {
             String cover = dynamicProperty[type].cover;
             try {
               int cid = await SearchHttp.ab2c(bvid: bvid);
-              Get.toNamed('/video?bvid=$bvid&cid=$cid', arguments: {'pic': cover, 'heroTag': bvid});
+              getToNamed('/video?bvid=$bvid&cid=$cid',
+                  arguments: {'pic': cover, 'heroTag': bvid});
             } catch (err) {
               SmartDialog.showToast(err.toString());
             }
@@ -41,7 +44,8 @@ Widget addWidget(item, context, type, {floor = 1}) {
           }
         },
         child: Container(
-          padding: const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
+          padding:
+              const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
           color: bgColor,
           child: Row(
             children: [
@@ -66,7 +70,8 @@ Widget addWidget(item, context, type, {floor = 1}) {
                       dynamicProperty[type].descSecond,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.outline,
-                        fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
+                        fontSize:
+                            Theme.of(context).textTheme.labelMedium!.fontSize,
                       ),
                     )
                   ],
@@ -85,7 +90,8 @@ Widget addWidget(item, context, type, {floor = 1}) {
                     onTap: () {},
                     child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.only(left: 12, top: 10, right: 12, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          left: 12, top: 10, right: 12, bottom: 10),
                       color: bgColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,11 +104,22 @@ Widget addWidget(item, context, type, {floor = 1}) {
                           const SizedBox(height: 1),
                           Text.rich(
                             TextSpan(
-                              style: TextStyle(color: Theme.of(context).colorScheme.outline, fontSize: Theme.of(context).textTheme.labelMedium!.fontSize),
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.outline,
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .fontSize),
                               children: [
-                                if (dynamicProperty[type].desc1 != null) TextSpan(text: dynamicProperty[type].desc1['text']),
+                                if (dynamicProperty[type].desc1 != null)
+                                  TextSpan(
+                                      text:
+                                          dynamicProperty[type].desc1['text']),
                                 const TextSpan(text: '  '),
-                                if (dynamicProperty[type].desc2 != null) TextSpan(text: dynamicProperty[type].desc2['text']),
+                                if (dynamicProperty[type].desc2 != null)
+                                  TextSpan(
+                                      text:
+                                          dynamicProperty[type].desc2['text']),
                               ],
                             ),
                           )

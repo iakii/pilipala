@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/utils/feed_back.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 class ActionItem extends StatelessWidget {
   final Icon? icon;
@@ -36,8 +37,11 @@ class ActionItem extends StatelessWidget {
         children: [
           const SizedBox(height: 4),
           selectStatus
-              ? Icon(selectIcon!.icon!,
-                  size: 18, color: Theme.of(context).colorScheme.primary)
+              ? Icon(
+                  selectIcon!.icon!,
+                  size: 18,
+                  color: Theme.of(context).colorScheme.primary,
+                )
               : Icon(icon!.icon!,
                   size: 18, color: Theme.of(context).colorScheme.outline),
           const SizedBox(height: 6),
@@ -51,7 +55,7 @@ class ActionItem extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
+      ).ripple(),
+    ).width(88).height(88);
   }
 }

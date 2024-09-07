@@ -13,6 +13,7 @@ import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:ns_danmaku/ns_danmaku.dart';
 import 'package:pilipala/http/video.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
 import 'package:pilipala/plugin/pl_player/models/play_repeat.dart';
 import 'package:pilipala/services/service_locator.dart';
@@ -874,7 +875,7 @@ class PlPlayerController {
                         _videoFit.value = i['attr'];
                         _videoFitDesc.value = i['desc'];
                         setVideoFit();
-                        Get.back();
+                        getBack();
                       },
                       child: Text(i['desc']),
                     ),
@@ -884,7 +885,7 @@ class PlPlayerController {
                         _videoFit.value = i['attr'];
                         _videoFitDesc.value = i['desc'];
                         setVideoFit();
-                        Get.back();
+                        getBack();
                       },
                       child: Text(i['desc']),
                     ),
@@ -1011,7 +1012,7 @@ class PlPlayerController {
       // }
     } else if (isFullScreen.value) {
       StatusBarControl.setHidden(false, animation: StatusBarAnimation.FADE);
-      // Get.back();
+      // getBack();
       exitFullScreen();
       await verticalScreen();
       toggleFullScreen(false);

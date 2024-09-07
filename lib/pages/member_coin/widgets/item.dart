@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/badge.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/stat/view.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/member/coin.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 class MemberCoinsItem extends StatelessWidget {
@@ -27,7 +27,7 @@ class MemberCoinsItem extends StatelessWidget {
         onTap: () async {
           int cid =
               await SearchHttp.ab2c(aid: coinItem.aid, bvid: coinItem.bvid);
-          Get.toNamed('/video?bvid=${coinItem.bvid}&cid=$cid',
+          getToNamed('/video?bvid=${coinItem.bvid}&cid=$cid',
               arguments: {'videoItem': coinItem, 'heroTag': heroTag});
         },
         child: Column(

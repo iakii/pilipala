@@ -8,6 +8,7 @@ import 'package:pilipala/common/skeleton/video_reply.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/models/common/reply_type.dart';
 import 'package:pilipala/models/dynamics/result.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/dynamics/detail/index.dart';
 import 'package:pilipala/pages/dynamics/widgets/author_panel.dart';
 import 'package:pilipala/pages/video/detail/reply/widgets/reply_item.dart';
@@ -64,7 +65,7 @@ class _DynamicDetailPageState extends State<DynamicDetailPage>
 
   // 页面初始化
   void init() async {
-    Map args = Get.arguments;
+    Map args = getArguments;
     // 楼层
     int floor = args['floor'];
     // 从action栏点击进入
@@ -386,7 +387,7 @@ class _DynamicDetailPageState extends State<DynamicDetailPage>
                       builder: (BuildContext context) {
                         return VideoReplyNewDialog(
                           oid: _dynamicDetailController.oid ??
-                              IdUtils.bv2av(Get.parameters['bvid']!),
+                              IdUtils.bv2av(getParameters['bvid']!),
                           root: 0,
                           parent: 0,
                           replyType: ReplyType.values[replyType],

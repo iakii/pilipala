@@ -124,7 +124,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
   @override
   void initState() {
     super.initState();
-    screenWidth = Get.size.width;
+    screenWidth = Get.size.width - 120;
+    // screenWidth = Get.size.width - 120;
     animationController = AnimationController(
       vsync: this,
       duration: GlobalData().enablePlayerControlAnimation
@@ -371,7 +372,6 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               style: subTitleStyle,
               padding: EdgeInsets.all(24.0),
             ),
-            fit: _.videoFit.value,
           ),
         ),
 

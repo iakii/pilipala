@@ -6,6 +6,7 @@ import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class BangumiPanel extends StatefulWidget {
   const BangumiPanel({
@@ -36,7 +37,7 @@ class _BangumiPanelState extends State<BangumiPanel> {
   // 默认未开通
   int vipStatus = 0;
   late int cid;
-  String heroTag = Get.arguments['heroTag'];
+  String heroTag = getArguments['heroTag'];
   late final VideoDetailController videoDetailCtr;
   final ItemScrollController itemScrollController = ItemScrollController();
 
@@ -75,7 +76,7 @@ class _BangumiPanelState extends State<BangumiPanel> {
     Color primary = Theme.of(context).colorScheme.primary;
     return ListTile(
       onTap: () {
-        Get.back();
+        getBack();
         setState(() {
           changeFucCall(page, index);
         });

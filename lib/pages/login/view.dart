@@ -59,7 +59,11 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     '登录',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(letterSpacing: 1, height: 2.1, fontSize: 34, fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        letterSpacing: 1,
+                        height: 2.1,
+                        fontSize: 34,
+                        fontWeight: FontWeight.w500),
                   ),
                   Row(
                     children: [
@@ -103,20 +107,19 @@ class _LoginPageState extends State<LoginPage> {
                       getToNamed(
                         '/webview',
                         parameters: {
-                          'url': 'https://passport.bilibili.com/h5-app/passport/login',
+                          'url':
+                              'https://passport.bilibili.com/h5-app/passport/login',
                           'type': 'login',
                           'pageTitle': '登录bilibili',
                         },
                       );
-
-// WebviewImpl.add
-                      // webview.setWebviewWindowVisibility(visible)
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 2),
                       child: Text(
                         '使用网页端登录',
-                        style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                     ),
                   ),
@@ -128,8 +131,10 @@ class _LoginPageState extends State<LoginPage> {
                       TextButton(
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                          backgroundColor: Theme.of(context).colorScheme.primary, // 设置按钮背景色
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary, // 设置按钮背景色
                         ),
                         onPressed: () => _loginPageCtr.nextStep(),
                         child: const Text('下一步'),
@@ -159,16 +164,28 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Text(
                                 '密码登录',
-                                style: Theme.of(context).textTheme.titleLarge!.copyWith(letterSpacing: 1, height: 2.1, fontSize: 34, fontWeight: FontWeight.w500),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        letterSpacing: 1,
+                                        height: 2.1,
+                                        fontSize: 34,
+                                        fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(width: 4),
                               IconButton(
                                 style: ButtonStyle(
-                                  backgroundColor: WidgetStateProperty.resolveWith((states) {
-                                    return Theme.of(context).colorScheme.primary.withOpacity(0.1);
+                                  backgroundColor:
+                                      WidgetStateProperty.resolveWith((states) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withOpacity(0.1);
                                   }),
                                 ),
-                                onPressed: () => _loginPageCtr.changeLoginType(),
+                                onPressed: () =>
+                                    _loginPageCtr.changeLoginType(),
                                 icon: const Icon(Icons.swap_vert_outlined),
                               )
                             ],
@@ -210,11 +227,16 @@ class _LoginPageState extends State<LoginPage> {
                               const SizedBox(width: 15),
                               TextButton(
                                 style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                  backgroundColor: Theme.of(context).colorScheme.primary, // 设置按钮背景色
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  foregroundColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primary, // 设置按钮背景色
                                 ),
-                                onPressed: () => _loginPageCtr.loginInByAppPassword(),
+                                onPressed: () =>
+                                    _loginPageCtr.loginInByAppPassword(),
                                 child: const Text('确认登录'),
                               )
                             ],
@@ -232,16 +254,28 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Text(
                                 '验证码登录',
-                                style: Theme.of(context).textTheme.titleLarge!.copyWith(letterSpacing: 1, height: 2.1, fontSize: 34, fontWeight: FontWeight.w500),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        letterSpacing: 1,
+                                        height: 2.1,
+                                        fontSize: 34,
+                                        fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(width: 4),
                               IconButton(
                                 style: ButtonStyle(
-                                  backgroundColor: WidgetStateProperty.resolveWith((states) {
-                                    return Theme.of(context).colorScheme.primary.withOpacity(0.1);
+                                  backgroundColor:
+                                      WidgetStateProperty.resolveWith((states) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withOpacity(0.1);
                                   }),
                                 ),
-                                onPressed: () => _loginPageCtr.changeLoginType(),
+                                onPressed: () =>
+                                    _loginPageCtr.changeLoginType(),
                                 icon: const Icon(Icons.swap_vert_outlined),
                               )
                             ],
@@ -255,7 +289,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: Stack(
                               children: [
                                 TextFormField(
-                                  controller: _loginPageCtr.msgCodeTextController,
+                                  controller:
+                                      _loginPageCtr.msgCodeTextController,
                                   focusNode: _loginPageCtr.msgCodeTextFieldNode,
                                   maxLength: 6,
                                   keyboardType: TextInputType.number,
@@ -268,7 +303,9 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   // 校验用户名
                                   validator: (v) {
-                                    return v!.trim().isNotEmpty ? null : "验证码不能为空";
+                                    return v!.trim().isNotEmpty
+                                        ? null
+                                        : "验证码不能为空";
                                   },
                                   onSaved: (val) {
                                     debugPrint(val);
@@ -279,7 +316,8 @@ class _LoginPageState extends State<LoginPage> {
                                   top: 4,
                                   child: Center(
                                     child: TextButton(
-                                      onPressed: () => _loginPageCtr.getMsgCode(),
+                                      onPressed: () =>
+                                          _loginPageCtr.getMsgCode(),
                                       child: const Text('获取验证码'),
                                     ),
                                   ),
@@ -298,9 +336,13 @@ class _LoginPageState extends State<LoginPage> {
                               const SizedBox(width: 15),
                               TextButton(
                                 style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                  backgroundColor: Theme.of(context).colorScheme.primary, // 设置按钮背景色
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  foregroundColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primary, // 设置按钮背景色
                                 ),
                                 onPressed: () => _loginPageCtr.loginInByCode(),
                                 child: const Text('确认登录'),

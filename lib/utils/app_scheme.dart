@@ -42,7 +42,8 @@ class PiliSchame {
 
     if (scheme == 'bilibili') {
       if (host == 'root') {
-        Navigator.popUntil(Get.context!, (Route<dynamic> route) => route.isFirst);
+        Navigator.popUntil(
+            Get.context!, (Route<dynamic> route) => route.isFirst);
       } else if (host == 'space') {
         final String mid = path.split('/').last;
         Get.toNamed<dynamic>(
@@ -65,7 +66,8 @@ class PiliSchame {
         }
       } else if (host == 'live') {
         final String roomId = path.split('/').last;
-        Get.toNamed<dynamic>('/liveRoom?roomid=$roomId', arguments: <String, String?>{'liveItem': null, 'heroTag': roomId});
+        Get.toNamed<dynamic>('/liveRoom?roomid=$roomId',
+            arguments: <String, String?>{'liveItem': null, 'heroTag': roomId});
       } else if (host == 'bangumi') {
         if (path.startsWith('/season')) {
           final String seasonId = path.split('/').last;
@@ -108,10 +110,11 @@ class PiliSchame {
       final String heroTag = Utils.makeHeroTag(aid);
       SmartDialog.dismiss<dynamic>().then(
         // ignore: always_specify_types
-        (e) => Get.toNamed<dynamic>('/video?bvid=$bvid&cid=$cid', arguments: <String, String?>{
-          'pic': null,
-          'heroTag': heroTag,
-        }),
+        (e) => Get.toNamed<dynamic>('/video?bvid=$bvid&cid=$cid',
+            arguments: <String, String?>{
+              'pic': null,
+              'heroTag': heroTag,
+            }),
       );
     } catch (e) {
       SmartDialog.showToast('video获取失败: $e');
@@ -175,7 +178,8 @@ class PiliSchame {
       final String lastPathSegment = pathSegment.split('/').last;
       final RegExp avRegex = RegExp(r'^[aA][vV]\d+', caseSensitive: false);
       if (avRegex.hasMatch(lastPathSegment)) {
-        final Map<String, dynamic> map = IdUtils.matchAvorBv(input: lastPathSegment);
+        final Map<String, dynamic> map =
+            IdUtils.matchAvorBv(input: lastPathSegment);
         if (map.containsKey('AV')) {
           _videoPush(map['AV']! as int, null);
         } else if (map.containsKey('BV')) {

@@ -31,16 +31,20 @@ class DesktopController extends GetxController {
     return _mainController.navigationBars;
   }
 
-  Future<void> toNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
+  Future<void> toNamed<T>(String route,
+      {dynamic arguments, Map<String, String>? parameters}) async {
     final destRoute = "/desktop$route";
-    final config = delegate.history.where((element) => element.currentPage?.name == destRoute).firstOrNull;
+    final config = delegate.history
+        .where((element) => element.currentPage?.name == destRoute)
+        .firstOrNull;
 
     if (config != null) {
       await delegate.setRestoredRoutePath(config);
       return;
     }
 
-    await delegate.toNamed<T>(destRoute, arguments: arguments, parameters: parameters);
+    await delegate.toNamed<T>(destRoute,
+        arguments: arguments, parameters: parameters);
   }
 
   RxBool get isUserLogin {
@@ -97,7 +101,7 @@ class DesktopController extends GetxController {
   // }
 }
 
-Future<void> getToNamed(
+Future<void> getToNamed<T>(
   String route, {
   dynamic arguments,
   Map<String, String>? parameters,
@@ -105,12 +109,18 @@ Future<void> getToNamed(
   bool preventDuplicates = true,
 }) async {
   if (GetPlatform.isDesktop) {
-    if (route == "/webview") {
-      return await WebLogin.login();
+    // getLogger
+    if (["/webview", "/loginPage"].contains(route)) {
+      final url = parameters?['url'] ??
+          "https://passport.bilibili.com/h5-app/passport/login";
+      final type = parameters?['type'] ?? "login";
+      final title = parameters?['pageTitle'] ?? "登录bilibili";
+      return await DesktopWebview.login(url, type, title);
     }
-    await desktopDelegate.toNamed("/desktop$route", arguments: arguments, parameters: parameters);
+    await desktopDelegate.toNamed<T>("/desktop$route",
+        arguments: arguments, parameters: parameters);
   } else {
-    await Get.toNamed(
+    await Get.toNamed<T>(
       route,
       arguments: arguments,
       parameters: parameters,
@@ -128,7 +138,8 @@ Future<void> getOffNamed(
   bool preventDuplicates = true,
 }) async {
   if (GetPlatform.isDesktop) {
-    await desktopDelegate.offNamed("/desktop$route", arguments: arguments, parameters: parameters);
+    await desktopDelegate.offNamed("/desktop$route",
+        arguments: arguments, parameters: parameters);
   } else {
     await Get.offNamed(
       route,
@@ -142,7 +153,7 @@ Future<void> getOffNamed(
 
 dynamic get getArguments {
   if (GetPlatform.isDesktop) {
-    return Get.find<DesktopController>().delegate.arguments();
+    return desktopDelegate.arguments();
   } else {
     return Get.arguments;
   }
@@ -150,7 +161,7 @@ dynamic get getArguments {
 
 Map<String, String?> get getParameters {
   if (GetPlatform.isDesktop) {
-    return Get.find<DesktopController>().delegate.parameters;
+    return desktopDelegate.parameters;
   } else {
     return Get.parameters;
   }
@@ -158,10 +169,12 @@ Map<String, String?> get getParameters {
 
 final desktopDelegate = Get.find<DesktopController>().delegate;
 
-void getBack<T>({T? result, bool closeOverlays = false, bool canPop = true, int? id}) {
+void getBack<T>(
+    {T? result, bool closeOverlays = false, bool canPop = true, int? id}) {
   if (GetPlatform.isDesktop) {
     desktopDelegate.popRoute(result: result, popMode: PopMode.History);
   } else {
-    Get.back(result: result, closeOverlays: closeOverlays, canPop: canPop, id: id);
+    Get.back(
+        result: result, closeOverlays: closeOverlays, canPop: canPop, id: id);
   }
 }

@@ -86,7 +86,9 @@ class _SetDiaplayModeState extends State<SetDiaplayMode> {
                   final DisplayMode mode = modes[i];
                   return RadioListTile<DisplayMode>(
                     value: mode,
-                    title: mode == DisplayMode.auto ? const Text('自动') : Text('$mode${mode == active ? "  [系统]" : ""}'),
+                    title: mode == DisplayMode.auto
+                        ? const Text('自动')
+                        : Text('$mode${mode == active ? "  [系统]" : ""}'),
                     groupValue: preferred,
                     onChanged: (DisplayMode? newMode) async {
                       await FlutterDisplayMode.setPreferredMode(newMode!);

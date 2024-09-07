@@ -17,7 +17,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   final HomeController _homeController = Get.put(HomeController());
   List videoList = [];
   late Stream<bool> stream;
@@ -51,13 +52,17 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin,
     // 设置状态栏图标的亮度
     if (_homeController.enableGradientBg) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarIconBrightness: currentBrightness == Brightness.light ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness: currentBrightness == Brightness.light
+            ? Brightness.dark
+            : Brightness.light,
       ));
     }
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: _homeController.enableGradientBg ? null : AppBar(toolbarHeight: 0, elevation: 0),
+      appBar: _homeController.enableGradientBg
+          ? null
+          : AppBar(toolbarHeight: 0, elevation: 0),
       body: Stack(
         children: [
           // gradient background
@@ -70,7 +75,21 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [Theme.of(context).colorScheme.primary.withOpacity(0.9), Theme.of(context).colorScheme.primary.withOpacity(0.5), Theme.of(context).colorScheme.surface], begin: Alignment.topLeft, end: Alignment.bottomRight, stops: const [0, 0.0034, 0.34]),
+                    gradient: LinearGradient(
+                        colors: [
+                          Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.9),
+                          Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.5),
+                          Theme.of(context).colorScheme.surface
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: const [0, 0.0034, 0.34]),
                   ),
                 ),
               ),
@@ -79,7 +98,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin,
           Column(
             children: [
               CustomAppBar(
-                stream: _homeController.hideSearchBar ? stream : StreamController<bool>.broadcast().stream,
+                stream: _homeController.hideSearchBar
+                    ? stream
+                    : StreamController<bool>.broadcast().stream,
                 ctr: _homeController,
                 callback: showUserBottomSheet,
               ),
@@ -95,7 +116,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin,
                       alignment: Alignment.center,
                       child: TabBar(
                         controller: _homeController.tabController,
-                        tabs: [for (var i in _homeController.tabs) Tab(text: i['label'])],
+                        tabs: [
+                          for (var i in _homeController.tabs)
+                            Tab(text: i['label'])
+                        ],
                         isScrollable: true,
                         dividerColor: Colors.transparent,
                         enableFeedback: true,
@@ -206,7 +230,7 @@ class UserInfoWidget extends StatelessWidget {
           const SizedBox(width: 4),
           ClipRect(
             child: IconButton(
-              onPressed: () => Get.toNamed('/whisper'),
+              onPressed: () => getToNamed('/whisper'),
               icon: const Icon(Icons.notifications_none),
             ),
           )
@@ -228,8 +252,12 @@ class UserInfoWidget extends StatelessWidget {
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: () => callback?.call(),
-                            splashColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
-                            borderRadius: const BorderRadius.all(Radius.circular(50)),
+                            splashColor: Theme.of(context)
+                                .colorScheme
+                                .primaryContainer
+                                .withOpacity(0.3),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50)),
                           ),
                         ),
                       )
@@ -332,16 +360,22 @@ class CustomChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorTheme = Theme.of(context).colorScheme;
     final Color secondaryContainer = colorTheme.secondaryContainer;
-    final TextStyle chipTextStyle = selected ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 13) : const TextStyle(fontSize: 13);
+    final TextStyle chipTextStyle = selected
+        ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)
+        : const TextStyle(fontSize: 13);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    const VisualDensity visualDensity = VisualDensity(horizontal: -4.0, vertical: -2.0);
+    const VisualDensity visualDensity =
+        VisualDensity(horizontal: -4.0, vertical: -2.0);
     return InputChip(
       side: BorderSide(
-        color: selected ? colorScheme.onSecondaryContainer.withOpacity(0.2) : Colors.transparent,
+        color: selected
+            ? colorScheme.onSecondaryContainer.withOpacity(0.2)
+            : Colors.transparent,
       ),
       backgroundColor: secondaryContainer,
       selectedColor: secondaryContainer,
-      color: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) => secondaryContainer.withAlpha(200)),
+      color: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) => secondaryContainer.withAlpha(200)),
       padding: const EdgeInsets.fromLTRB(7, 1, 7, 1),
       label: Text(label, style: chipTextStyle),
       onPressed: () => onTap(),
@@ -376,7 +410,8 @@ class SearchBar extends StatelessWidget {
           child: InkWell(
             splashColor: colorScheme.primaryContainer.withOpacity(0.3),
             onTap: () async {
-              await getToNamed("/search", parameters: {'hintText': ctr!.defaultSearch.value});
+              await getToNamed("/search",
+                  parameters: {'hintText': ctr!.defaultSearch.value});
             },
             child: Row(
               children: [

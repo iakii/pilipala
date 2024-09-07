@@ -28,7 +28,8 @@ class MineController extends GetxController {
       userLogin.value = true;
     }
 
-    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode, defaultValue: ThemeType.system.code)];
+    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode,
+        defaultValue: ThemeType.system.code)];
   }
 
   onLogin() async {
@@ -88,7 +89,8 @@ class MineController extends GetxController {
   }
 
   onChangeTheme() {
-    Brightness currentBrightness = MediaQuery.of(Get.context!).platformBrightness;
+    Brightness currentBrightness =
+        MediaQuery.of(Get.context!).platformBrightness;
     ThemeType currentTheme = themeType.value;
     switch (currentTheme) {
       case ThemeType.dark:
@@ -134,6 +136,7 @@ class MineController extends GetxController {
       SmartDialog.showToast('账号未登录');
       return;
     }
-    getToNamed('/memberDynamics?mid=${userInfo.value.mid}', preventDuplicates: false);
+    getToNamed('/memberDynamics?mid=${userInfo.value.mid}',
+        preventDuplicates: false);
   }
 }

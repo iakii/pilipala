@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/member/seasons.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberSeasonsController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -16,8 +17,8 @@ class MemberSeasonsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mid = int.parse(Get.parameters['mid']!);
-    seasonId = int.parse(Get.parameters['seasonId']!);
+    mid = int.parse(getParameters['mid']!);
+    seasonId = int.parse(getParameters['seasonId']!);
   }
 
   // 获取专栏详情

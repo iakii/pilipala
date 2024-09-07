@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:pilipala/http/fan.dart';
 import 'package:pilipala/models/fans/result.dart';
 import 'package:pilipala/utils/storage.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class FansController extends GetxController {
   Box userInfoCache = GStrorage.userInfo;
@@ -23,9 +24,11 @@ class FansController extends GetxController {
   void onInit() {
     super.onInit();
     userInfo = userInfoCache.get('userInfoCache');
-    mid = Get.parameters['mid'] != null ? int.parse(Get.parameters['mid']!) : userInfo.mid;
+    mid = getParameters['mid'] != null
+        ? int.parse(getParameters['mid']!)
+        : userInfo.mid;
     isOwner.value = mid == userInfo.mid;
-    name = Get.parameters['name'] ?? userInfo.uname;
+    name = getParameters['name'] ?? userInfo.uname;
   }
 
   Future queryFans(type) async {

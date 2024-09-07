@@ -7,6 +7,7 @@ import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/follow/result.dart';
 import 'package:pilipala/models/member/tags.dart';
 import 'package:pilipala/utils/storage.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 /// 查看自己的关注时，可以查看分类
 /// 查看其他人的关注时，只可以看全部
@@ -29,9 +30,11 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     super.onInit();
     userInfo = userInfoCache.get('userInfoCache');
-    mid = Get.parameters['mid'] != null ? int.parse(Get.parameters['mid']!) : userInfo.mid;
+    mid = getParameters['mid'] != null
+        ? int.parse(getParameters['mid']!)
+        : userInfo.mid;
     isOwner.value = mid == userInfo.mid;
-    name = Get.parameters['name'] ?? userInfo.uname;
+    name = getParameters['name'] ?? userInfo.uname;
   }
 
   Future queryFollowings(type) async {

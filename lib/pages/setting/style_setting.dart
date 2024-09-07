@@ -26,7 +26,8 @@ class StyleSetting extends StatefulWidget {
 
 class _StyleSettingState extends State<StyleSetting> {
   final SettingController settingController = Get.put(SettingController());
-  final ColorSelectController colorSelectController = Get.put(ColorSelectController());
+  final ColorSelectController colorSelectController =
+      Get.put(ColorSelectController());
 
   Box setting = GStrorage.setting;
   late int picQuality;
@@ -44,7 +45,10 @@ class _StyleSettingState extends State<StyleSetting> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle = Theme.of(context).textTheme.titleMedium!;
-    TextStyle subTitleStyle = Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.outline);
+    TextStyle subTitleStyle = Theme.of(context)
+        .textTheme
+        .labelMedium!
+        .copyWith(color: Theme.of(context).colorScheme.outline);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -70,8 +74,10 @@ class _StyleSettingState extends State<StyleSetting> {
                 alignment: Alignment.centerRight,
                 scale: 0.8,
                 child: Switch(
-                    thumbIcon: WidgetStateProperty.resolveWith<Icon?>((Set<WidgetState> states) {
-                      if (states.isNotEmpty && states.first == WidgetState.selected) {
+                    thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                        (Set<WidgetState> states) {
+                      if (states.isNotEmpty &&
+                          states.first == WidgetState.selected) {
                         return const Icon(Icons.done);
                       }
                       return null; // All other states will use the default thumbIcon.
@@ -141,10 +147,12 @@ class _StyleSettingState extends State<StyleSetting> {
                 builder: (context) {
                   return StatefulBuilder(
                     builder: (context, StateSetter setState) {
-                      final SettingController settingController = Get.put(SettingController());
+                      final SettingController settingController =
+                          Get.put(SettingController());
                       return AlertDialog(
                         title: const Text('图片质量'),
-                        contentPadding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
+                        contentPadding: const EdgeInsets.only(
+                            top: 20, left: 8, right: 8, bottom: 8),
                         content: SizedBox(
                           height: 40,
                           child: Slider(
@@ -160,11 +168,18 @@ class _StyleSettingState extends State<StyleSetting> {
                           ),
                         ),
                         actions: [
-                          TextButton(onPressed: () => Get.back(), child: Text('取消', style: TextStyle(color: Theme.of(context).colorScheme.outline))),
+                          TextButton(
+                              onPressed: () => getBack(),
+                              child: Text('取消',
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .outline))),
                           TextButton(
                             onPressed: () {
-                              setting.put(SettingBoxKey.defaultPicQa, picQuality);
-                              Get.back();
+                              setting.put(
+                                  SettingBoxKey.defaultPicQa, picQuality);
+                              getBack();
                               settingController.picQuality.value = picQuality;
                               GlobalData().imgQuality = picQuality;
                               SmartDialog.showToast('设置成功');
@@ -236,40 +251,48 @@ class _StyleSettingState extends State<StyleSetting> {
               }
             },
             title: Text('主题模式', style: titleStyle),
-            subtitle: Obx(() => Text('当前模式：${settingController.themeType.value.description}', style: subTitleStyle)),
+            subtitle: Obx(() => Text(
+                '当前模式：${settingController.themeType.value.description}',
+                style: subTitleStyle)),
           ),
           ListTile(
             dense: false,
             onTap: () => settingController.setDynamicBadgeMode(context),
             title: Text('动态未读标记', style: titleStyle),
-            subtitle: Obx(() => Text('当前标记样式：${settingController.dynamicBadgeType.value.description}', style: subTitleStyle)),
+            subtitle: Obx(() => Text(
+                '当前标记样式：${settingController.dynamicBadgeType.value.description}',
+                style: subTitleStyle)),
           ),
           ListTile(
             dense: false,
-            onTap: () => Get.toNamed('/colorSetting'),
+            onTap: () => getToNamed('/colorSetting'),
             title: Text('应用主题', style: titleStyle),
-            subtitle: Obx(() => Text('当前主题：${colorSelectController.type.value == 0 ? '动态取色' : '指定颜色'}', style: subTitleStyle)),
+            subtitle: Obx(() => Text(
+                '当前主题：${colorSelectController.type.value == 0 ? '动态取色' : '指定颜色'}',
+                style: subTitleStyle)),
           ),
           ListTile(
             dense: false,
             onTap: () => settingController.seteDefaultHomePage(context),
             title: Text('默认启动页', style: titleStyle),
-            subtitle: Obx(() => Text('当前启动页：${defaultNavigationBars.firstWhere((e) => e['id'] == settingController.defaultHomePage.value)['label']}', style: subTitleStyle)),
+            subtitle: Obx(() => Text(
+                '当前启动页：${defaultNavigationBars.firstWhere((e) => e['id'] == settingController.defaultHomePage.value)['label']}',
+                style: subTitleStyle)),
           ),
           ListTile(
             dense: false,
-            onTap: () => Get.toNamed('/fontSizeSetting'),
+            onTap: () => getToNamed('/fontSizeSetting'),
             title: Text('字体大小', style: titleStyle),
           ),
           ListTile(
             dense: false,
-            onTap: () => Get.toNamed('/tabbarSetting'),
+            onTap: () => getToNamed('/tabbarSetting'),
             title: Text('首页tabbar', style: titleStyle),
           ),
           if (Platform.isAndroid)
             ListTile(
               dense: false,
-              onTap: () => Get.toNamed('/displayModeSetting'),
+              onTap: () => getToNamed('/displayModeSetting'),
               title: Text('屏幕帧率', style: titleStyle),
             )
         ],

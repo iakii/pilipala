@@ -7,6 +7,7 @@ import 'package:pilipala/common/skeleton/video_card_h.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/fav_detail/index.dart';
 
 import 'widget/fav_video_card.dart';
@@ -29,7 +30,7 @@ class _FavDetailPageState extends State<FavDetailPage> {
   @override
   void initState() {
     super.initState();
-    mediaId = Get.parameters['mediaId']!;
+    mediaId = getParameters['mediaId']!;
     _futureBuilderFuture = _favDetailController.queryUserFavFolderDetail();
     titleStreamC = StreamController<bool>();
     _controller.addListener(
@@ -97,7 +98,7 @@ class _FavDetailPageState extends State<FavDetailPage> {
             actions: [
               IconButton(
                 onPressed: () =>
-                    Get.toNamed('/favSearch?searchType=0&mediaId=$mediaId'),
+                    getToNamed('/favSearch?searchType=0&mediaId=$mediaId'),
                 icon: const Icon(Icons.search_outlined),
               ),
               //   IconButton(

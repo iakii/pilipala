@@ -17,7 +17,8 @@ class PiliLogger extends Logger {
   PiliLogger() : super();
 
   @override
-  void log(Level level, dynamic message, {Object? error, StackTrace? stackTrace, DateTime? time}) async {
+  void log(Level level, dynamic message,
+      {Object? error, StackTrace? stackTrace, DateTime? time}) async {
     if (level == Level.error) {
       String dir = (await getApplicationDocumentsDirectory()).path;
       // 创建logo文件

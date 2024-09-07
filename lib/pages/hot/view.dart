@@ -34,18 +34,22 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
     super.initState();
     _futureBuilderFuture = _hotController.queryHotFeed('init');
     scrollController = _hotController.scrollController;
-    StreamController<bool> mainStream = Get.find<MainController>().bottomBarStream;
-    StreamController<bool> searchBarStream = Get.find<HomeController>().searchBarStream;
+    StreamController<bool> mainStream =
+        Get.find<MainController>().bottomBarStream;
+    StreamController<bool> searchBarStream =
+        Get.find<HomeController>().searchBarStream;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 200) {
           if (!_hotController.isLoadingMore) {
             _hotController.isLoadingMore = true;
             _hotController.onLoad();
           }
         }
 
-        final ScrollDirection direction = scrollController.position.userScrollDirection;
+        final ScrollDirection direction =
+            scrollController.position.userScrollDirection;
         if (direction == ScrollDirection.forward) {
           mainStream.add(true);
           searchBarStream.add(true);
@@ -75,7 +79,8 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
         slivers: [
           SliverPadding(
             // 单列布局 EdgeInsets.zero
-            padding: const EdgeInsets.fromLTRB(0, StyleString.safeSpace - 5, 0, 0),
+            padding:
+                const EdgeInsets.fromLTRB(0, StyleString.safeSpace - 5, 0, 0),
             sliver: FutureBuilder(
               future: _futureBuilderFuture,
               builder: (context, snapshot) {
@@ -99,8 +104,10 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
                             videoItem: _hotController.videoList[index],
                             showPubdate: true,
                             longPress: () {
-                              _hotController.popupDialog = _createPopupDialog(_hotController.videoList[index]);
-                              Overlay.of(context).insert(_hotController.popupDialog!);
+                              _hotController.popupDialog = _createPopupDialog(
+                                  _hotController.videoList[index]);
+                              Overlay.of(context)
+                                  .insert(_hotController.popupDialog!);
                             },
                             longPressEnd: () {
                               _hotController.popupDialog?.remove();
@@ -114,7 +121,8 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
                       errMsg: data['msg'],
                       fn: () {
                         setState(() {
-                          _futureBuilderFuture = _hotController.queryHotFeed('init');
+                          _futureBuilderFuture =
+                              _hotController.queryHotFeed('init');
                         });
                       },
                     );
@@ -145,7 +153,8 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
     return OverlayEntry(
       builder: (context) => AnimatedDialog(
         closeFn: _hotController.popupDialog?.remove,
-        child: OverlayPop(videoItem: videoItem, closeFn: _hotController.popupDialog?.remove),
+        child: OverlayPop(
+            videoItem: videoItem, closeFn: _hotController.popupDialog?.remove),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/user/history.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class HistorySearchController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -26,7 +27,7 @@ class HistorySearchController extends GetxController {
       controller.value.clear();
       searchKeyWord.value = '';
     } else {
-      Get.back();
+      getBack();
     }
   }
 

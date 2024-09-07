@@ -16,6 +16,7 @@ import 'package:pilipala/pages/video/detail/introduction/widgets/fav_panel.dart'
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
 import '../../../common/widgets/http_error.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'controller.dart';
 import 'widgets/intro_detail.dart';
 
@@ -46,7 +47,7 @@ class _BangumiIntroPanelState extends State<BangumiIntroPanel>
   @override
   void initState() {
     super.initState();
-    heroTag = Get.arguments['heroTag'];
+    heroTag = getArguments['heroTag'];
     cid = widget.cid!;
     bangumiIntroController = Get.put(BangumiIntroController(), tag: heroTag);
     videoDetailCtr = Get.find<VideoDetailController>(tag: heroTag);
@@ -79,7 +80,7 @@ class _BangumiIntroPanelState extends State<BangumiIntroPanel>
             // 请求错误
             return HttpError(
               errMsg: snapshot.data['msg'],
-              fn: () => Get.back(),
+              fn: () => getBack(),
             );
           }
         } else {
@@ -112,7 +113,7 @@ class BangumiInfo extends StatefulWidget {
 }
 
 class _BangumiInfoState extends State<BangumiInfo> {
-  String heroTag = Get.arguments['heroTag'];
+  String heroTag = getArguments['heroTag'];
   late final BangumiIntroController bangumiIntroController;
   late final VideoDetailController videoDetailCtr;
   Box localCache = GStrorage.localCache;
@@ -330,64 +331,52 @@ class _BangumiInfoState extends State<BangumiInfo> {
   }
 
   Widget actionGrid(BuildContext context, bangumiIntroController) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Material(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16, bottom: 8),
-          child: SizedBox(
-            height: constraints.maxWidth / 5 * 0.8,
-            child: GridView.count(
-              primary: false,
-              padding: EdgeInsets.zero,
-              crossAxisCount: 5,
-              childAspectRatio: 1.25,
-              children: <Widget>[
-                Obx(
-                  () => ActionItem(
-                    icon: const Icon(FontAwesomeIcons.thumbsUp),
-                    selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
-                    onTap: handleState(bangumiIntroController.actionLikeVideo),
-                    selectStatus: bangumiIntroController.hasLike.value,
-                    text: widget.bangumiDetail!.stat!['likes']!.toString(),
-                  ),
-                ),
-                Obx(
-                  () => ActionItem(
-                    icon: const Icon(FontAwesomeIcons.b),
-                    selectIcon: const Icon(FontAwesomeIcons.b),
-                    onTap: handleState(bangumiIntroController.actionCoinVideo),
-                    selectStatus: bangumiIntroController.hasCoin.value,
-                    text: widget.bangumiDetail!.stat!['coins']!.toString(),
-                  ),
-                ),
-                Obx(
-                  () => ActionItem(
-                    icon: const Icon(FontAwesomeIcons.star),
-                    selectIcon: const Icon(FontAwesomeIcons.solidStar),
-                    onTap: () => showFavBottomSheet(),
-                    selectStatus: bangumiIntroController.hasFav.value,
-                    text: widget.bangumiDetail!.stat!['favorite']!.toString(),
-                  ),
-                ),
-                ActionItem(
-                  icon: const Icon(FontAwesomeIcons.comment),
-                  selectIcon: const Icon(FontAwesomeIcons.reply),
-                  onTap: () => videoDetailCtr.tabCtr.animateTo(1),
-                  selectStatus: false,
-                  text: widget.bangumiDetail!.stat!['reply']!.toString(),
-                ),
-                ActionItem(
-                  icon: const Icon(FontAwesomeIcons.shareFromSquare),
-                  onTap: () => bangumiIntroController.actionShareVideo(),
-                  selectStatus: false,
-                  text: widget.bangumiDetail!.stat!['share']!.toString(),
-                ),
-              ],
+    return SizedBox(
+      width: 375,
+      child: Row(
+        children: <Widget>[
+          Obx(
+            () => ActionItem(
+              icon: const Icon(FontAwesomeIcons.thumbsUp),
+              selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
+              onTap: handleState(bangumiIntroController.actionLikeVideo),
+              selectStatus: bangumiIntroController.hasLike.value,
+              text: widget.bangumiDetail!.stat!['likes']!.toString(),
             ),
           ),
-        ),
-      );
-    });
+          Obx(
+            () => ActionItem(
+              icon: const Icon(FontAwesomeIcons.b),
+              selectIcon: const Icon(FontAwesomeIcons.b),
+              onTap: handleState(bangumiIntroController.actionCoinVideo),
+              selectStatus: bangumiIntroController.hasCoin.value,
+              text: widget.bangumiDetail!.stat!['coins']!.toString(),
+            ),
+          ),
+          Obx(
+            () => ActionItem(
+              icon: const Icon(FontAwesomeIcons.star),
+              selectIcon: const Icon(FontAwesomeIcons.solidStar),
+              onTap: () => showFavBottomSheet(),
+              selectStatus: bangumiIntroController.hasFav.value,
+              text: widget.bangumiDetail!.stat!['favorite']!.toString(),
+            ),
+          ),
+          ActionItem(
+            icon: const Icon(FontAwesomeIcons.comment),
+            selectIcon: const Icon(FontAwesomeIcons.reply),
+            onTap: () => videoDetailCtr.tabCtr.animateTo(1),
+            selectStatus: false,
+            text: widget.bangumiDetail!.stat!['reply']!.toString(),
+          ),
+          ActionItem(
+            icon: const Icon(FontAwesomeIcons.shareFromSquare),
+            onTap: () => bangumiIntroController.actionShareVideo(),
+            selectStatus: false,
+            text: widget.bangumiDetail!.stat!['share']!.toString(),
+          ),
+        ],
+      ),
+    );
   }
 }

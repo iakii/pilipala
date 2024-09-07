@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 Widget searchUserPanel(BuildContext context, ctr, list) {
@@ -17,7 +17,7 @@ Widget searchUserPanel(BuildContext context, ctr, list) {
       var i = list![index];
       String heroTag = Utils.makeHeroTag(i!.mid);
       return InkWell(
-        onTap: () => Get.toNamed('/member?mid=${i.mid}',
+        onTap: () => getToNamed('/member?mid=${i.mid}',
             arguments: {'heroTag': heroTag, 'face': i.upic}),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),

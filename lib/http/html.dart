@@ -29,22 +29,39 @@ class HtmlHttp {
       // 头像
       String avatar = authorHeader.querySelector('img')!.attributes['src']!;
       avatar = 'https:${avatar.split('@')[0]}';
-      String uname = authorHeader.querySelector('.fixed-author-header__author__name')!.text;
+      String uname = authorHeader
+          .querySelector('.fixed-author-header__author__name')!
+          .text;
 
       // 动态详情
       Element opusDetail = appDom.querySelector('.opus-detail')!;
       // 发布时间
-      String updateTime = opusDetail.querySelector('.opus-module-author__pub__text')!.text;
+      String updateTime =
+          opusDetail.querySelector('.opus-module-author__pub__text')!.text;
       //
-      String opusContent = opusDetail.querySelector('.opus-module-content')!.innerHtml;
+      String opusContent =
+          opusDetail.querySelector('.opus-module-content')!.innerHtml;
       String? test;
       try {
-        test = opusDetail.querySelector('.horizontal-scroll-album__pic__img')!.innerHtml;
+        test = opusDetail
+            .querySelector('.horizontal-scroll-album__pic__img')!
+            .innerHtml;
       } catch (_) {}
 
-      String commentId = opusDetail.querySelector('.bili-comment-container')!.className.split(' ')[1].split('-')[2];
+      String commentId = opusDetail
+          .querySelector('.bili-comment-container')!
+          .className
+          .split(' ')[1]
+          .split('-')[2];
       // List imgList = opusDetail.querySelectorAll('bili-album__preview__picture__img');
-      return {'status': true, 'avatar': avatar, 'uname': uname, 'updateTime': updateTime, 'content': (test ?? '') + opusContent, 'commentId': int.parse(commentId)};
+      return {
+        'status': true,
+        'avatar': avatar,
+        'uname': uname,
+        'updateTime': updateTime,
+        'content': (test ?? '') + opusContent,
+        'commentId': int.parse(commentId)
+      };
     } catch (err) {
       debugPrint('err: $err');
     }
@@ -74,10 +91,18 @@ class HtmlHttp {
     // print(updateTime);
 
     //
-    String opusContent = opusDetail.querySelector('#read-article-holder')!.innerHtml;
+    String opusContent =
+        opusDetail.querySelector('#read-article-holder')!.innerHtml;
     RegExp digitRegExp = RegExp(r'\d+');
     Iterable<Match> matches = digitRegExp.allMatches(id);
     String number = matches.first.group(0)!;
-    return {'status': true, 'avatar': '', 'uname': uname, 'updateTime': '', 'content': opusContent, 'commentId': int.parse(number)};
+    return {
+      'status': true,
+      'avatar': '',
+      'uname': uname,
+      'updateTime': '',
+      'content': opusContent,
+      'commentId': int.parse(number)
+    };
   }
 }

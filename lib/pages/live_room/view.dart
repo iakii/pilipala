@@ -94,14 +94,21 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
               left: 0,
               right: 0,
               bottom: 0,
-              child: _liveRoomController.roomInfoH5.value.roomInfo?.appBackground != '' && _liveRoomController.roomInfoH5.value.roomInfo?.appBackground != null
+              child: _liveRoomController
+                              .roomInfoH5.value.roomInfo?.appBackground !=
+                          '' &&
+                      _liveRoomController
+                              .roomInfoH5.value.roomInfo?.appBackground !=
+                          null
                   ? Opacity(
                       opacity: 0.8,
                       child: NetworkImgLayer(
                         width: Get.width,
                         height: Get.height,
                         type: 'bg',
-                        src: _liveRoomController.roomInfoH5.value.roomInfo?.appBackground ?? '',
+                        src: _liveRoomController
+                                .roomInfoH5.value.roomInfo?.appBackground ??
+                            '',
                       ),
                     )
                   : const SizedBox(),
@@ -114,7 +121,10 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                 titleSpacing: 0,
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.white,
-                toolbarHeight: MediaQuery.of(context).orientation == Orientation.portrait ? 56 : 0,
+                toolbarHeight:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 56
+                        : 0,
                 title: FutureBuilder(
                   future: _futureBuilder,
                   builder: (context, snapshot) {
@@ -130,20 +140,26 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                               width: 34,
                               height: 34,
                               type: 'avatar',
-                              src: _liveRoomController.roomInfoH5.value.anchorInfo!.baseInfo!.face,
+                              src: _liveRoomController
+                                  .roomInfoH5.value.anchorInfo!.baseInfo!.face,
                             ),
                             const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _liveRoomController.roomInfoH5.value.anchorInfo!.baseInfo!.uname!,
+                                  _liveRoomController.roomInfoH5.value
+                                      .anchorInfo!.baseInfo!.uname!,
                                   style: const TextStyle(fontSize: 14),
                                 ),
                                 const SizedBox(height: 1),
-                                if (_liveRoomController.roomInfoH5.value.watchedShow != null)
+                                if (_liveRoomController
+                                        .roomInfoH5.value.watchedShow !=
+                                    null)
                                   Text(
-                                    _liveRoomController.roomInfoH5.value.watchedShow!['text_large'] ?? '',
+                                    _liveRoomController.roomInfoH5.value
+                                            .watchedShow!['text_large'] ??
+                                        '',
                                     style: const TextStyle(fontSize: 12),
                                   ),
                               ],
@@ -163,13 +179,17 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                   if (plPlayerController?.isFullScreen.value == true) {
                     plPlayerController!.triggerFullScreen(status: false);
                   }
-                  if (MediaQuery.of(context).orientation == Orientation.landscape) {
+                  if (MediaQuery.of(context).orientation ==
+                      Orientation.landscape) {
                     verticalScreen();
                   }
                 },
                 child: SizedBox(
                   width: Get.size.width,
-                  height: MediaQuery.of(context).orientation == Orientation.landscape ? Get.size.height : Get.size.width * 9 / 16,
+                  height: MediaQuery.of(context).orientation ==
+                          Orientation.landscape
+                      ? Get.size.height
+                      : Get.size.width * 9 / 16,
                   child: videoPlayerPanel,
                 ),
               ),

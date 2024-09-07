@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/http/member.dart';
 
 import '../../models/follow/result.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class FollowSearchController extends GetxController {
   Rx<TextEditingController> controller = TextEditingController().obs;
@@ -20,7 +21,7 @@ class FollowSearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mid = int.parse(Get.parameters['mid']!);
+    mid = int.parse(getParameters['mid']!);
   }
 
   // 清空搜索
@@ -29,7 +30,7 @@ class FollowSearchController extends GetxController {
       controller.value.clear();
       searchKeyWord.value = '';
     } else {
-      Get.back();
+      getBack();
     }
   }
 

@@ -70,7 +70,8 @@ class Utils {
 
   // 完全相对时间显示
   static String formatTimestampToRelativeTime(timeStamp) {
-    var difference = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000));
+    var difference = DateTime.now()
+        .difference(DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000));
 
     if (difference.inDays > 365) {
       return '${difference.inDays ~/ 365}年前';
@@ -102,19 +103,32 @@ class Utils {
     if (formatType == 'detail') {
       currentYearStr = 'MM-DD hh:mm';
       lastYearStr = 'YY-MM-DD hh:mm';
-      return CustomStamp_str(timestamp: timeStamp, date: lastYearStr, toInt: false, formatType: formatType);
+      return CustomStamp_str(
+          timestamp: timeStamp,
+          date: lastYearStr,
+          toInt: false,
+          formatType: formatType);
     }
-    debugPrint('distance: $distance');
+    // debugPrint('distance: $distance');
     if (distance <= 60) {
       return '刚刚';
     } else if (distance <= 3600) {
       return '${(distance / 60).floor()}分钟前';
     } else if (distance <= 43200) {
       return '${(distance / 60 / 60).floor()}小时前';
-    } else if (DateTime.fromMillisecondsSinceEpoch(time * 1000).year == DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000).year) {
-      return CustomStamp_str(timestamp: timeStamp, date: currentYearStr, toInt: false, formatType: formatType);
+    } else if (DateTime.fromMillisecondsSinceEpoch(time * 1000).year ==
+        DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000).year) {
+      return CustomStamp_str(
+          timestamp: timeStamp,
+          date: currentYearStr,
+          toInt: false,
+          formatType: formatType);
     } else {
-      return CustomStamp_str(timestamp: timeStamp, date: lastYearStr, toInt: false, formatType: formatType);
+      return CustomStamp_str(
+          timestamp: timeStamp,
+          date: lastYearStr,
+          toInt: false,
+          formatType: formatType);
     }
   }
 
@@ -125,7 +139,8 @@ class Utils {
       bool toInt = true, // 去除0开头
       String? formatType}) {
     timestamp ??= (DateTime.now().millisecondsSinceEpoch / 1000).round();
-    String timeStr = (DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)).toString();
+    String timeStr =
+        (DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)).toString();
 
     dynamic dateArr = timeStr.split(' ')[0];
     dynamic timeArr = timeStr.split(' ')[1];
@@ -156,8 +171,15 @@ class Utils {
     //   return '昨天';
     // }
 
-    date = date.replaceAll('YY', YY).replaceAll('MM', MM).replaceAll('DD', DD).replaceAll('hh', hh).replaceAll('mm', mm).replaceAll('ss', ss);
-    if (int.parse(YY) == DateTime.now().year && int.parse(MM) == DateTime.now().month) {
+    date = date
+        .replaceAll('YY', YY)
+        .replaceAll('MM', MM)
+        .replaceAll('DD', DD)
+        .replaceAll('hh', hh)
+        .replaceAll('mm', mm)
+        .replaceAll('ss', ss);
+    if (int.parse(YY) == DateTime.now().year &&
+        int.parse(MM) == DateTime.now().month) {
       // 当天
       if (int.parse(DD) == DateTime.now().day) {
         return '今天';
@@ -177,7 +199,9 @@ class Utils {
       return int.parse(timeList[0]) * 60 + int.parse(timeList[1]);
     }
     if (len == 3) {
-      return int.parse(timeList[0]) * 3600 + int.parse(timeList[1]) * 60 + int.parse(timeList[2]);
+      return int.parse(timeList[0]) * 3600 +
+          int.parse(timeList[1]) * 60 +
+          int.parse(timeList[2]);
     }
     return 0;
   }
@@ -272,7 +296,8 @@ class Utils {
                 onPressed: () => SmartDialog.dismiss(),
                 child: Text(
                   '稍后',
-                  style: TextStyle(color: Theme.of(context).colorScheme.outline),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.outline),
                 ),
               ),
               TextButton(
@@ -333,7 +358,8 @@ class Utils {
     return '$formattedHours:$formattedMinutes';
   }
 
-  static String appSign(Map<String, dynamic> params, String appkey, String appsec) {
+  static String appSign(
+      Map<String, dynamic> params, String appkey, String appsec) {
     params['appkey'] = appkey;
     var searchParams = Uri(queryParameters: params).query;
     var sortedParams = searchParams.split('&')..sort();
@@ -347,7 +373,8 @@ class Utils {
   }
 
   static List<int> generateRandomBytes(int minLength, int maxLength) {
-    return List<int>.generate(random.nextInt(maxLength - minLength + 1), (_) => random.nextInt(0x60) + 0x20);
+    return List<int>.generate(random.nextInt(maxLength - minLength + 1),
+        (_) => random.nextInt(0x60) + 0x20);
   }
 
   static String base64EncodeRandomString(int minLength, int maxLength) {

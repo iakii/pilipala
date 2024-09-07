@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/member/archive.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberArchiveController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -19,7 +20,7 @@ class MemberArchiveController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mid = int.parse(Get.parameters['mid']!);
+    mid = int.parse(getParameters['mid']!);
     currentOrder.value = orderList.first;
   }
 

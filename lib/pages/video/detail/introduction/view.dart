@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/stat/danmu.dart';
@@ -49,7 +50,7 @@ class _VideoIntroPanelState extends State<VideoIntroPanel>
     super.initState();
 
     /// fix 全屏时参数丢失
-    heroTag = Get.arguments['heroTag'];
+    heroTag = getArguments['heroTag'];
     videoIntroController =
         Get.put(VideoIntroController(bvid: widget.bvid), tag: heroTag);
     _futureBuilderFuture = videoIntroController.queryVideoIntro();
@@ -91,7 +92,7 @@ class _VideoIntroPanelState extends State<VideoIntroPanel>
                       snapshot.data['code'] == 62002
                   ? '返回上一页'
                   : null,
-              fn: () => Get.back(),
+              fn: () => getBack(),
             );
           }
         } else {
@@ -228,7 +229,7 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
     mid = widget.videoDetail!.owner!.mid!;
     memberHeroTag = Utils.makeHeroTag(mid);
     String face = widget.videoDetail!.owner!.face!;
-    Get.toNamed('/member?mid=$mid',
+    getToNamed('/member?mid=$mid',
         arguments: {'face': face, 'heroTag': memberHeroTag});
   }
 
@@ -260,33 +261,108 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
         top: 16,
       ),
       sliver: SliverToBoxAdapter(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => showIntroDetail(),
-            child: ExpandablePanel(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () => showIntroDetail(),
+              child: ExpandablePanel(
+                controller: _expandableCtr,
+                collapsed: Text(
+                  widget.videoDetail!.title!,
+                  softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                expanded: Text(
+                  widget.videoDetail!.title!,
+                  softWrap: true,
+                  maxLines: 4,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                theme: const ExpandableThemeData(
+                  animationDuration: Duration(milliseconds: 300),
+                  scrollAnimationDuration: Duration(milliseconds: 300),
+                  crossFadePoint: 0,
+                  fadeCurve: Curves.ease,
+                  sizeCurve: Curves.linear,
+                ),
+              ),
+            ),
+            Stack(
+              children: [
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => showIntroDetail(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 7, bottom: 6),
+                    child: Row(
+                      children: [
+                        StatView(
+                          theme: 'gray',
+                          view: widget.videoDetail!.stat!.view,
+                          size: 'medium',
+                        ),
+                        const SizedBox(width: 10),
+                        StatDanMu(
+                          theme: 'gray',
+                          danmu: widget.videoDetail!.stat!.danmaku,
+                          size: 'medium',
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          Utils.dateFormat(widget.videoDetail!.pubdate,
+                              formatType: 'detail'),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: t.colorScheme.outline,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        if (videoIntroController.isShowOnlineTotal)
+                          Obx(
+                            () => Text(
+                              '${videoIntroController.total.value}人在看',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: t.colorScheme.outline,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (enableAi)
+                  Positioned(
+                    right: 10,
+                    top: 6,
+                    child: GestureDetector(
+                      onTap: () async {
+                        final res = await videoIntroController.aiConclusion();
+                        if (res['status']) {
+                          showAiBottomSheet();
+                        }
+                      },
+                      child: Image.asset('assets/images/ai.png', height: 22),
+                    ),
+                  )
+              ],
+            ),
+
+            /// 视频简介
+            ExpandablePanel(
               controller: _expandableCtr,
-              collapsed: Text(
-                widget.videoDetail!.title!,
-                softWrap: true,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              expanded: Text(
-                widget.videoDetail!.title!,
-                softWrap: true,
-                maxLines: 4,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              collapsed: const SizedBox(height: 0),
+              expanded: IntroDetail(videoDetail: widget.videoDetail!),
               theme: const ExpandableThemeData(
                 animationDuration: Duration(milliseconds: 300),
                 scrollAnimationDuration: Duration(milliseconds: 300),
@@ -295,180 +371,109 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
                 sizeCurve: Curves.linear,
               ),
             ),
-          ),
-          Stack(
-            children: [
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () => showIntroDetail(),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 7, bottom: 6),
-                  child: Row(
-                    children: [
-                      StatView(
-                        theme: 'gray',
-                        view: widget.videoDetail!.stat!.view,
-                        size: 'medium',
-                      ),
-                      const SizedBox(width: 10),
-                      StatDanMu(
-                        theme: 'gray',
-                        danmu: widget.videoDetail!.stat!.danmaku,
-                        size: 'medium',
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        Utils.dateFormat(widget.videoDetail!.pubdate,
-                            formatType: 'detail'),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: t.colorScheme.outline,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      if (videoIntroController.isShowOnlineTotal)
-                        Obx(
-                          () => Text(
-                            '${videoIntroController.total.value}人在看',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: t.colorScheme.outline,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
+
+            /// 点赞收藏转发
+            actionGrid(context, videoIntroController),
+            // 合集
+            if (widget.videoDetail!.ugcSeason != null) ...[
+              Obx(
+                () => SeasonPanel(
+                  ugcSeason: widget.videoDetail!.ugcSeason!,
+                  cid: videoIntroController.lastPlayCid.value != 0
+                      ? videoIntroController.lastPlayCid.value
+                      : widget.videoDetail!.pages!.first.cid,
+                  sheetHeight: sheetHeight,
+                  changeFuc: (bvid, cid, aid) =>
+                      videoIntroController.changeSeasonOrbangu(bvid, cid, aid),
                 ),
-              ),
-              if (enableAi)
-                Positioned(
-                  right: 10,
-                  top: 6,
-                  child: GestureDetector(
-                    onTap: () async {
-                      final res = await videoIntroController.aiConclusion();
-                      if (res['status']) {
-                        showAiBottomSheet();
-                      }
-                    },
-                    child: Image.asset('assets/images/ai.png', height: 22),
-                  ),
-                )
+              )
             ],
-          ),
-
-          /// 视频简介
-          ExpandablePanel(
-            controller: _expandableCtr,
-            collapsed: const SizedBox(height: 0),
-            expanded: IntroDetail(videoDetail: widget.videoDetail!),
-            theme: const ExpandableThemeData(
-              animationDuration: Duration(milliseconds: 300),
-              scrollAnimationDuration: Duration(milliseconds: 300),
-              crossFadePoint: 0,
-              fadeCurve: Curves.ease,
-              sizeCurve: Curves.linear,
-            ),
-          ),
-
-          /// 点赞收藏转发
-          actionGrid(context, videoIntroController),
-          // 合集
-          if (widget.videoDetail!.ugcSeason != null) ...[
-            Obx(
-              () => SeasonPanel(
-                ugcSeason: widget.videoDetail!.ugcSeason!,
-                cid: videoIntroController.lastPlayCid.value != 0
-                    ? videoIntroController.lastPlayCid.value
-                    : widget.videoDetail!.pages!.first.cid,
-                sheetHeight: sheetHeight,
-                changeFuc: (bvid, cid, aid) =>
-                    videoIntroController.changeSeasonOrbangu(bvid, cid, aid),
-              ),
-            )
-          ],
-          if (widget.videoDetail!.pages != null &&
-              widget.videoDetail!.pages!.length > 1) ...[
-            Obx(() => PagesPanel(
+            if (widget.videoDetail!.pages != null &&
+                widget.videoDetail!.pages!.length > 1) ...[
+              Obx(
+                () => PagesPanel(
                   pages: widget.videoDetail!.pages!,
                   cid: videoIntroController.lastPlayCid.value,
                   sheetHeight: sheetHeight,
                   changeFuc: (cid) => videoIntroController.changeSeasonOrbangu(
                       videoIntroController.bvid, cid, null),
-                ))
-          ],
-          GestureDetector(
-            onTap: onPushMember,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-              child: Row(
-                children: [
-                  NetworkImgLayer(
-                    type: 'avatar',
-                    src: widget.videoDetail!.owner!.face,
-                    width: 34,
-                    height: 34,
-                    fadeInDuration: Duration.zero,
-                    fadeOutDuration: Duration.zero,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(owner.name, style: const TextStyle(fontSize: 13)),
-                  const SizedBox(width: 6),
-                  Text(
-                    follower,
-                    style: TextStyle(
-                      fontSize: t.textTheme.labelSmall!.fontSize,
-                      color: outline,
+                ),
+              )
+            ],
+            GestureDetector(
+              onTap: onPushMember,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+                child: Row(
+                  children: [
+                    NetworkImgLayer(
+                      type: 'avatar',
+                      src: widget.videoDetail!.owner!.face,
+                      width: 34,
+                      height: 34,
+                      fadeInDuration: Duration.zero,
+                      fadeOutDuration: Duration.zero,
                     ),
-                  ),
-                  const Spacer(),
-                  Obx(() => AnimatedOpacity(
-                        opacity:
-                            videoIntroController.followStatus.isEmpty ? 0 : 1,
-                        duration: const Duration(milliseconds: 50),
-                        child: SizedBox(
-                          height: 32,
-                          child: Obx(
-                            () => videoIntroController.followStatus.isNotEmpty
-                                ? TextButton(
-                                    onPressed:
-                                        videoIntroController.actionRelationMod,
-                                    style: TextButton.styleFrom(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, right: 8),
-                                      foregroundColor:
-                                          followStatus['attribute'] != 0
-                                              ? outline
-                                              : t.colorScheme.onPrimary,
-                                      backgroundColor:
-                                          followStatus['attribute'] != 0
-                                              ? t.colorScheme.onInverseSurface
-                                              : t.colorScheme
-                                                  .primary, // 设置按钮背景色
+                    const SizedBox(width: 10),
+                    Text(owner.name, style: const TextStyle(fontSize: 13)),
+                    const SizedBox(width: 6),
+                    Text(
+                      follower,
+                      style: TextStyle(
+                        fontSize: t.textTheme.labelSmall!.fontSize,
+                        color: outline,
+                      ),
+                    ),
+                    const Spacer(),
+                    Obx(() => AnimatedOpacity(
+                          opacity:
+                              videoIntroController.followStatus.isEmpty ? 0 : 1,
+                          duration: const Duration(milliseconds: 50),
+                          child: SizedBox(
+                            height: 32,
+                            child: Obx(
+                              () => videoIntroController.followStatus.isNotEmpty
+                                  ? TextButton(
+                                      onPressed: videoIntroController
+                                          .actionRelationMod,
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, right: 8),
+                                        foregroundColor:
+                                            followStatus['attribute'] != 0
+                                                ? outline
+                                                : t.colorScheme.onPrimary,
+                                        backgroundColor:
+                                            followStatus['attribute'] != 0
+                                                ? t.colorScheme.onInverseSurface
+                                                : t.colorScheme
+                                                    .primary, // 设置按钮背景色
+                                      ),
+                                      child: Text(
+                                        followStatus['attribute'] != 0
+                                            ? '已关注'
+                                            : '关注',
+                                        style: TextStyle(
+                                            fontSize: t.textTheme.labelMedium!
+                                                .fontSize),
+                                      ),
+                                    )
+                                  : ElevatedButton(
+                                      onPressed: videoIntroController
+                                          .actionRelationMod,
+                                      child: const Text('关注'),
                                     ),
-                                    child: Text(
-                                      followStatus['attribute'] != 0
-                                          ? '已关注'
-                                          : '关注',
-                                      style: TextStyle(
-                                          fontSize: t
-                                              .textTheme.labelMedium!.fontSize),
-                                    ),
-                                  )
-                                : ElevatedButton(
-                                    onPressed:
-                                        videoIntroController.actionRelationMod,
-                                    child: const Text('关注'),
-                                  ),
+                            ),
                           ),
-                        ),
-                      )),
-                ],
+                        )),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 

@@ -32,16 +32,21 @@ class _ExtraSettingState extends State<ExtraSetting> {
   void initState() {
     super.initState();
     // 默认优先显示最新评论
-    defaultReplySort = setting.get(SettingBoxKey.replySortType, defaultValue: 0);
+    defaultReplySort =
+        setting.get(SettingBoxKey.replySortType, defaultValue: 0);
     if (defaultReplySort == 2) {
       setting.put(SettingBoxKey.replySortType, 0);
       defaultReplySort = 0;
     }
     // 优先展示全部动态 all
-    defaultDynamicType = setting.get(SettingBoxKey.defaultDynamicType, defaultValue: 0);
-    enableSystemProxy = setting.get(SettingBoxKey.enableSystemProxy, defaultValue: false);
-    defaultSystemProxyHost = localCache.get(LocalCacheKey.systemProxyHost, defaultValue: '');
-    defaultSystemProxyPort = localCache.get(LocalCacheKey.systemProxyPort, defaultValue: '');
+    defaultDynamicType =
+        setting.get(SettingBoxKey.defaultDynamicType, defaultValue: 0);
+    enableSystemProxy =
+        setting.get(SettingBoxKey.enableSystemProxy, defaultValue: false);
+    defaultSystemProxyHost =
+        localCache.get(LocalCacheKey.systemProxyHost, defaultValue: '');
+    defaultSystemProxyPort =
+        localCache.get(LocalCacheKey.systemProxyPort, defaultValue: '');
   }
 
   // 设置代理
@@ -62,7 +67,9 @@ class _ExtraSettingState extends State<ExtraSetting> {
               TextField(
                 decoration: InputDecoration(
                   isDense: true,
-                  labelText: defaultSystemProxyHost != '' ? defaultSystemProxyHost : '请输入Host，使用 . 分割',
+                  labelText: defaultSystemProxyHost != ''
+                      ? defaultSystemProxyHost
+                      : '请输入Host，使用 . 分割',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                   ),
@@ -77,7 +84,9 @@ class _ExtraSettingState extends State<ExtraSetting> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   isDense: true,
-                  labelText: defaultSystemProxyPort != '' ? defaultSystemProxyPort : '请输入Port',
+                  labelText: defaultSystemProxyPort != ''
+                      ? defaultSystemProxyPort
+                      : '请输入Port',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                   ),
@@ -117,7 +126,10 @@ class _ExtraSettingState extends State<ExtraSetting> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle = Theme.of(context).textTheme.titleMedium!;
-    TextStyle subTitleStyle = Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.outline);
+    TextStyle subTitleStyle = Theme.of(context)
+        .textTheme
+        .labelMedium!
+        .copyWith(color: Theme.of(context).colorScheme.outline);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -233,15 +245,18 @@ class _ExtraSettingState extends State<ExtraSetting> {
               alignment: Alignment.centerRight,
               scale: 0.8,
               child: Switch(
-                thumbIcon: WidgetStateProperty.resolveWith<Icon?>((Set<WidgetState> states) {
-                  if (states.isNotEmpty && states.first == WidgetState.selected) {
+                thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                    (Set<WidgetState> states) {
+                  if (states.isNotEmpty &&
+                      states.first == WidgetState.selected) {
                     return const Icon(Icons.done);
                   }
                   return null; // All other states will use the default thumbIcon.
                 }),
                 value: enableSystemProxy,
                 onChanged: (val) {
-                  setting.put(SettingBoxKey.enableSystemProxy, !enableSystemProxy);
+                  setting.put(
+                      SettingBoxKey.enableSystemProxy, !enableSystemProxy);
                   setState(() {
                     enableSystemProxy = !enableSystemProxy;
                   });

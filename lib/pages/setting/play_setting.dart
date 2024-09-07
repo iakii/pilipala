@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/video/play/quality.dart';
 import 'package:pilipala/pages/desktop/index.dart';
@@ -33,12 +32,18 @@ class _PlaySettingState extends State<PlaySetting> {
   @override
   void initState() {
     super.initState();
-    defaultVideoQa = setting.get(SettingBoxKey.defaultVideoQa, defaultValue: VideoQuality.values.last.code);
-    defaultLiveQa = setting.get(SettingBoxKey.defaultLiveQa, defaultValue: LiveQuality.values.last.code);
-    defaultAudioQa = setting.get(SettingBoxKey.defaultAudioQa, defaultValue: AudioQuality.values.last.code);
-    defaultDecode = setting.get(SettingBoxKey.defaultDecode, defaultValue: VideoDecodeFormats.values.last.code);
-    defaultFullScreenMode = setting.get(SettingBoxKey.fullScreenMode, defaultValue: FullScreenMode.values.first.code);
-    defaultBtmProgressBehavior = setting.get(SettingBoxKey.btmProgressBehavior, defaultValue: BtmProgresBehavior.values.first.code);
+    defaultVideoQa = setting.get(SettingBoxKey.defaultVideoQa,
+        defaultValue: VideoQuality.values.last.code);
+    defaultLiveQa = setting.get(SettingBoxKey.defaultLiveQa,
+        defaultValue: LiveQuality.values.last.code);
+    defaultAudioQa = setting.get(SettingBoxKey.defaultAudioQa,
+        defaultValue: AudioQuality.values.last.code);
+    defaultDecode = setting.get(SettingBoxKey.defaultDecode,
+        defaultValue: VideoDecodeFormats.values.last.code);
+    defaultFullScreenMode = setting.get(SettingBoxKey.fullScreenMode,
+        defaultValue: FullScreenMode.values.first.code);
+    defaultBtmProgressBehavior = setting.get(SettingBoxKey.btmProgressBehavior,
+        defaultValue: BtmProgresBehavior.values.first.code);
   }
 
   @override
@@ -52,7 +57,10 @@ class _PlaySettingState extends State<PlaySetting> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle = Theme.of(context).textTheme.titleMedium!;
-    TextStyle subTitleStyle = Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.outline);
+    TextStyle subTitleStyle = Theme.of(context)
+        .textTheme
+        .labelMedium!
+        .copyWith(color: Theme.of(context).colorScheme.outline);
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -70,13 +78,13 @@ class _PlaySettingState extends State<PlaySetting> {
         children: [
           ListTile(
             dense: false,
-            onTap: () => Get.toNamed('/playSpeedSet'),
+            onTap: () => getToNamed('/playSpeedSet'),
             title: Text('倍速设置', style: titleStyle),
             subtitle: Text('设置视频播放速度', style: subTitleStyle),
           ),
           ListTile(
             dense: false,
-            onTap: () => Get.toNamed('/playerGestureSet'),
+            onTap: () => getToNamed('/playerGestureSet'),
             title: Text('手势设置', style: titleStyle),
             subtitle: Text('设置播放器手势', style: subTitleStyle),
           ),

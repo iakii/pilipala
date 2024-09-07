@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/models/video_detail_res.dart';
-import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
 import 'package:pilipala/utils/storage.dart';
 
@@ -101,7 +101,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     if (!enableBackgroundPlay) return;
 
     if (data == null) return;
-    Map argMap = Get.arguments;
+    Map argMap = getArguments;
     final heroTag = argMap['heroTag'];
 
     late MediaItem? mediaItem;

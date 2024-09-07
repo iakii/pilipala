@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/models/video_detail_res.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class PagesPanel extends StatefulWidget {
   const PagesPanel({
@@ -24,7 +25,7 @@ class _PagesPanelState extends State<PagesPanel> {
   late List<Part> episodes;
   late int cid;
   late int currentIndex;
-  final String heroTag = Get.arguments['heroTag'];
+  final String heroTag = getArguments['heroTag'];
   late VideoDetailController _videoDetailController;
   final ScrollController _scrollController = ScrollController();
 
@@ -65,7 +66,7 @@ class _PagesPanelState extends State<PagesPanel> {
     return ListTile(
       onTap: () {
         changeFucCall(episode, index);
-        Get.back();
+        getBack();
       },
       dense: false,
       leading: isCurrentIndex

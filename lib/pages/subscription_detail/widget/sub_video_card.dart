@@ -1,12 +1,13 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:pilipala/common/constants.dart';
+import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/stat/danmu.dart';
 import 'package:pilipala/common/widgets/stat/view.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/common/search_type.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
-import 'package:pilipala/common/widgets/network_img_layer.dart';
+
 import '../../../common/widgets/badge.dart';
 import '../../../models/user/sub_detail.dart';
 
@@ -34,7 +35,7 @@ class SubVideoCardH extends StatelessWidget {
           'cid': cid.toString(),
         };
 
-        Get.toNamed('/video', parameters: parameters, arguments: {
+        getToNamed('/video', parameters: parameters, arguments: {
           'videoItem': videoItem,
           'heroTag': heroTag,
           'videoType': SearchType.video,

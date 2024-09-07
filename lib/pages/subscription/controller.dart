@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/user/info.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/storage.dart';
 
 import '../../models/user/sub_folder.dart';
@@ -57,7 +58,7 @@ class SubController extends GetxController {
         actions: [
           TextButton(
             onPressed: () {
-              Get.back();
+              getBack();
             },
             child: Text(
               '取消',
@@ -74,7 +75,7 @@ class SubController extends GetxController {
               } else {
                 SmartDialog.showToast(res['msg']);
               }
-              Get.back();
+              getBack();
             },
             child: const Text('确定'),
           ),

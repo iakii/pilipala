@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
 
@@ -36,7 +37,7 @@ class _FavPanelState extends State<FavPanel> {
             centerTitle: false,
             elevation: 0,
             leading: IconButton(
-                onPressed: () => Get.back(),
+                onPressed: () => getBack(),
                 icon: const Icon(Icons.close_outlined)),
             title:
                 Text('添加到收藏夹', style: Theme.of(context).textTheme.titleMedium),
@@ -111,7 +112,7 @@ class _FavPanelState extends State<FavPanel> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 TextButton(
-                  onPressed: () => Get.back(),
+                  onPressed: () => getBack(),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     backgroundColor: Theme.of(context)

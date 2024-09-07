@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/common/search_type.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'package:pilipala/utils/utils.dart';
 
@@ -80,7 +81,7 @@ class SearchPanelController extends GetxController {
               matchKeys.first == 'AV' &&
               matchRes[matchKeys.first] == aid ||
           aid.toString() == keyword) {
-        Get.toNamed(
+        getToNamed(
           '/video?bvid=$bvid&cid=$cid',
           arguments: {'videoItem': resultList.first, 'heroTag': heroTag},
         );

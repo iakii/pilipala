@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/badge.dart';
 import 'package:pilipala/models/member/seasons.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/member_seasons/widgets/item.dart';
 
 class MemberSeasonsPanel extends StatelessWidget {
@@ -24,7 +24,7 @@ class MemberSeasonsPanel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                onTap: () => Get.toNamed(
+                onTap: () => getToNamed(
                     '/memberSeasons?mid=${item.meta!.mid}&seasonId=${item.meta!.seasonId}'),
                 title: Text(
                   item.meta!.name!,

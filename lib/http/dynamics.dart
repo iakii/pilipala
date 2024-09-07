@@ -11,7 +11,13 @@ class DynamicsHttp {
     String? offset,
     int? mid,
   }) async {
-    Map<String, dynamic> data = {'type': type ?? 'all', 'page': page ?? 1, 'timezone_offset': '-480', 'offset': page == 1 ? '' : offset, 'features': 'itemOpusStyle'};
+    Map<String, dynamic> data = {
+      'type': type ?? 'all',
+      'page': page ?? 1,
+      'timezone_offset': '-480',
+      'offset': page == 1 ? '' : offset,
+      'features': 'itemOpusStyle'
+    };
     if (mid != -1) {
       data['host_mid'] = mid;
       data.remove('timezone_offset');

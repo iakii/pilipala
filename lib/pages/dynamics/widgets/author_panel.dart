@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/http/user.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/utils.dart';
 
@@ -22,7 +22,7 @@ class AuthorPanel extends StatelessWidget {
               return;
             }
             feedBack();
-            Get.toNamed(
+            getToNamed(
               '/member?mid=${item.modules.moduleAuthor.mid}',
               arguments: {
                 'face': item.modules.moduleAuthor.face,
@@ -115,7 +115,7 @@ class MorePanel extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
-            onTap: () => Get.back(),
+            onTap: () => getBack(),
             child: Container(
               height: 35,
               padding: const EdgeInsets.only(bottom: 2),
@@ -136,7 +136,7 @@ class MorePanel extends StatelessWidget {
                 String bvid = item.modules.moduleDynamic.major.archive.bvid;
                 var res = await UserHttp.toViewLater(bvid: bvid);
                 SmartDialog.showToast(res['msg']);
-                Get.back();
+                getBack();
               } catch (err) {
                 SmartDialog.showToast('出错了：${err.toString()}');
               }
@@ -151,7 +151,7 @@ class MorePanel extends StatelessWidget {
           ),
           const Divider(thickness: 0.1, height: 1),
           ListTile(
-            onTap: () => Get.back(),
+            onTap: () => getBack(),
             minLeadingWidth: 0,
             dense: true,
             title: Text(

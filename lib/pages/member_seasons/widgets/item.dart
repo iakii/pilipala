@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/badge.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/stat/view.dart';
 import 'package:pilipala/http/search.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 class MemberSeasonsItem extends StatelessWidget {
@@ -26,7 +26,7 @@ class MemberSeasonsItem extends StatelessWidget {
         onTap: () async {
           int cid =
               await SearchHttp.ab2c(aid: seasonItem.aid, bvid: seasonItem.bvid);
-          Get.toNamed('/video?bvid=${seasonItem.bvid}&cid=$cid',
+          getToNamed('/video?bvid=${seasonItem.bvid}&cid=$cid',
               arguments: {'videoItem': seasonItem, 'heroTag': heroTag});
         },
         child: Column(

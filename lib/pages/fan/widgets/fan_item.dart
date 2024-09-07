@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 Widget fanItem({item}) {
   String heroTag = Utils.makeHeroTag(item!.mid);
   return ListTile(
-    onTap: () => Get.toNamed('/member?mid=${item.mid}',
+    onTap: () => getToNamed('/member?mid=${item.mid}',
         arguments: {'face': item.face, 'heroTag': heroTag}),
     leading: Hero(
       tag: heroTag,

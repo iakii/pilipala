@@ -13,6 +13,7 @@ import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'controller.dart';
 import 'widgets/reply_item.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class VideoReplyPanel extends StatefulWidget {
   final String? bvid;
@@ -51,7 +52,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
   void initState() {
     super.initState();
     // int oid = widget.bvid != null ? IdUtils.bv2av(widget.bvid!) : 0;
-    heroTag = Get.arguments['heroTag'];
+    heroTag = getArguments['heroTag'];
     replyLevel = widget.replyLevel ?? '1';
     if (replyLevel == '2') {
       _videoReplyController = Get.put(
@@ -286,7 +287,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                     builder: (BuildContext context) {
                       return VideoReplyNewDialog(
                         oid: _videoReplyController.aid ??
-                            IdUtils.bv2av(Get.parameters['bvid']!),
+                            IdUtils.bv2av(getParameters['bvid']!),
                         root: 0,
                         parent: 0,
                         replyType: ReplyType.video,

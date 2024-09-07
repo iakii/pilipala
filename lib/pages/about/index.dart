@@ -36,7 +36,8 @@ class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     final Color outline = Theme.of(context).colorScheme.outline;
-    TextStyle subTitleStyle = TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.outline);
+    TextStyle subTitleStyle =
+        TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.outline);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -59,7 +60,9 @@ class _AboutPageState extends State<AboutPage> {
             const SizedBox(height: 6),
             Obx(
               () => Badge(
-                isLabelVisible: _aboutController.isLoading.value ? false : _aboutController.isUpdate.value,
+                isLabelVisible: _aboutController.isLoading.value
+                    ? false
+                    : _aboutController.isUpdate.value,
                 label: const Text('New'),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
@@ -87,7 +90,10 @@ class _AboutPageState extends State<AboutPage> {
                                 onTap: () => _aboutController.qimiao(),
                                 title: const Text('奇妙应用'),
                               ),
-                              SizedBox(height: MediaQuery.of(context).padding.bottom + 20)
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).padding.bottom +
+                                          20)
                             ],
                           );
                         },
@@ -171,7 +177,8 @@ class _AboutPageState extends State<AboutPage> {
                             style: subTitleStyle,
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).padding.bottom + 20)
+                        SizedBox(
+                            height: MediaQuery.of(context).padding.bottom + 20)
                       ],
                     );
                   },
@@ -259,7 +266,8 @@ class AboutController extends GetxController {
     data = LatestDataModel.fromJson(result.data);
     remoteAppInfo = data;
     remoteVersion.value = data.tagName!;
-    isUpdate.value = Utils.needUpdate(currentVersion.value, remoteVersion.value);
+    isUpdate.value =
+        Utils.needUpdate(currentVersion.value, remoteVersion.value);
   }
 
   // 跳转下载/本地更新
@@ -334,7 +342,8 @@ class AboutController extends GetxController {
   aPay() {
     try {
       launchUrl(
-        Uri.parse('alipayqr://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/fkx14623ddwl1ping3ddd73'),
+        Uri.parse(
+            'alipayqr://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/fkx14623ddwl1ping3ddd73'),
         mode: LaunchMode.externalApplication,
       );
     } catch (e) {

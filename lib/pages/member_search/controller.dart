@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/member/archive.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberSearchController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -26,8 +27,8 @@ class MemberSearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mid = int.parse(Get.parameters['mid']!);
-    uname.value = Get.parameters['uname']!;
+    mid = int.parse(getParameters['mid']!);
+    uname.value = getParameters['uname']!;
   }
 
   // 清空搜索
@@ -36,7 +37,7 @@ class MemberSearchController extends GetxController {
       controller.value.clear();
       searchKeyWord.value = '';
     } else {
-      Get.back();
+      getBack();
     }
   }
 

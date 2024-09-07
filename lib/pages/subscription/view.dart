@@ -25,7 +25,8 @@ class _SubPageState extends State<SubPage> {
     scrollController = _subController.scrollController;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 300) {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 300) {
           EasyThrottle.throttle('history', const Duration(seconds: 1), () {
             _subController.onLoad();
           });
@@ -60,7 +61,10 @@ class _SubPageState extends State<SubPage> {
                   controller: scrollController,
                   itemCount: _subController.subFolderData.value.list!.length,
                   itemBuilder: (context, index) {
-                    return SubItem(subFolderItem: _subController.subFolderData.value.list![index], cancelSub: _subController.cancelSub);
+                    return SubItem(
+                        subFolderItem:
+                            _subController.subFolderData.value.list![index],
+                        cancelSub: _subController.cancelSub);
                   },
                 ),
               );

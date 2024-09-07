@@ -22,7 +22,8 @@ class ZonePage extends StatefulWidget {
   State<ZonePage> createState() => _ZonePageState();
 }
 
-class _ZonePageState extends State<ZonePage> with AutomaticKeepAliveClientMixin {
+class _ZonePageState extends State<ZonePage>
+    with AutomaticKeepAliveClientMixin {
   late ZoneController _zoneController;
   List videoList = [];
   Future? _futureBuilderFuture;
@@ -37,18 +38,22 @@ class _ZonePageState extends State<ZonePage> with AutomaticKeepAliveClientMixin 
     _zoneController = Get.put(ZoneController(), tag: widget.rid.toString());
     _futureBuilderFuture = _zoneController.queryRankFeed('init', widget.rid);
     scrollController = _zoneController.scrollController;
-    StreamController<bool> mainStream = Get.find<MainController>().bottomBarStream;
-    StreamController<bool> searchBarStream = Get.find<HomeController>().searchBarStream;
+    StreamController<bool> mainStream =
+        Get.find<MainController>().bottomBarStream;
+    StreamController<bool> searchBarStream =
+        Get.find<HomeController>().searchBarStream;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 200) {
           if (!_zoneController.isLoadingMore) {
             _zoneController.isLoadingMore = true;
             _zoneController.onLoad();
           }
         }
 
-        final ScrollDirection direction = scrollController.position.userScrollDirection;
+        final ScrollDirection direction =
+            scrollController.position.userScrollDirection;
         if (direction == ScrollDirection.forward) {
           mainStream.add(true);
           searchBarStream.add(true);
@@ -78,7 +83,8 @@ class _ZonePageState extends State<ZonePage> with AutomaticKeepAliveClientMixin 
         slivers: [
           SliverPadding(
             // 单列布局 EdgeInsets.zero
-            padding: const EdgeInsets.fromLTRB(0, StyleString.safeSpace - 5, 0, 0),
+            padding:
+                const EdgeInsets.fromLTRB(0, StyleString.safeSpace - 5, 0, 0),
             sliver: FutureBuilder(
               future: _futureBuilderFuture,
               builder: (context, snapshot) {
@@ -103,8 +109,11 @@ class _ZonePageState extends State<ZonePage> with AutomaticKeepAliveClientMixin 
                               videoItem: _zoneController.videoList[index],
                               showPubdate: true,
                               longPress: () {
-                                _zoneController.popupDialog = _createPopupDialog(_zoneController.videoList[index]);
-                                Overlay.of(context).insert(_zoneController.popupDialog!);
+                                _zoneController.popupDialog =
+                                    _createPopupDialog(
+                                        _zoneController.videoList[index]);
+                                Overlay.of(context)
+                                    .insert(_zoneController.popupDialog!);
                               },
                               longPressEnd: () {
                                 _zoneController.popupDialog?.remove();
@@ -121,7 +130,8 @@ class _ZonePageState extends State<ZonePage> with AutomaticKeepAliveClientMixin 
                       errMsg: data['msg'],
                       fn: () {
                         setState(() {
-                          _futureBuilderFuture = _zoneController.queryRankFeed('init', widget.rid);
+                          _futureBuilderFuture =
+                              _zoneController.queryRankFeed('init', widget.rid);
                         });
                       },
                     );
@@ -152,7 +162,8 @@ class _ZonePageState extends State<ZonePage> with AutomaticKeepAliveClientMixin 
     return OverlayEntry(
       builder: (context) => AnimatedDialog(
         closeFn: _zoneController.popupDialog?.remove,
-        child: OverlayPop(videoItem: videoItem, closeFn: _zoneController.popupDialog?.remove),
+        child: OverlayPop(
+            videoItem: videoItem, closeFn: _zoneController.popupDialog?.remove),
       ),
     );
   }

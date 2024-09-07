@@ -6,6 +6,7 @@ import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/overlay_pop.dart';
 import 'package:pilipala/common/widgets/video_card_h.dart';
 import './controller.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class RelatedVideoPanel extends StatefulWidget {
   const RelatedVideoPanel({super.key});
@@ -26,7 +27,7 @@ class _RelatedVideoPanelState extends State<RelatedVideoPanel>
   void initState() {
     super.initState();
     _releatedController =
-        Get.put(ReleatedController(), tag: Get.arguments?['heroTag']);
+        Get.put(ReleatedController(), tag: getArguments?['heroTag']);
     _futureBuilder = _releatedController.queryRelatedVideo();
   }
 

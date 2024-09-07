@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/models/dynamics/up.dart';
 import 'package:pilipala/models/live/item.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/dynamics/controller.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/utils.dart';
@@ -53,7 +54,7 @@ class _UpPanelState extends State<UpPanel> {
                     GestureDetector(
                       onTap: () {
                         feedBack();
-                        Get.toNamed('/follow?mid=${userInfo.mid}');
+                        getToNamed('/follow?mid=${userInfo.mid}');
                       },
                       child: Container(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -151,7 +152,7 @@ class _UpPanelState extends State<UpPanel> {
             'face': data.face,
             'roomid': data.roomId,
           });
-          Get.toNamed(
+          getToNamed(
             '/liveRoom?roomid=${data.roomId}',
             arguments: {'liveItem': liveItem},
           );
@@ -163,7 +164,7 @@ class _UpPanelState extends State<UpPanel> {
           return;
         }
         String heroTag = Utils.makeHeroTag(data.mid);
-        Get.toNamed('/member?mid=${data.mid}',
+        getToNamed('/member?mid=${data.mid}',
             arguments: {'face': data.face, 'heroTag': heroTag});
       },
       child: Padding(

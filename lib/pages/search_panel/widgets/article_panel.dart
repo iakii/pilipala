@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 Widget searchArticlePanel(BuildContext context, ctr, list) {
@@ -14,7 +14,7 @@ Widget searchArticlePanel(BuildContext context, ctr, list) {
     itemBuilder: (context, index) {
       return InkWell(
         onTap: () {
-          Get.toNamed('/htmlRender', parameters: {
+          getToNamed('/htmlRender', parameters: {
             'url': 'www.bilibili.com/read/cv${list[index].id}',
             'title': list[index].subTitle,
             'id': 'cv${list[index].id}',

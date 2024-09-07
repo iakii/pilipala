@@ -6,6 +6,7 @@ import 'package:pilipala/utils/utils.dart';
 
 import '../../common/widgets/http_error.dart';
 import '../dynamics/widgets/dynamic_panel.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberDynamicsPage extends StatefulWidget {
   const MemberDynamicsPage({super.key});
@@ -23,7 +24,7 @@ class _MemberDynamicsPageState extends State<MemberDynamicsPage> {
   @override
   void initState() {
     super.initState();
-    mid = int.parse(Get.parameters['mid']!);
+    mid = int.parse(getParameters['mid']!);
     final String heroTag = Utils.makeHeroTag(mid);
     _memberDynamicController =
         Get.put(MemberDynamicsController(), tag: heroTag);

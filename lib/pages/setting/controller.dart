@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/init.dart';
 import 'package:pilipala/models/common/theme_type.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/login.dart';
 import 'package:pilipala/utils/storage.dart';
@@ -32,12 +33,19 @@ class SettingController extends GetxController {
     super.onInit();
     userInfo = userInfoCache.get('userInfoCache');
     userLogin.value = userInfo != null;
-    feedBackEnable.value = setting.get(SettingBoxKey.feedBackEnable, defaultValue: false);
-    toastOpacity.value = setting.get(SettingBoxKey.defaultToastOp, defaultValue: 1.0);
-    picQuality.value = setting.get(SettingBoxKey.defaultPicQa, defaultValue: 10);
-    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode, defaultValue: ThemeType.system.code)];
-    dynamicBadgeType.value = DynamicBadgeMode.values[setting.get(SettingBoxKey.dynamicBadgeMode, defaultValue: DynamicBadgeMode.number.code)];
-    defaultHomePage.value = setting.get(SettingBoxKey.defaultHomePage, defaultValue: 0);
+    feedBackEnable.value =
+        setting.get(SettingBoxKey.feedBackEnable, defaultValue: false);
+    toastOpacity.value =
+        setting.get(SettingBoxKey.defaultToastOp, defaultValue: 1.0);
+    picQuality.value =
+        setting.get(SettingBoxKey.defaultPicQa, defaultValue: 10);
+    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode,
+        defaultValue: ThemeType.system.code)];
+    dynamicBadgeType.value = DynamicBadgeMode.values[setting.get(
+        SettingBoxKey.dynamicBadgeMode,
+        defaultValue: DynamicBadgeMode.number.code)];
+    defaultHomePage.value =
+        setting.get(SettingBoxKey.defaultHomePage, defaultValue: 0);
   }
 
   loginOut() async {
@@ -61,10 +69,11 @@ class SettingController extends GetxController {
 
                 // 清空本地存储的用户标识
                 userInfoCache.put('userInfoCache', null);
-                localCache.put(LocalCacheKey.accessKey, {'mid': -1, 'value': ''});
+                localCache
+                    .put(LocalCacheKey.accessKey, {'mid': -1, 'value': ''});
 
                 await LoginUtils.refreshLoginStatus(false);
-                SmartDialog.dismiss().then((value) => Get.back());
+                SmartDialog.dismiss().then((value) => getBack());
               },
               child: const Text('确认'),
             )
@@ -99,7 +108,8 @@ class SettingController extends GetxController {
       dynamicBadgeType.value = result;
       setting.put(SettingBoxKey.dynamicBadgeMode, result.code);
       MainController mainController = Get.put(MainController());
-      mainController.dynamicBadgeType.value = DynamicBadgeMode.values[result.code];
+      mainController.dynamicBadgeType.value =
+          DynamicBadgeMode.values[result.code];
       if (mainController.dynamicBadgeType.value != DynamicBadgeMode.hidden) {
         mainController.getUnreadDynamic();
       }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/mine/view.dart';
 import 'package:pilipala/utils/storage.dart';
 
@@ -44,7 +44,7 @@ class HomeAppBar extends StatelessWidget {
                       tag: 'searchTag',
                       child: IconButton(
                         onPressed: () {
-                          Get.toNamed('/search');
+                          getToNamed('/search');
                         },
                         icon: const Icon(CupertinoIcons.search, size: 22),
                       ),

@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 class IntroDetail extends StatelessWidget {
@@ -79,7 +79,7 @@ class IntroDetail extends StatelessWidget {
                   ..onTap = () {
                     // 处理点击事件
                     try {
-                      Get.toNamed(
+                      getToNamed(
                         '/webview',
                         parameters: {
                           'url': match.group(0)!,
@@ -112,7 +112,7 @@ class IntroDetail extends StatelessWidget {
             style: TextStyle(color: colorSchemePrimary),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.toNamed(
+                getToNamed(
                   '/member?mid=${currentDesc.bizId}',
                   arguments: {'face': '', 'heroTag': heroTag},
                 );

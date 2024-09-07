@@ -130,7 +130,8 @@ class LoginPageController extends GetxController {
           SmartDialog.showToast('验证成功');
           captchaData.validate = message['result']['geetest_validate'];
           captchaData.seccode = message['result']['geetest_seccode'];
-          captchaData.geetest!.challenge = message['result']['geetest_challenge'];
+          captchaData.geetest!.challenge =
+              message['result']['geetest_challenge'];
           oncall(captchaData);
         } else {
           // 终端用户完成验证失败，自动重试 If the verification fails, it will be automatically retried.

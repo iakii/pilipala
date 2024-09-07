@@ -5,6 +5,8 @@ import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/user/fav_detail.dart';
 import 'package:pilipala/models/user/fav_folder.dart';
 
+import 'package:pilipala/pages/desktop/index.dart';
+
 class FavDetailController extends GetxController {
   FavFolderItemData? item;
   Rx<FavDetailData> favDetailData = FavDetailData().obs;
@@ -20,10 +22,10 @@ class FavDetailController extends GetxController {
 
   @override
   void onInit() {
-    item = Get.arguments;
-    if (Get.parameters.keys.isNotEmpty) {
-      mediaId = int.parse(Get.parameters['mediaId']!);
-      heroTag = Get.parameters['heroTag']!;
+    item = getArguments;
+    if (getParameters.keys.isNotEmpty) {
+      mediaId = int.parse(getParameters['mediaId']!);
+      heroTag = getParameters['heroTag']!;
     }
     super.onInit();
   }

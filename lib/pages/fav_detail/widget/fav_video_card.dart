@@ -6,6 +6,7 @@ import 'package:pilipala/common/widgets/stat/view.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/common/search_type.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'package:pilipala/utils/utils.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
@@ -54,7 +55,7 @@ class FavVideoCardH extends StatelessWidget {
         // if (seasonId != null) {
         //   parameters['seasonId'] = seasonId.toString();
         // }
-        Get.toNamed('/video', parameters: parameters, arguments: {
+        getToNamed('/video', parameters: parameters, arguments: {
           'videoItem': videoItem,
           'heroTag': heroTag,
           'videoType':
@@ -221,7 +222,7 @@ class VideoContent extends StatelessWidget {
                               content: const Text('要取消收藏吗?'),
                               actions: [
                                 TextButton(
-                                    onPressed: () => Get.back(),
+                                    onPressed: () => getBack(),
                                     child: Text(
                                       '取消',
                                       style: TextStyle(
@@ -232,7 +233,7 @@ class VideoContent extends StatelessWidget {
                                 TextButton(
                                   onPressed: () async {
                                     await callFn!();
-                                    Get.back();
+                                    getBack();
                                   },
                                   child: const Text('确定取消'),
                                 )

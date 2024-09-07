@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
 import 'package:pilipala/models/fans/result.dart';
-
+import 'package:pilipala/pages/desktop/index.dart';
 import 'controller.dart';
 import 'widgets/fan_item.dart';
 
@@ -24,7 +24,7 @@ class _FansPageState extends State<FansPage> {
   @override
   void initState() {
     super.initState();
-    mid = Get.parameters['mid']!;
+    mid = getParameters['mid']!;
     _fansController = Get.put(FansController(), tag: mid);
     _futureBuilderFuture = _fansController.queryFans('init');
     scrollController.addListener(

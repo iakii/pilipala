@@ -1,7 +1,7 @@
 // 转发
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 import 'additional_panel.dart';
@@ -25,7 +25,7 @@ Widget forWard(item, context, ctr, source, {floor = 1}) {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () => Get.toNamed(
+                  onTap: () => getToNamed(
                       '/member?mid=${item.modules.moduleAuthor.mid}',
                       arguments: {'face': item.modules.moduleAuthor.face}),
                   child: Text(
@@ -118,7 +118,7 @@ Widget forWard(item, context, ctr, source, {floor = 1}) {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () => Get.toNamed(
+                      onTap: () => getToNamed(
                           '/member?mid=${item.modules.moduleAuthor.mid}',
                           arguments: {'face': item.modules.moduleAuthor.face}),
                       child: Text(

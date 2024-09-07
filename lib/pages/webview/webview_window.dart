@@ -14,16 +14,19 @@ import 'package:pilipala/utils/login.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:window_manager/window_manager.dart';
 
-class WebLogin {
-  static Future<void> login() async {
+class DesktopWebview {
+  static Future<void> login(String? url, String? type, String? title) async {
     final webview = await WebviewWindow.create(
       configuration: CreateConfiguration(
         windowHeight: 667,
         windowWidth: 375,
-        title: '登录bilibili',
+        title: title ?? 'bilibili',
         titleBarHeight: kWindowCaptionHeight.toInt(),
       ),
     );
+
+    getLogger().d("url  $url  type  $type  title  $title");
+
     webview
       ..setApplicationNameForUserAgent(Request().headerUa())
       ..openDevToolsWindow()
@@ -31,12 +34,17 @@ class WebLogin {
         getLogger().d("addOnWebMessageReceivedCallback  $message");
       })
       ..setOnUrlRequestCallback((url) {
-        if (url.startsWith('https://passport.bilibili.com/web/sso/exchange_cookie') || url.startsWith('https://m.bilibili.com/')) {
+        if (type != "login") return true;
+        if (url.startsWith(
+                'https://passport.bilibili.com/web/sso/exchange_cookie') ||
+            url.startsWith('https://m.bilibili.com/')) {
           webview.getAllCookies().then((cookies) async {
             // getLogger().e(cookies.map((e) => e.toJson()).toList());
-
+            webview.close();
             if (cookies.isNotEmpty) {
-              var cookieString = cookies.map((cookie) => '${cookie.name}=${cookie.value}').join('; ');
+              var cookieString = cookies
+                  .map((cookie) => '${cookie.name}=${cookie.value}')
+                  .join('; ');
 
               Request.dio.options.headers['cookie'] = cookieString;
 
@@ -46,7 +54,7 @@ class WebLogin {
         }
         return true;
       })
-      ..launch('https://passport.bilibili.com/h5-app/passport/login');
+      ..launch(url!);
   }
 
   static Future<void> confirmLogin(url, Webview webview) async {
@@ -67,8 +75,12 @@ class WebLogin {
           homeCtr.userFace.value = result['data'].face;
           await LoginUtils.refreshLoginStatus(true);
 
-          final MediaController mediaCtr = Get.find<MediaController>();
-          mediaCtr.mid = result['data'].mid;
+          try {
+            final MediaController mediaCtr = Get.find<MediaController>();
+            mediaCtr.mid = result['data'].mid;
+          } catch (e) {
+            debugPrint(e.toString());
+          }
         } catch (err) {
           SmartDialog.show(builder: (BuildContext context) {
             return AlertDialog(
@@ -76,7 +88,9 @@ class WebLogin {
               content: Text(err.toString()),
               actions: [
                 TextButton(
-                  onPressed: () => webview.reload(),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: const Text('确认'),
                 )
               ],

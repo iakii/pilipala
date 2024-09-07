@@ -6,6 +6,7 @@ import 'package:pilipala/http/msg.dart';
 import 'package:pilipala/models/msg/session.dart';
 import '../../utils/feed_back.dart';
 import '../../utils/storage.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class WhisperDetailController extends GetxController {
   late int talkerId;
@@ -21,10 +22,10 @@ class WhisperDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    talkerId = int.parse(Get.parameters['talkerId']!);
-    name = Get.parameters['name']!;
-    face = Get.parameters['face']!;
-    mid = Get.parameters['mid']!;
+    talkerId = int.parse(getParameters['talkerId']!);
+    name = getParameters['name']!;
+    face = getParameters['face']!;
+    mid = getParameters['mid']!;
   }
 
   Future querySessionMsg() async {

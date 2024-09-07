@@ -7,6 +7,7 @@ import 'package:pilipala/models/common/reply_sort_type.dart';
 import 'package:pilipala/models/video/reply/item.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class DynamicDetailController extends GetxController {
   DynamicDetailController(this.oid, this.type);
@@ -29,8 +30,8 @@ class DynamicDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    item = Get.arguments['item'];
-    floor = Get.arguments['floor'];
+    item = getArguments['item'];
+    floor = getArguments['floor'];
     if (floor == 1) {
       acount.value =
           int.parse(item!.modules!.moduleStat!.comment!.count ?? '0');

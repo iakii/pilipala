@@ -11,6 +11,7 @@ import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/models/common/business_type.dart';
 import 'package:pilipala/models/common/search_type.dart';
 import 'package:pilipala/models/live/item.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/history_search/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/id_utils.dart';
@@ -45,7 +46,7 @@ class HistoryItem extends StatelessWidget {
           int cid = videoItem.history.cid ??
               // videoItem.history.oid ??
               await SearchHttp.ab2c(aid: aid, bvid: bvid);
-          Get.toNamed(
+          getToNamed(
             '/webview',
             parameters: {
               'url': 'https://www.bilibili.com/read/cv$cid',
@@ -63,7 +64,7 @@ class HistoryItem extends StatelessWidget {
               'uname': videoItem.authorName,
               'cover': videoItem.cover,
             });
-            Get.toNamed(
+            getToNamed(
               '/liveRoom?roomid=${videoItem.history.oid}',
               arguments: {'liveItem': liveItem},
             );
@@ -83,7 +84,7 @@ class HistoryItem extends StatelessWidget {
               String heroTag = Utils.makeHeroTag(cid);
               var epid = result['data'].epId;
               if (epid != null) {
-                Get.toNamed(
+                getToNamed(
                   '/video?bvid=$bvid&cid=$cid&epId=${result['data'].epId}',
                   arguments: {
                     'pic': pic,
@@ -95,7 +96,7 @@ class HistoryItem extends StatelessWidget {
                 int cid = videoItem.history.cid ??
                     // videoItem.history.oid ??
                     await SearchHttp.ab2c(aid: aid, bvid: bvid);
-                Get.toNamed('/video?bvid=$bvid&cid=$cid',
+                getToNamed('/video?bvid=$bvid&cid=$cid',
                     arguments: {'heroTag': heroTag, 'pic': videoItem.cover});
               }
             }
@@ -111,7 +112,7 @@ class HistoryItem extends StatelessWidget {
                 int cid = episode.cid!;
                 String pic = episode.cover!;
                 String heroTag = Utils.makeHeroTag(cid);
-                Get.toNamed(
+                getToNamed(
                   '/video?bvid=$bvid&cid=$cid&seasonId=${res['data'].seasonId}',
                   arguments: {
                     'pic': pic,
@@ -127,7 +128,7 @@ class HistoryItem extends StatelessWidget {
           int cid = videoItem.history.cid ??
               // videoItem.history.oid ??
               await SearchHttp.ab2c(aid: aid, bvid: bvid);
-          Get.toNamed('/video?bvid=$bvid&cid=$cid',
+          getToNamed('/video?bvid=$bvid&cid=$cid',
               arguments: {'heroTag': heroTag, 'pic': videoItem.cover});
         }
       },

@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 import 'controller.dart';
@@ -42,6 +43,10 @@ class _WhisperPageState extends State<WhisperPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('消息'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => getBack(),
+        ),
       ),
       body: Column(
         children: [
@@ -124,7 +129,7 @@ class _WhisperPageState extends State<WhisperPage> {
                                           onTap: () {
                                             sessionList[i].unreadCount = 0;
                                             sessionList.refresh();
-                                            Get.toNamed(
+                                            getToNamed(
                                               '/whisperDetail',
                                               parameters: {
                                                 'talkerId': sessionList[i]

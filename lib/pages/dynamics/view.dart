@@ -199,93 +199,99 @@ class _DynamicsPageState extends State<DynamicsPage>
       ),
       body: RefreshIndicator(
         onRefresh: () => _dynamicsController.onRefresh(),
-        child: CustomScrollView(
-          controller: _dynamicsController.scrollController,
-          slivers: [
-            FutureBuilder(
-              future: _futureBuilderFutureUp,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.data == null) {
-                    return const SliverToBoxAdapter(child: SizedBox());
-                  }
-                  Map data = snapshot.data;
-                  if (data['status']) {
-                    return Obx(() => UpPanel(_dynamicsController.upData.value));
-                  } else {
-                    return const SliverToBoxAdapter(
-                      child: SizedBox(height: 80),
-                    );
-                  }
-                } else {
-                  return const SliverToBoxAdapter(
-                      child: SizedBox(
-                    height: 90,
-                    child: UpPanelSkeleton(),
-                  ));
-                }
-              },
+        child: Center(
+          child: SizedBox(
+            width: 728,
+            child: CustomScrollView(
+              controller: _dynamicsController.scrollController,
+              slivers: [
+                FutureBuilder(
+                  future: _futureBuilderFutureUp,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.data == null) {
+                        return const SliverToBoxAdapter(child: SizedBox());
+                      }
+                      Map data = snapshot.data;
+                      if (data['status']) {
+                        return Obx(
+                            () => UpPanel(_dynamicsController.upData.value));
+                      } else {
+                        return const SliverToBoxAdapter(
+                          child: SizedBox(height: 80),
+                        );
+                      }
+                    } else {
+                      return const SliverToBoxAdapter(
+                          child: SizedBox(
+                        height: 90,
+                        child: UpPanelSkeleton(),
+                      ));
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _futureBuilderFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.data == null) {
+                        return const SliverToBoxAdapter(child: SizedBox());
+                      }
+                      Map data = snapshot.data;
+                      if (data['status']) {
+                        List<DynamicItemModel> list =
+                            _dynamicsController.dynamicsList;
+                        return Obx(
+                          () {
+                            if (list.isEmpty) {
+                              if (_dynamicsController.isLoadingDynamic.value) {
+                                return skeleton();
+                              } else {
+                                return const NoData();
+                              }
+                            } else {
+                              return SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
+                                    return DynamicPanel(item: list[index]);
+                                  },
+                                  childCount: list.length,
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      } else if (data['msg'] == "账号未登录") {
+                        return HttpError(
+                          errMsg: data['msg'],
+                          btnText: "去登录",
+                          fn: () {
+                            mineController.onLogin();
+                          },
+                        );
+                      } else {
+                        return HttpError(
+                          errMsg: data['msg'],
+                          fn: () {
+                            setState(() {
+                              _futureBuilderFuture =
+                                  _dynamicsController.queryFollowDynamic();
+                              _futureBuilderFutureUp =
+                                  _dynamicsController.queryFollowUp();
+                            });
+                          },
+                        );
+                      }
+                    } else {
+                      // 骨架屏
+                      return skeleton();
+                    }
+                  },
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 40))
+              ],
             ),
-            FutureBuilder(
-              future: _futureBuilderFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.data == null) {
-                    return const SliverToBoxAdapter(child: SizedBox());
-                  }
-                  Map data = snapshot.data;
-                  if (data['status']) {
-                    List<DynamicItemModel> list =
-                        _dynamicsController.dynamicsList;
-                    return Obx(
-                      () {
-                        if (list.isEmpty) {
-                          if (_dynamicsController.isLoadingDynamic.value) {
-                            return skeleton();
-                          } else {
-                            return const NoData();
-                          }
-                        } else {
-                          return SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                return DynamicPanel(item: list[index]);
-                              },
-                              childCount: list.length,
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  } else if (data['msg'] == "账号未登录") {
-                    return HttpError(
-                      errMsg: data['msg'],
-                      btnText: "去登录",
-                      fn: () {
-                        mineController.onLogin();
-                      },
-                    );
-                  } else {
-                    return HttpError(
-                      errMsg: data['msg'],
-                      fn: () {
-                        setState(() {
-                          _futureBuilderFuture =
-                              _dynamicsController.queryFollowDynamic();
-                          _futureBuilderFutureUp =
-                              _dynamicsController.queryFollowUp();
-                        });
-                      },
-                    );
-                  }
-                } else {
-                  // 骨架屏
-                  return skeleton();
-                }
-              },
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: 40))
-          ],
+          ),
         ),
       ),
     );

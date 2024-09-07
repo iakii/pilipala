@@ -80,11 +80,17 @@ class _LaterPageState extends State<LaterPage> {
                 Map data = snapshot.data as Map;
                 if (data['status']) {
                   return Obx(
-                    () => _laterController.laterList.isNotEmpty && !_laterController.isLoading.value
+                    () => _laterController.laterList.isNotEmpty &&
+                            !_laterController.isLoading.value
                         ? SliverList(
-                            delegate: SliverChildBuilderDelegate((context, index) {
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
                               var videoItem = _laterController.laterList[index];
-                              return VideoCardH(videoItem: videoItem, source: 'later', longPress: () => _laterController.toViewDel(aid: videoItem.aid));
+                              return VideoCardH(
+                                  videoItem: videoItem,
+                                  source: 'later',
+                                  longPress: () => _laterController.toViewDel(
+                                      aid: videoItem.aid));
                             }, childCount: _laterController.laterList.length),
                           )
                         : _laterController.isLoading.value

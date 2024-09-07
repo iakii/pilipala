@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/models/live/item.dart';
 import 'package:pilipala/models/member/info.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
 class ProfilePanel extends StatelessWidget {
@@ -50,7 +51,7 @@ class ProfilePanel extends StatelessWidget {
                               'roomid': memberInfo.liveRoom!.roomId,
                               'watched_show': memberInfo.liveRoom!.watchedShow,
                             });
-                            Get.toNamed(
+                            getToNamed(
                               '/liveRoom?roomid=${memberInfo.liveRoom!.roomId}',
                               arguments: {'liveItem': liveItem},
                             );
@@ -97,7 +98,7 @@ class ProfilePanel extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.toNamed(
+                              getToNamed(
                                   '/follow?mid=${memberInfo.mid}&name=${memberInfo.name}');
                             },
                             child: Column(
@@ -122,7 +123,7 @@ class ProfilePanel extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(
+                              getToNamed(
                                   '/fan?mid=${memberInfo.mid}&name=${memberInfo.name}');
                             },
                             child: Column(

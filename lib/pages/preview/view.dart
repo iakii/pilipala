@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/download.dart';
 import 'package:status_bar_control/status_bar_control.dart';
 
@@ -27,7 +28,8 @@ class ImagePreview extends StatefulWidget {
   _ImagePreviewState createState() => _ImagePreviewState();
 }
 
-class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMixin {
+class _ImagePreviewState extends State<ImagePreview>
+    with TickerProviderStateMixin {
   final PreviewController _previewController = Get.put(PreviewController());
   // late AnimationController animationController;
   late AnimationController _doubleClickAnimationController;
@@ -48,7 +50,8 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
     // animationController = AnimationController(
     //     vsync: this, duration: const Duration(milliseconds: 400));
     setStatusBar();
-    _doubleClickAnimationController = AnimationController(duration: const Duration(milliseconds: 250), vsync: this);
+    _doubleClickAnimationController = AnimationController(
+        duration: const Duration(milliseconds: 250), vsync: this);
   }
 
   onOpenMenu() {
@@ -64,15 +67,17 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
               ListTile(
                 onTap: () {
                   _previewController.onShareImg();
-                  Get.back();
+                  getBack();
                 },
                 dense: true,
                 title: const Text('分享', style: TextStyle(fontSize: 14)),
               ),
               ListTile(
                 onTap: () {
-                  Clipboard.setData(ClipboardData(text: _previewController.currentImgUrl)).then((value) {
-                    Get.back();
+                  Clipboard.setData(
+                          ClipboardData(text: _previewController.currentImgUrl))
+                      .then((value) {
+                    getBack();
                     SmartDialog.showToast('已复制到粘贴板');
                   }).catchError((err) {
                     SmartDialog.showNotify(
@@ -86,7 +91,7 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
               ),
               ListTile(
                 onTap: () {
-                  Get.back();
+                  getBack();
                   DownloadUtils.downloadImg(_previewController.currentImgUrl);
                 },
                 dense: true,
@@ -102,7 +107,8 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
   // 隐藏状态栏，避免遮挡图片内容
   setStatusBar() async {
     if (Platform.isIOS || Platform.isAndroid) {
-      await StatusBarControl.setHidden(true, animation: StatusBarAnimation.SLIDE);
+      await StatusBarControl.setHidden(true,
+          animation: StatusBarAnimation.SLIDE);
     }
   }
 
@@ -139,7 +145,8 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
                 pageSpacing: 0,
               ),
               onPageChanged: (int index) => _previewController.onChange(index),
-              canScrollPage: (GestureDetails? gestureDetails) => gestureDetails!.totalScale! <= 1.0,
+              canScrollPage: (GestureDetails? gestureDetails) =>
+                  gestureDetails!.totalScale! <= 1.0,
               itemCount: widget.imgList!.length,
               itemBuilder: (BuildContext context, int index) {
                 return ExtendedImage.network(
@@ -147,12 +154,14 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
                   fit: BoxFit.contain,
                   mode: ExtendedImageMode.gesture,
                   onDoubleTap: (ExtendedImageGestureState state) {
-                    final Offset? pointerDownPosition = state.pointerDownPosition;
+                    final Offset? pointerDownPosition =
+                        state.pointerDownPosition;
                     final double? begin = state.gestureDetails!.totalScale;
                     double end;
 
                     //remove old
-                    _doubleClickAnimation?.removeListener(_doubleClickAnimationListener);
+                    _doubleClickAnimation
+                        ?.removeListener(_doubleClickAnimationListener);
 
                     //stop pre
                     _doubleClickAnimationController.stop();
@@ -173,19 +182,28 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
                     }
 
                     _doubleClickAnimationListener = () {
-                      state.handleDoubleTap(scale: _doubleClickAnimation!.value, doubleTapPosition: pointerDownPosition);
+                      state.handleDoubleTap(
+                          scale: _doubleClickAnimation!.value,
+                          doubleTapPosition: pointerDownPosition);
                     };
-                    _doubleClickAnimation = _doubleClickAnimationController.drive(Tween<double>(begin: begin, end: end));
+                    _doubleClickAnimation = _doubleClickAnimationController
+                        .drive(Tween<double>(begin: begin, end: end));
 
-                    _doubleClickAnimation!.addListener(_doubleClickAnimationListener);
+                    _doubleClickAnimation!
+                        .addListener(_doubleClickAnimationListener);
 
                     _doubleClickAnimationController.forward();
                   },
                   // ignore: body_might_complete_normally_nullable
                   loadStateChanged: (ExtendedImageState state) {
                     if (state.extendedImageLoadState == LoadState.loading) {
-                      final ImageChunkEvent? loadingProgress = state.loadingProgress;
-                      final double? progress = loadingProgress?.expectedTotalBytes != null ? loadingProgress!.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null;
+                      final ImageChunkEvent? loadingProgress =
+                          state.loadingProgress;
+                      final double? progress =
+                          loadingProgress?.expectedTotalBytes != null
+                              ? loadingProgress!.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null;
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -223,7 +241,10 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
             right: 0,
             bottom: 0,
             child: Container(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: MediaQuery.of(context).padding.bottom + 30),
+                padding: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    bottom: MediaQuery.of(context).padding.bottom + 30),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -242,16 +263,23 @@ class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMix
                         ? Obx(
                             () => Text.rich(
                               textAlign: TextAlign.center,
-                              TextSpan(style: const TextStyle(color: Colors.white, fontSize: 16), children: [
-                                TextSpan(text: _previewController.currentPage.toString()),
-                                const TextSpan(text: ' / '),
-                                TextSpan(text: widget.imgList!.length.toString()),
-                              ]),
+                              TextSpan(
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                  children: [
+                                    TextSpan(
+                                        text: _previewController.currentPage
+                                            .toString()),
+                                    const TextSpan(text: ' / '),
+                                    TextSpan(
+                                        text:
+                                            widget.imgList!.length.toString()),
+                                  ]),
                             ),
                           )
                         : const SizedBox(),
                     IconButton(
-                      onPressed: () => Get.back(),
+                      onPressed: () => getBack(),
                       icon: const Icon(Icons.close, color: Colors.white),
                     ),
                   ],

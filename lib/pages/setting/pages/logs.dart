@@ -32,9 +32,17 @@ class _LogsPageState extends State<LogsPage> {
   }
 
   Future<List<Map<String, dynamic>>> parseLogs(String fileContent) async {
-    const String splitToken = '======================================================================';
+    const String splitToken =
+        '======================================================================';
     List contentList = fileContent.split(splitToken).map((item) {
-      return item.replaceAll('============================== CATCHER 2 LOG ==============================', 'Pilipala错误日志 \n ********************').replaceAll('DEVICE INFO', '设备信息').replaceAll('APP INFO', '应用信息').replaceAll('ERROR', '错误信息').replaceAll('STACK TRACE', '错误堆栈');
+      return item
+          .replaceAll(
+              '============================== CATCHER 2 LOG ==============================',
+              'Pilipala错误日志 \n ********************')
+          .replaceAll('DEVICE INFO', '设备信息')
+          .replaceAll('APP INFO', '应用信息')
+          .replaceAll('ERROR', '错误信息')
+          .replaceAll('STACK TRACE', '错误堆栈');
     }).toList();
     List<Map<String, dynamic>> result = [];
     for (String i in contentList) {

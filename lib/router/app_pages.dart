@@ -116,7 +116,8 @@ class Routes {
     // 动态
     CustomGetPage(name: '/dynamics', page: () => const DynamicsPage()),
     // 动态详情
-    CustomGetPage(name: '/dynamicDetail', page: () => const DynamicDetailPage()),
+    CustomGetPage(
+        name: '/dynamicDetail', page: () => const DynamicDetailPage()),
     // 关注
     CustomGetPage(name: '/follow', page: () => const FollowPage()),
     // 粉丝
@@ -127,9 +128,11 @@ class Routes {
     CustomGetPage(name: '/member', page: () => const MemberPage()),
     CustomGetPage(name: '/memberSearch', page: () => const MemberSearchPage()),
     // 二级回复
-    CustomGetPage(name: '/replyReply', page: () => const VideoReplyReplyPanel()),
+    CustomGetPage(
+        name: '/replyReply', page: () => const VideoReplyReplyPanel()),
     // 推荐设置
-    CustomGetPage(name: '/recommendSetting', page: () => const RecommendSetting()),
+    CustomGetPage(
+        name: '/recommendSetting', page: () => const RecommendSetting()),
     // 播放设置
     CustomGetPage(name: '/playSetting', page: () => const PlaySetting()),
     // 外观设置
@@ -143,15 +146,18 @@ class Routes {
     CustomGetPage(name: '/colorSetting', page: () => const ColorSelectPage()),
     // 首页tabbar
     CustomGetPage(name: '/tabbarSetting', page: () => const TabbarSetPage()),
-    CustomGetPage(name: '/fontSizeSetting', page: () => const FontSizeSelectPage()),
+    CustomGetPage(
+        name: '/fontSizeSetting', page: () => const FontSizeSelectPage()),
     // 屏幕帧率
-    CustomGetPage(name: '/displayModeSetting', page: () => const SetDiaplayMode()),
+    CustomGetPage(
+        name: '/displayModeSetting', page: () => const SetDiaplayMode()),
     // 关于
     CustomGetPage(name: '/about', page: () => const AboutPage()),
     //
     CustomGetPage(name: '/htmlRender', page: () => const HtmlRenderPage()),
     // 历史记录搜索
-    CustomGetPage(name: '/historySearch', page: () => const HistorySearchPage()),
+    CustomGetPage(
+        name: '/historySearch', page: () => const HistorySearchPage()),
 
     CustomGetPage(name: '/playSpeedSet', page: () => const PlaySpeedPage()),
     // 收藏搜索
@@ -159,19 +165,23 @@ class Routes {
     // 消息页面
     CustomGetPage(name: '/whisper', page: () => const WhisperPage()),
     // 私信详情
-    CustomGetPage(name: '/whisperDetail', page: () => const WhisperDetailPage()),
+    CustomGetPage(
+        name: '/whisperDetail', page: () => const WhisperDetailPage()),
     // 登录页面
     CustomGetPage(name: '/loginPage', page: () => const LoginPage()),
     // 用户动态
-    CustomGetPage(name: '/memberDynamics', page: () => const MemberDynamicsPage()),
+    CustomGetPage(
+        name: '/memberDynamics', page: () => const MemberDynamicsPage()),
     // 用户投稿
-    CustomGetPage(name: '/memberArchive', page: () => const MemberArchivePage()),
+    CustomGetPage(
+        name: '/memberArchive', page: () => const MemberArchivePage()),
     // 用户最近投币
     CustomGetPage(name: '/memberCoin', page: () => const MemberCoinPage()),
     // 用户最近喜欢
     CustomGetPage(name: '/memberLike', page: () => const MemberLikePage()),
     // 用户专栏
-    CustomGetPage(name: '/memberSeasons', page: () => const MemberSeasonsPage()),
+    CustomGetPage(
+        name: '/memberSeasons', page: () => const MemberSeasonsPage()),
     // 日志
     CustomGetPage(name: '/logs', page: () => const LogsPage()),
     // 搜索关注
@@ -181,7 +191,8 @@ class Routes {
     // 订阅详情
     CustomGetPage(name: '/subDetail', page: () => const SubDetailPage()),
     // 播放器手势
-    CustomGetPage(name: '/playerGestureSet', page: () => const PlayGesturePage()),
+    CustomGetPage(
+        name: '/playerGestureSet', page: () => const PlayGesturePage()),
   ];
 
   // static final List<GetPage<dynamic>> desktopPages = [

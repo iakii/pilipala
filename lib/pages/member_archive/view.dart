@@ -5,6 +5,7 @@ import 'package:pilipala/common/widgets/video_card_h.dart';
 import 'package:pilipala/utils/utils.dart';
 import '../../common/widgets/http_error.dart';
 import 'controller.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberArchivePage extends StatefulWidget {
   const MemberArchivePage({super.key});
@@ -22,7 +23,7 @@ class _MemberArchivePageState extends State<MemberArchivePage> {
   @override
   void initState() {
     super.initState();
-    mid = int.parse(Get.parameters['mid']!);
+    mid = int.parse(getParameters['mid']!);
     final String heroTag = Utils.makeHeroTag(mid);
     _memberArchivesController =
         Get.put(MemberArchiveController(), tag: heroTag);

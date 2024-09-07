@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/member/index.dart';
 import 'package:pilipala/utils/utils.dart';
 
@@ -33,8 +34,8 @@ class _MemberPageState extends State<MemberPage>
   @override
   void initState() {
     super.initState();
-    mid = int.parse(Get.parameters['mid']!);
-    heroTag = Get.arguments['heroTag'] ?? Utils.makeHeroTag(mid);
+    mid = int.parse(getParameters['mid']!);
+    heroTag = getArguments['heroTag'] ?? Utils.makeHeroTag(mid);
     _memberController = Get.put(MemberController(), tag: heroTag);
     _futureBuilderFuture = _memberController.getInfo();
     _memberSeasonsFuture = _memberController.getMemberSeasons();
@@ -103,7 +104,7 @@ class _MemberPageState extends State<MemberPage>
             ),
             actions: [
               IconButton(
-                onPressed: () => Get.toNamed(
+                onPressed: () => getToNamed(
                     '/memberSearch?mid=$mid&uname=${_memberController.memberInfo.value.name!}'),
                 icon: const Icon(Icons.search_outlined),
               ),

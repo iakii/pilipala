@@ -69,7 +69,10 @@ class WebviewController extends GetxController {
           onUrlChange: (UrlChange urlChange) async {
             loadShow.value = false;
             String url = urlChange.url ?? '';
-            if (type.value == 'login' && (url.startsWith('https://passport.bilibili.com/web/sso/exchange_cookie') || url.startsWith('https://m.bilibili.com/'))) {
+            if (type.value == 'login' &&
+                (url.startsWith(
+                        'https://passport.bilibili.com/web/sso/exchange_cookie') ||
+                    url.startsWith('https://m.bilibili.com/'))) {
               confirmLogin(url);
             }
           },
@@ -127,7 +130,7 @@ class WebviewController extends GetxController {
             );
           });
         }
-        Get.back();
+        getBack();
       } else {
         // 获取用户信息失败
         SmartDialog.showToast(result['msg']);

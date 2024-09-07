@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
+
 import '../../http/search.dart';
 import '../../http/user.dart';
 import '../../http/video.dart';
@@ -61,17 +62,24 @@ class VideoCardH extends StatelessWidget {
               SmartDialog.showToast('课堂视频暂不支持播放');
               return;
             }
-            final int cid = videoItem.cid ?? await SearchHttp.ab2c(aid: aid, bvid: bvid);
-            Get.toNamed('/video?bvid=$bvid&cid=$cid', arguments: {'videoItem': videoItem, 'heroTag': heroTag});
+            final int cid =
+                videoItem.cid ?? await SearchHttp.ab2c(aid: aid, bvid: bvid);
+            getToNamed('/video?bvid=$bvid&cid=$cid',
+                arguments: {'videoItem': videoItem, 'heroTag': heroTag});
           } catch (err) {
             SmartDialog.showToast(err.toString());
           }
         },
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(StyleString.safeSpace, 5, StyleString.safeSpace, 5),
+          padding: const EdgeInsets.fromLTRB(
+              StyleString.safeSpace, 5, StyleString.safeSpace, 5),
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints boxConstraints) {
-              final double width = (boxConstraints.maxWidth - StyleString.cardSpace * 6 / MediaQuery.textScalerOf(context).scale(1.0)) / 2;
+              final double width = (boxConstraints.maxWidth -
+                      StyleString.cardSpace *
+                          6 /
+                          MediaQuery.textScalerOf(context).scale(1.0)) /
+                  2;
               return Container(
                 constraints: const BoxConstraints(minHeight: 88),
                 height: width / StyleString.aspectRatio,
@@ -82,7 +90,8 @@ class VideoCardH extends StatelessWidget {
                     AspectRatio(
                       aspectRatio: StyleString.aspectRatio,
                       child: LayoutBuilder(
-                        builder: (BuildContext context, BoxConstraints boxConstraints) {
+                        builder: (BuildContext context,
+                            BoxConstraints boxConstraints) {
                           final double maxWidth = boxConstraints.maxWidth;
                           final double maxHeight = boxConstraints.maxHeight;
                           return Stack(
@@ -168,7 +177,8 @@ class VideoContent extends StatelessWidget {
               Text(
                 videoItem.title as String,
                 textAlign: TextAlign.start,
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -183,7 +193,9 @@ class VideoContent extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           letterSpacing: 0.3,
-                          color: i['type'] == 'em' ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface,
+                          color: i['type'] == 'em'
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ]
@@ -212,7 +224,8 @@ class VideoContent extends StatelessWidget {
             if (showPubdate)
               Text(
                 Utils.dateFormat(videoItem.pubdate!),
-                style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.outline),
+                style: TextStyle(
+                    fontSize: 11, color: Theme.of(context).colorScheme.outline),
               ),
             if (showOwner)
               Row(
@@ -220,7 +233,8 @@ class VideoContent extends StatelessWidget {
                   Text(
                     videoItem.owner.name as String,
                     style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
+                      fontSize:
+                          Theme.of(context).textTheme.labelMedium!.fontSize,
                       color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
@@ -276,16 +290,22 @@ class VideoContent extends StatelessWidget {
                       position: PopupMenuPosition.under,
                       // constraints: const BoxConstraints(maxHeight: 35),
                       onSelected: (String type) {},
-                      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<String>>[
                         PopupMenuItem<String>(
                           onTap: () async {
-                            var res = await UserHttp.toViewLater(bvid: videoItem.bvid as String);
+                            var res = await UserHttp.toViewLater(
+                                bvid: videoItem.bvid as String);
                             SmartDialog.showToast(res['msg']);
                           },
                           value: 'pause',
                           height: 40,
                           child: const Row(
-                            children: [Icon(Icons.watch_later_outlined, size: 16), SizedBox(width: 6), Text('稍后再看', style: TextStyle(fontSize: 13))],
+                            children: [
+                              Icon(Icons.watch_later_outlined, size: 16),
+                              SizedBox(width: 6),
+                              Text('稍后再看', style: TextStyle(fontSize: 13))
+                            ],
                           ),
                         ),
                         const PopupMenuDivider(),
@@ -293,18 +313,23 @@ class VideoContent extends StatelessWidget {
                           onTap: () async {
                             SmartDialog.show(
                               useSystem: true,
-                              animationType: SmartAnimationType.centerFade_otherSlide,
+                              animationType:
+                                  SmartAnimationType.centerFade_otherSlide,
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   title: const Text('提示'),
-                                  content: Text('确定拉黑:${videoItem.owner.name}(${videoItem.owner.mid})?'
+                                  content: Text(
+                                      '确定拉黑:${videoItem.owner.name}(${videoItem.owner.mid})?'
                                       '\n\n注：被拉黑的Up可以在隐私设置-黑名单管理中解除'),
                                   actions: [
                                     TextButton(
                                       onPressed: () => SmartDialog.dismiss(),
                                       child: Text(
                                         '点错了',
-                                        style: TextStyle(color: Theme.of(context).colorScheme.outline),
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .outline),
                                       ),
                                     ),
                                     TextButton(
@@ -315,7 +340,9 @@ class VideoContent extends StatelessWidget {
                                           reSrc: 11,
                                         );
                                         SmartDialog.dismiss();
-                                        SmartDialog.showToast(res['code'] == 0 ? '成功' : res['msg']);
+                                        SmartDialog.showToast(res['code'] == 0
+                                            ? '成功'
+                                            : res['msg']);
                                       },
                                       child: const Text('确认'),
                                     )
@@ -327,7 +354,12 @@ class VideoContent extends StatelessWidget {
                           value: 'pause',
                           height: 40,
                           child: Row(
-                            children: [const Icon(Icons.block, size: 16), const SizedBox(width: 6), Text('拉黑：${videoItem.owner.name}', style: const TextStyle(fontSize: 13))],
+                            children: [
+                              const Icon(Icons.block, size: 16),
+                              const SizedBox(width: 6),
+                              Text('拉黑：${videoItem.owner.name}',
+                                  style: const TextStyle(fontSize: 13))
+                            ],
                           ),
                         ),
                       ],
