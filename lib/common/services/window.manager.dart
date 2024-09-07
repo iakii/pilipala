@@ -13,7 +13,7 @@ class _SystemWindowManager {
 
     WindowOptions windowOptions = const WindowOptions(
       title: 'PCMaster',
-      minimumSize: Size(375, 667),
+      minimumSize: Size(640, 480),
       size: Size(1366, 768),
       skipTaskbar: true,
       titleBarStyle: TitleBarStyle.hidden,

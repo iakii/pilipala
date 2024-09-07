@@ -379,7 +379,7 @@ class SearchBar extends StatelessWidget {
             splashColor: colorScheme.primaryContainer.withOpacity(0.3),
             onTap: () {
               if (GetPlatform.isDesktop) {
-                Get.find<DesktopController>().toName('/search');
+                Get.find<DesktopController>().toNamed('/search');
               } else {
                 Get.toNamed(
                   '/search',

@@ -196,7 +196,7 @@ class _BangumiPageState extends State<BangumiPage> with AutomaticKeepAliveClient
 
   Widget contentGrid(ctr, bangumiList) {
     final width = MediaQuery.of(context).size.width;
-    final crossAxisCount = ((width - 66) / 198).floor();
+    final crossAxisCount = ((width - 66) / 86).floor();
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         // 行间距

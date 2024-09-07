@@ -141,39 +141,37 @@ class _RcmdPageState extends State<RcmdPage> with AutomaticKeepAliveClientMixin 
     // }
     // int crossAxisCount = ctr.crossAxisCount.value;
 
-    return Builder(builder: (context) {
-      final width = MediaQuery.of(context).size.width;
-      final crossAxisCount = ((width - 66) / 256).floor();
-      double mainAxisExtent = (width / crossAxisCount / StyleString.aspectRatio) + (crossAxisCount == 1 ? 28 : MediaQuery.textScalerOf(context).scale(86));
-      return SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          // 行间距
-          mainAxisSpacing: StyleString.safeSpace,
-          // 列间距
-          crossAxisSpacing: StyleString.safeSpace,
-          // 列数
-          crossAxisCount: crossAxisCount,
-          mainAxisExtent: mainAxisExtent,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return videoList!.isNotEmpty
-                ? VideoCardV(
-                    videoItem: videoList[index],
-                    crossAxisCount: crossAxisCount,
-                    longPress: () {
-                      _rcmdController.popupDialog = _createPopupDialog(videoList[index]);
-                      Overlay.of(context).insert(_rcmdController.popupDialog!);
-                    },
-                    longPressEnd: () {
-                      _rcmdController.popupDialog?.remove();
-                    },
-                  )
-                : const VideoCardVSkeleton();
-          },
-          childCount: videoList!.isNotEmpty ? videoList!.length : 10,
-        ),
-      );
-    });
+    final width = MediaQuery.of(context).size.width;
+    final crossAxisCount = ((width - 66) / 256).floor();
+    double mainAxisExtent = (width / crossAxisCount / StyleString.aspectRatio) + (crossAxisCount == 1 ? 28 : MediaQuery.textScalerOf(context).scale(86));
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        // 行间距
+        mainAxisSpacing: StyleString.safeSpace,
+        // 列间距
+        crossAxisSpacing: StyleString.safeSpace,
+        // 列数
+        crossAxisCount: crossAxisCount,
+        mainAxisExtent: mainAxisExtent,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return videoList!.isNotEmpty
+              ? VideoCardV(
+                  videoItem: videoList[index],
+                  crossAxisCount: crossAxisCount,
+                  longPress: () {
+                    _rcmdController.popupDialog = _createPopupDialog(videoList[index]);
+                    Overlay.of(context).insert(_rcmdController.popupDialog!);
+                  },
+                  longPressEnd: () {
+                    _rcmdController.popupDialog?.remove();
+                  },
+                )
+              : const VideoCardVSkeleton();
+        },
+        childCount: videoList!.isNotEmpty ? videoList!.length : 10,
+      ),
+    );
   }
 }

@@ -1,24 +1,35 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/pages/home/index.dart';
 import 'package:pilipala/pages/main/index.dart';
 
 class DesktopController extends GetxController {
-  DesktopController() {
-    Get.put(MainController(), permanent: true);
-  }
+  final MainController _mainController = Get.put(MainController(), permanent: true);
+  final HomeController _homeController = Get.put(HomeController(), permanent: true);
 
-  final desktopRoute = Get.nestedKey(1);
+  DesktopController();
 
-  final routeUrl = ["/", "/rank", "/dynamic", "/media"];
+  final desktopRoute = Get.nestedKey("/desktop");
+
+  final delegate = GetDelegate();
+
+  final routeUrl = ["/home", "/rank", "/dynamics", "/media"];
 
   int index = 0;
 
   List get items {
-    return Get.find<MainController>().navigationBars;
+    return _mainController.navigationBars;
   }
 
-  toName(String route) {
-    desktopRoute?.currentState?.pushNamed(route);
+  Future<void> toNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
+    final destRoute = "/desktop$route";
+    // debugPrint('delegate.history===${delegate.history.toList()}');
+    if (delegate.history.where((element) => element.currentPage?.name == destRoute).isNotEmpty) {
+      await delegate.backUntil(destRoute, popMode: PopMode.History);
+      return;
+    }
+
+    await delegate.toNamed<T>("/desktop$route", arguments: arguments, parameters: parameters);
   }
 
   RxBool get isUserLogin {
@@ -26,12 +37,12 @@ class DesktopController extends GetxController {
   }
 
   HomeController get ctx {
-    return Get.find<HomeController>();
+    return _homeController;
   }
 
   onTabpanel(int index) {
     if (this.index == index) return;
-    toName(routeUrl[index]);
+    toNamed(routeUrl[index]);
     this.index = index;
     update(["desktop"]);
   }

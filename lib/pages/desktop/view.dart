@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilipala/pages/dynamics/index.dart';
 import 'package:pilipala/pages/home/index.dart';
-import 'package:pilipala/pages/login/view.dart';
-import 'package:pilipala/pages/media/index.dart';
 import 'package:pilipala/pages/mine/index.dart';
-import 'package:pilipala/pages/rank/view.dart';
-import 'package:pilipala/pages/search/view.dart';
-import 'package:pilipala/pages/setting/view.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,37 +22,47 @@ class DestktopApp extends GetView<DesktopController> {
             children: [
               SlideNavigation(
                 index: state.index,
-                onChange: (value) => {
-                  state.onTabpanel(value),
-                },
+                onChange: (value) => state.onTabpanel(value),
                 items: state.items,
               ),
               Expanded(
                 child: Column(
                   children: [
                     SizedBox(height: kWindowCaptionHeight, child: WindowCaption(brightness: Theme.of(context).brightness)),
-                    Navigator(
+
+                    GetRouterOutlet(
+                      initialRoute: "/desktop/home",
+                      anchorRoute: "/desktop",
                       key: state.desktopRoute,
-                      initialRoute: '/',
-                      onGenerateRoute: (settings) {
-                        if (settings.name == '/') {
-                          return GetPageRoute(page: () => const HomePage());
-                        } else if (settings.name == '/rank') {
-                          return GetPageRoute(page: () => const RankPage());
-                        } else if (settings.name == '/dynamic') {
-                          return GetPageRoute(page: () => const DynamicsPage());
-                        } else if (settings.name == '/media') {
-                          return GetPageRoute(page: () => const MediaPage());
-                        } else if (settings.name == '/search') {
-                          return GetPageRoute(page: () => const SearchPage());
-                        } else if (settings.name == '/setting') {
-                          return GetPageRoute(page: () => const SettingPage());
-                        } else if (settings.name == '/login') {
-                          return GetPageRoute(page: () => const LoginPage());
-                        }
-                        return GetPageRoute(page: () => const Text("404"));
-                      },
+                      delegate: state.delegate,
                     ).expanded(),
+                    // Row(
+                    //   children: [
+                    //     Navigator(
+                    //   key: state.desktopRoute,
+                    //   initialRoute: '/',
+                    //   onGenerateRoute: (settings) {
+                    //     if (settings.name == '/') {
+                    //       return GetPageRoute(page: () => const HomePage());
+                    //     } else if (settings.name == '/rank') {
+                    //       return GetPageRoute(page: () => const RankPage());
+                    //     } else if (settings.name == '/dynamic') {
+                    //       return GetPageRoute(page: () => const DynamicsPage());
+                    //     } else if (settings.name == '/media') {
+                    //       return GetPageRoute(page: () => const MediaPage());
+                    //     } else if (settings.name == '/search') {
+                    //       return GetPageRoute(page: () => const SearchPage());
+                    //     } else if (settings.name == '/setting') {
+                    //       return GetPageRoute(page: () => const SettingPage());
+                    //     } else if (settings.name == '/login') {
+                    //       return GetPageRoute(page: () => const LoginPage());
+                    //     }
+                    //     return GetPageRoute(page: () => const Text("404"));
+                    //   },
+                    // ).expanded(),
+                    //     Container().backgroundColor(Colors.red).width(375),
+                    //   ],
+                    // ).expanded(),
                   ],
                 ),
               ),
@@ -101,6 +105,7 @@ class _SlideNavigationState extends State<SlideNavigation> {
       ),
       child: Column(
         children: [
+          const SizedBox(height: 24),
           ...widget.items.map((e) {
             final currentIndex = widget.items.indexOf(e);
             final selected = widget.index == currentIndex;
@@ -149,7 +154,7 @@ class _SlideNavigationState extends State<SlideNavigation> {
                           return Theme.of(context).colorScheme.onInverseSurface;
                         }),
                       ),
-                      onPressed: () => state.toName("/setting"),
+                      onPressed: () => state.toNamed("/setting"),
                       icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary),
                     ),
                     const SizedBox(height: 16),
@@ -158,7 +163,7 @@ class _SlideNavigationState extends State<SlideNavigation> {
                       userLogin: isUserLoggedIn,
                       top: 0,
                       userFace: state.ctx.userFace.value,
-                      callback: !isUserLoggedIn.value ? () => state.toName("/login") : () => showUserBottomSheet(),
+                      callback: !isUserLoggedIn.value ? () => state.toNamed("/loginPage") : () => showUserBottomSheet(),
                       ctr: state.ctx,
                     ),
                   ],

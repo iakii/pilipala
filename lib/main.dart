@@ -15,7 +15,6 @@ import 'package:pilipala/common/widgets/custom_toast.dart';
 import 'package:pilipala/http/init.dart';
 import 'package:pilipala/models/common/color_type.dart';
 import 'package:pilipala/models/common/theme_type.dart';
-import 'package:pilipala/pages/main/view.dart';
 import 'package:pilipala/pages/search/index.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/router/app_pages.dart';
@@ -27,7 +26,6 @@ import 'package:pilipala/utils/recommend_filter.dart';
 import 'package:pilipala/utils/storage.dart';
 
 import './services/loggeer.dart';
-import 'pages/desktop/index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -176,7 +174,8 @@ class MyApp extends StatelessWidget {
           supportedLocales: const [Locale("zh", "CN"), Locale("en", "US")],
           fallbackLocale: const Locale("zh", "CN"),
           getPages: Routes.getPages,
-          home: GetPlatform.isDesktop ? const DestktopApp() : const MainApp(),
+          initialRoute: GetPlatform.isDesktop ? "/desktop" : '/app',
+          // home: width > 480 ? const DestktopApp() : const MainApp(),
           builder: (BuildContext context, Widget? child) {
             return FlutterSmartDialog(
               toastBuilder: (String msg) => CustomToast(msg: msg),
