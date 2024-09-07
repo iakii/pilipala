@@ -25,10 +25,8 @@ import 'package:pilipala/utils/app_scheme.dart';
 import 'package:pilipala/utils/data.dart';
 import 'package:pilipala/utils/recommend_filter.dart';
 import 'package:pilipala/utils/storage.dart';
-import 'package:window_manager/window_manager.dart';
 
 import './services/loggeer.dart';
-import 'models/common/nav_bar_config.dart';
 import 'pages/desktop/index.dart';
 
 void main() async {
@@ -137,6 +135,7 @@ class MyApp extends StatelessWidget {
         // PaintingBinding.instance.imageCache.maximumSizeBytes = 1000 << 20;
         return GetMaterialApp(
           title: 'PiLiPaLa',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // fontFamily: 'HarmonyOS',
             colorScheme: currentThemeValue == ThemeType.dark ? darkColorScheme : lightColorScheme,

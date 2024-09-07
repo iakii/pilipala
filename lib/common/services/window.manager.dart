@@ -38,18 +38,6 @@ class _SystemWindowManager {
   Future<void> show() async {
     await windowManager.show();
   }
-
-  final _blurToHidenRoutes = [
-    // "/",
-    // "/clipboard",
-    // "/control",
-  ];
-
-  Future<void> windowBlur2Hidden() async {
-    // if (_blurToHidenRoutes.contains(currentRoute)) {
-    //   await hide();
-    // }
-  }
 }
 
 final systemWindowManager = _SystemWindowManager._instance;

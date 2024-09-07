@@ -20,8 +20,7 @@ class BangumiPage extends StatefulWidget {
   State<BangumiPage> createState() => _BangumiPageState();
 }
 
-class _BangumiPageState extends State<BangumiPage>
-    with AutomaticKeepAliveClientMixin {
+class _BangumiPageState extends State<BangumiPage> with AutomaticKeepAliveClientMixin {
   final BangumiController _bangumidController = Get.put(BangumiController());
   late Future? _futureBuilderFuture;
   late Future? _futureBuilderFutureFollow;
@@ -34,24 +33,20 @@ class _BangumiPageState extends State<BangumiPage>
   void initState() {
     super.initState();
     scrollController = _bangumidController.scrollController;
-    StreamController<bool> mainStream =
-        Get.find<MainController>().bottomBarStream;
-    StreamController<bool> searchBarStream =
-        Get.find<HomeController>().searchBarStream;
+    StreamController<bool> mainStream = Get.find<MainController>().bottomBarStream;
+    StreamController<bool> searchBarStream = Get.find<HomeController>().searchBarStream;
     _futureBuilderFuture = _bangumidController.queryBangumiListFeed();
     _futureBuilderFutureFollow = _bangumidController.queryBangumiFollow();
     scrollController.addListener(
       () async {
-        if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 200) {
+        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
           EasyThrottle.throttle('my-throttler', const Duration(seconds: 1), () {
             _bangumidController.isLoadingMore = true;
             _bangumidController.onLoad();
           });
         }
 
-        final ScrollDirection direction =
-            scrollController.position.userScrollDirection;
+        final ScrollDirection direction = scrollController.position.userScrollDirection;
         if (direction == ScrollDirection.forward) {
           mainStream.add(true);
           searchBarStream.add(true);
@@ -87,8 +82,7 @@ class _BangumiPageState extends State<BangumiPage>
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: StyleString.safeSpace, bottom: 10, left: 16),
+                      padding: const EdgeInsets.only(top: StyleString.safeSpace, bottom: 10, left: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -99,8 +93,7 @@ class _BangumiPageState extends State<BangumiPage>
                           IconButton(
                             onPressed: () {
                               setState(() {
-                                _futureBuilderFutureFollow =
-                                    _bangumidController.queryBangumiFollow();
+                                _futureBuilderFutureFollow = _bangumidController.queryBangumiFollow();
                               });
                             },
                             icon: const Icon(
@@ -115,10 +108,8 @@ class _BangumiPageState extends State<BangumiPage>
                       height: 268,
                       child: FutureBuilder(
                         future: _futureBuilderFutureFollow,
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
                             if (snapshot.data == null) {
                               return const SizedBox();
                             }
@@ -134,18 +125,9 @@ class _BangumiPageState extends State<BangumiPage>
                                           return Container(
                                             width: Get.size.width / 3,
                                             height: 254,
-                                            margin: EdgeInsets.only(
-                                                left: StyleString.safeSpace,
-                                                right: index ==
-                                                        _bangumidController
-                                                                .bangumiFollowList
-                                                                .length -
-                                                            1
-                                                    ? StyleString.safeSpace
-                                                    : 0),
+                                            margin: EdgeInsets.only(left: StyleString.safeSpace, right: index == _bangumidController.bangumiFollowList.length - 1 ? StyleString.safeSpace : 0),
                                             child: BangumiCardV(
-                                              bangumiItem: _bangumidController
-                                                  .bangumiFollowList[index],
+                                              bangumiItem: _bangumidController.bangumiFollowList[index],
                                             ),
                                           );
                                         },
@@ -185,22 +167,19 @@ class _BangumiPageState extends State<BangumiPage>
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(
-                StyleString.safeSpace, 0, StyleString.safeSpace, 0),
+            padding: const EdgeInsets.fromLTRB(StyleString.safeSpace, 0, StyleString.safeSpace, 0),
             sliver: FutureBuilder(
               future: _futureBuilderFuture,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   Map data = snapshot.data as Map;
                   if (data['status']) {
-                    return Obx(() => contentGrid(
-                        _bangumidController, _bangumidController.bangumiList));
+                    return Obx(() => contentGrid(_bangumidController, _bangumidController.bangumiList));
                   } else {
                     return HttpError(
                       errMsg: data['msg'],
                       fn: () {
-                        _futureBuilderFuture =
-                            _bangumidController.queryBangumiListFeed();
+                        _futureBuilderFuture = _bangumidController.queryBangumiListFeed();
                       },
                     );
                   }
@@ -216,6 +195,8 @@ class _BangumiPageState extends State<BangumiPage>
   }
 
   Widget contentGrid(ctr, bangumiList) {
+    final width = MediaQuery.of(context).size.width;
+    final crossAxisCount = ((width - 66) / 198).floor();
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         // 行间距
@@ -223,15 +204,12 @@ class _BangumiPageState extends State<BangumiPage>
         // 列间距
         crossAxisSpacing: StyleString.cardSpace,
         // 列数
-        crossAxisCount: 3,
-        mainAxisExtent: Get.size.width / 3 / 0.65 +
-            MediaQuery.textScalerOf(context).scale(32.0),
+        crossAxisCount: crossAxisCount,
+        mainAxisExtent: Get.size.width / crossAxisCount / 0.65 + MediaQuery.textScalerOf(context).scale(32.0),
       ),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          return bangumiList!.isNotEmpty
-              ? BangumiCardV(bangumiItem: bangumiList[index])
-              : nil;
+          return bangumiList!.isNotEmpty ? BangumiCardV(bangumiItem: bangumiList[index]) : nil;
         },
         childCount: bangumiList!.isNotEmpty ? bangumiList!.length : 10,
       ),

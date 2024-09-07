@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pilipala/pages/home/index.dart';
 import 'package:pilipala/pages/main/index.dart';
 
 class DesktopController extends GetxController {
@@ -16,9 +17,21 @@ class DesktopController extends GetxController {
     return Get.find<MainController>().navigationBars;
   }
 
+  toName(String route) {
+    desktopRoute?.currentState?.pushNamed(route);
+  }
+
+  RxBool get isUserLogin {
+    return ctx.userLogin;
+  }
+
+  HomeController get ctx {
+    return Get.find<HomeController>();
+  }
+
   onTabpanel(int index) {
     if (this.index == index) return;
-    desktopRoute?.currentState?.pushNamed(routeUrl[index]);
+    toName(routeUrl[index]);
     this.index = index;
     update(["desktop"]);
   }

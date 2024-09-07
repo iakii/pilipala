@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/mine/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
 
@@ -164,6 +165,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: UserInfoWidget(
               top: top,
               ctr: ctr,
+              userInfoVisible: !GetPlatform.isDesktop,
               userLogin: isUserLoggedIn,
               userFace: ctr?.userFace.value,
               callback: () => callback!(),
@@ -183,6 +185,8 @@ class UserInfoWidget extends StatelessWidget {
     required this.userFace,
     required this.callback,
     required this.ctr,
+    this.searchBarVisible = true,
+    this.userInfoVisible = true,
   }) : super(key: key);
 
   final double top;
@@ -190,13 +194,15 @@ class UserInfoWidget extends StatelessWidget {
   final String? userFace;
   final VoidCallback? callback;
   final HomeController? ctr;
+  final bool searchBarVisible;
+  final bool userInfoVisible;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SearchBar(ctr: ctr),
-        if (userLogin.value) ...[
+        if (searchBarVisible) SearchBar(ctr: ctr),
+        if (userInfoVisible && userLogin.value) ...[
           const SizedBox(width: 4),
           ClipRect(
             child: IconButton(
@@ -205,33 +211,34 @@ class UserInfoWidget extends StatelessWidget {
             ),
           )
         ],
-        const SizedBox(width: 8),
-        Obx(
-          () => userLogin.value
-              ? Stack(
-                  children: [
-                    NetworkImgLayer(
-                      type: 'avatar',
-                      width: 34,
-                      height: 34,
-                      src: userFace,
-                    ),
-                    Positioned.fill(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () => callback?.call(),
-                          splashColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(50),
+        if (userInfoVisible) const SizedBox(width: 8),
+        if (userInfoVisible)
+          Obx(
+            () => userLogin.value
+                ? Stack(
+                    children: [
+                      NetworkImgLayer(
+                        type: 'avatar',
+                        width: 34,
+                        height: 34,
+                        src: userFace,
+                      ),
+                      Positioned.fill(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => callback?.call(),
+                            splashColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(50),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                )
-              : DefaultUser(callback: () => callback!()),
-        ),
+                      )
+                    ],
+                  )
+                : DefaultUser(callback: () => callback!()),
+          ),
       ],
     );
   }
@@ -370,10 +377,16 @@ class SearchBar extends StatelessWidget {
           color: colorScheme.onSecondaryContainer.withOpacity(0.05),
           child: InkWell(
             splashColor: colorScheme.primaryContainer.withOpacity(0.3),
-            onTap: () => Get.toNamed(
-              '/search',
-              parameters: {'hintText': ctr!.defaultSearch.value},
-            ),
+            onTap: () {
+              if (GetPlatform.isDesktop) {
+                Get.find<DesktopController>().toName('/search');
+              } else {
+                Get.toNamed(
+                  '/search',
+                  parameters: {'hintText': ctr!.defaultSearch.value},
+                );
+              }
+            },
             child: Row(
               children: [
                 const SizedBox(width: 14),
