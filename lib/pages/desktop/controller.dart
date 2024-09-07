@@ -23,13 +23,13 @@ class DesktopController extends GetxController {
 
   Future<void> toNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
     final destRoute = "/desktop$route";
-    // debugPrint('delegate.history===${delegate.history.toList()}');
+
     if (delegate.history.where((element) => element.currentPage?.name == destRoute).isNotEmpty) {
       await delegate.backUntil(destRoute, popMode: PopMode.History);
       return;
     }
 
-    await delegate.toNamed<T>("/desktop$route", arguments: arguments, parameters: parameters);
+    await delegate.toNamed<T>(destRoute, arguments: arguments, parameters: parameters);
   }
 
   RxBool get isUserLogin {
@@ -70,6 +70,7 @@ class DesktopController extends GetxController {
   // }
 }
 
-Future<void> desktopToNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
+Future<bool> desktopToNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
   await Get.find<DesktopController>().toNamed<T>(route, arguments: arguments, parameters: parameters);
+  return GetPlatform.isDesktop;
 }

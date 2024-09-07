@@ -377,14 +377,9 @@ class SearchBar extends StatelessWidget {
           color: colorScheme.onSecondaryContainer.withOpacity(0.05),
           child: InkWell(
             splashColor: colorScheme.primaryContainer.withOpacity(0.3),
-            onTap: () {
-              if (GetPlatform.isDesktop) {
-                Get.find<DesktopController>().toNamed('/search');
-              } else {
-                Get.toNamed(
-                  '/search',
-                  parameters: {'hintText': ctr!.defaultSearch.value},
-                );
+            onTap: () async {
+              if (!await desktopToNamed("/search", parameters: {'hintText': ctr!.defaultSearch.value})) {
+                Get.toNamed('/search', parameters: {'hintText': ctr!.defaultSearch.value});
               }
             },
             child: Row(

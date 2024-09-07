@@ -74,25 +74,21 @@ class DestktopApp extends GetView<DesktopController> {
   }
 }
 
-class SlideNavigation extends StatefulWidget {
+final icons = [
+  Icons.home_outlined,
+  Icons.trending_up,
+  Icons.motion_photos_on_outlined,
+  Icons.video_collection_outlined,
+];
+
+class SlideNavigation extends StatelessWidget {
   const SlideNavigation({super.key, required this.index, required this.onChange, required this.items});
   final int index;
   final Function(int) onChange;
   final List<dynamic> items;
 
   @override
-  State<SlideNavigation> createState() => _SlideNavigationState();
-}
-
-class _SlideNavigationState extends State<SlideNavigation> {
-  @override
   Widget build(BuildContext context) {
-    final icons = [
-      Icons.home_outlined,
-      Icons.trending_up,
-      Icons.motion_photos_on_outlined,
-      Icons.video_collection_outlined,
-    ];
     return Container(
       width: 66,
       decoration: BoxDecoration(
@@ -103,80 +99,87 @@ class _SlideNavigationState extends State<SlideNavigation> {
           stops: const [0, 0.0034, 0.34],
         ),
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 24),
-          ...widget.items.map((e) {
-            final currentIndex = widget.items.indexOf(e);
-            final selected = widget.index == currentIndex;
-            final selectIconColor = selected ? Colors.white : Colors.black;
-            final selectBgColor = selected ? Theme.of(context).primaryColor.withOpacity(1) : Colors.transparent;
-            final selectLabelColor = selected ? Theme.of(context).primaryColor.withOpacity(.9) : Colors.black;
-            return GestureDetector(
-              onTap: () => widget.onChange(currentIndex),
-              child: Column(
-                children: [
-                  Icon(icons[currentIndex], color: selectIconColor)
-                      .width(42)
-                      .height(42)
-                      .ripple()
-                      .backgroundGradient(
-                        LinearGradient(
-                          colors: [selectBgColor, selectBgColor.withOpacity(0.2)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                      )
-                      .clipRRect(all: 24),
-                  Text("${e['label']}").textColor(selectLabelColor).fontSize(12),
-                ],
-              )
-                  .parent(({Widget? child}) => MouseRegion(cursor: SystemMouseCursors.click, child: child))
-                  .marginOnly(
-                    top: 16,
+      child: GetBuilder<DesktopController>(
+        builder: (state) {
+          return Column(
+            children: [
+              const SizedBox(height: 24),
+              ...items.map((e) {
+                final currentRoute = state.delegate.currentConfiguration?.currentPage?.name;
+                debugPrint("widget.currentRoute==========: $currentRoute");
+                final currentIndex = items.indexOf(e);
+                final selected = currentRoute == '/desktop${state.routeUrl[currentIndex]}';
+                debugPrint("selected==========: $selected");
+                final selectIconColor = selected ? Colors.white : Colors.black;
+                final selectBgColor = selected ? Theme.of(context).primaryColor.withOpacity(1) : Colors.transparent;
+                final selectLabelColor = selected ? Theme.of(context).primaryColor.withOpacity(.9) : Colors.black;
+                return GestureDetector(
+                  onTap: () => onChange(currentIndex),
+                  child: Column(
+                    children: [
+                      Icon(icons[currentIndex], color: selectIconColor)
+                          .width(42)
+                          .height(42)
+                          .ripple()
+                          .backgroundGradient(
+                            LinearGradient(
+                              colors: [selectBgColor, selectBgColor.withOpacity(0.2)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          )
+                          .clipRRect(all: 24),
+                      Text("${e['label']}").textColor(selectLabelColor).fontSize(12),
+                    ],
                   )
-                  .gestures(
-                    onTap: () => widget.onChange(currentIndex),
-                  ),
-            );
-          }).toList(),
-          const Spacer(),
-          Center(
-            child: GetBuilder<DesktopController>(
-              builder: (state) {
-                final isUserLoggedIn = state.isUserLogin;
-                return Column(
-                  children: [
-                    IconButton(
-                      style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
-                        backgroundColor: WidgetStateProperty.resolveWith((states) {
-                          return Theme.of(context).colorScheme.onInverseSurface;
-                        }),
+                      .parent(({Widget? child}) => MouseRegion(cursor: SystemMouseCursors.click, child: child))
+                      .marginOnly(
+                        top: 16,
+                      )
+                      .gestures(
+                        onTap: () => onChange(currentIndex),
                       ),
-                      onPressed: () => state.toNamed("/setting"),
-                      icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary),
-                    ),
-                    const SizedBox(height: 16),
-                    UserInfoWidget(
-                      searchBarVisible: false,
-                      userLogin: isUserLoggedIn,
-                      top: 0,
-                      userFace: state.ctx.userFace.value,
-                      callback: !isUserLoggedIn.value ? () => state.toNamed("/loginPage") : () => showUserBottomSheet(),
-                      ctr: state.ctx,
-                    ),
-                  ],
                 );
-              },
-            ),
-          ).marginOnly(left: 12, bottom: 16)
-        ],
+              }).toList(),
+              const Spacer(),
+              Center(
+                child: GetBuilder<DesktopController>(
+                  builder: (state) {
+                    final isUserLoggedIn = state.isUserLogin;
+                    return Column(
+                      children: [
+                        IconButton(
+                          style: ButtonStyle(
+                            padding: WidgetStateProperty.all(EdgeInsets.zero),
+                            backgroundColor: WidgetStateProperty.resolveWith((states) {
+                              return Theme.of(context).colorScheme.onInverseSurface;
+                            }),
+                          ),
+                          onPressed: () => state.toNamed("/setting"),
+                          icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary),
+                        ),
+                        const SizedBox(height: 16),
+                        UserInfoWidget(
+                          searchBarVisible: false,
+                          userLogin: isUserLoggedIn,
+                          top: 0,
+                          userFace: state.ctx.userFace.value,
+                          callback: !isUserLoggedIn.value ? () => state.toNamed("/loginPage") : () => showUserBottomSheet(context),
+                          ctr: state.ctx,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ).marginOnly(left: 12, bottom: 16)
+            ],
+          );
+        },
       ),
     );
   }
 
-  showUserBottomSheet() {
+  showUserBottomSheet(context) {
     feedBack();
     showModalBottomSheet(
       context: context,
