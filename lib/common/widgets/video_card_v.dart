@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:get/get.dart';
-import '../../models/model_rec_video_item.dart';
-import 'stat/danmu.dart';
-import 'stat/view.dart';
+import 'package:pilipala/pages/desktop/index.dart';
+
 import '../../http/dynamics.dart';
 import '../../http/search.dart';
 import '../../http/user.dart';
 import '../../http/video.dart';
 import '../../models/common/search_type.dart';
+import '../../models/model_rec_video_item.dart';
 import '../../utils/id_utils.dart';
 import '../../utils/utils.dart';
 import '../constants.dart';
 import 'badge.dart';
 import 'network_img_layer.dart';
+import 'stat/danmu.dart';
+import 'stat/view.dart';
 
 // 视频卡片 - 垂直布局
 class VideoCardV extends StatelessWidget {
@@ -51,7 +52,7 @@ class VideoCardV extends StatelessWidget {
           int cid = bangumiDetail.episodes!.first.cid;
           String bvid = IdUtils.av2bv(bangumiDetail.episodes!.first.aid);
           SmartDialog.dismiss().then(
-            (value) => Get.toNamed(
+            (value) => getToNamed(
               '/video?bvid=$bvid&cid=$cid&epId=$epId',
               arguments: {
                 'pic': videoItem.pic,
@@ -64,7 +65,7 @@ class VideoCardV extends StatelessWidget {
         break;
       case 'av':
         String bvid = videoItem.bvid ?? IdUtils.av2bv(videoItem.aid);
-        Get.toNamed('/video?bvid=$bvid&cid=${videoItem.cid}', arguments: {
+        getToNamed('/video?bvid=$bvid&cid=${videoItem.cid}', arguments: {
           // 'videoItem': videoItem,
           'pic': videoItem.pic,
           'heroTag': heroTag,
@@ -89,31 +90,21 @@ class VideoCardV extends StatelessWidget {
             String path = Uri.parse(uri).path;
             if (isStringNumeric(path.split('/')[1])) {
               // 请求接口
-              var res =
-                  await DynamicsHttp.dynamicDetail(id: path.split('/')[1]);
+              var res = await DynamicsHttp.dynamicDetail(id: path.split('/')[1]);
               if (res['status']) {
-                Get.toNamed('/dynamicDetail', arguments: {
-                  'item': res['data'],
-                  'floor': 1,
-                  'action': 'detail'
-                });
+                getToNamed('/dynamicDetail', arguments: {'item': res['data'], 'floor': 1, 'action': 'detail'});
               }
               return;
             }
           }
-          Get.toNamed('/htmlRender', parameters: {
-            'url': uri,
-            'title': videoItem.title,
-            'id': id,
-            'dynamicType': dynamicType
-          });
+          getToNamed('/htmlRender', parameters: {'url': uri, 'title': videoItem.title, 'id': id, 'dynamicType': dynamicType});
         } catch (err) {
           SmartDialog.showToast(err.toString());
         }
         break;
       default:
         SmartDialog.showToast(videoItem.goto);
-        Get.toNamed(
+        getToNamed(
           '/webview',
           parameters: {
             'url': videoItem.uri,
@@ -193,17 +184,13 @@ class VideoCardV extends StatelessWidget {
 class VideoContent extends StatelessWidget {
   final dynamic videoItem;
   final int crossAxisCount;
-  const VideoContent(
-      {Key? key, required this.videoItem, required this.crossAxisCount})
-      : super(key: key);
+  const VideoContent({Key? key, required this.videoItem, required this.crossAxisCount}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: crossAxisCount == 1 ? 0 : 1,
       child: Padding(
-        padding: crossAxisCount == 1
-            ? const EdgeInsets.fromLTRB(9, 9, 9, 4)
-            : const EdgeInsets.fromLTRB(5, 8, 5, 4),
+        padding: crossAxisCount == 1 ? const EdgeInsets.fromLTRB(9, 9, 9, 4) : const EdgeInsets.fromLTRB(5, 8, 5, 4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -246,8 +233,7 @@ class VideoContent extends StatelessWidget {
                     fs: 9,
                   )
                 ],
-                if (videoItem.rcmdReason != null &&
-                    videoItem.rcmdReason.content != '') ...[
+                if (videoItem.rcmdReason != null && videoItem.rcmdReason.content != '') ...[
                   PBadge(
                     text: videoItem.rcmdReason.content,
                     stack: 'normal',
@@ -278,8 +264,7 @@ class VideoContent extends StatelessWidget {
                     videoItem.owner.name,
                     maxLines: 1,
                     style: TextStyle(
-                      fontSize:
-                          Theme.of(context).textTheme.labelMedium!.fontSize,
+                      fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
                       color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
@@ -288,8 +273,7 @@ class VideoContent extends StatelessWidget {
                   Text(
                     ' • ',
                     style: TextStyle(
-                      fontSize:
-                          Theme.of(context).textTheme.labelMedium!.fontSize,
+                      fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
                       color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
@@ -388,18 +372,13 @@ class VideoPopupMenu extends StatelessWidget {
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
             onTap: () async {
-              var res =
-                  await UserHttp.toViewLater(bvid: videoItem.bvid as String);
+              var res = await UserHttp.toViewLater(bvid: videoItem.bvid as String);
               SmartDialog.showToast(res['msg']);
             },
             value: 'pause',
             height: 40,
             child: const Row(
-              children: [
-                Icon(Icons.watch_later_outlined, size: 16),
-                SizedBox(width: 6),
-                Text('稍后再看', style: TextStyle(fontSize: 13))
-              ],
+              children: [Icon(Icons.watch_later_outlined, size: 16), SizedBox(width: 6), Text('稍后再看', style: TextStyle(fontSize: 13))],
             ),
           ),
           const PopupMenuDivider(),
@@ -411,16 +390,14 @@ class VideoPopupMenu extends StatelessWidget {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text('提示'),
-                    content: Text(
-                        '确定拉黑:${videoItem.owner.name}(${videoItem.owner.mid})?'
+                    content: Text('确定拉黑:${videoItem.owner.name}(${videoItem.owner.mid})?'
                         '\n\n注：被拉黑的Up可以在隐私设置-黑名单管理中解除'),
                     actions: [
                       TextButton(
                         onPressed: () => SmartDialog.dismiss(),
                         child: Text(
                           '点错了',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.outline),
+                          style: TextStyle(color: Theme.of(context).colorScheme.outline),
                         ),
                       ),
                       TextButton(
@@ -443,12 +420,7 @@ class VideoPopupMenu extends StatelessWidget {
             value: 'pause',
             height: 40,
             child: Row(
-              children: [
-                const Icon(Icons.block, size: 16),
-                const SizedBox(width: 6),
-                Text('拉黑：${videoItem.owner.name}',
-                    style: const TextStyle(fontSize: 13))
-              ],
+              children: [const Icon(Icons.block, size: 16), const SizedBox(width: 6), Text('拉黑：${videoItem.owner.name}', style: const TextStyle(fontSize: 13))],
             ),
           ),
         ],

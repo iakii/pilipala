@@ -378,9 +378,7 @@ class SearchBar extends StatelessWidget {
           child: InkWell(
             splashColor: colorScheme.primaryContainer.withOpacity(0.3),
             onTap: () async {
-              if (!await desktopToNamed("/search", parameters: {'hintText': ctr!.defaultSearch.value})) {
-                Get.toNamed('/search', parameters: {'hintText': ctr!.defaultSearch.value});
-              }
+              await getToNamed("/search", parameters: {'hintText': ctr!.defaultSearch.value});
             },
             child: Row(
               children: [

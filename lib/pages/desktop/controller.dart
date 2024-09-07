@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/pages/home/index.dart';
 import 'package:pilipala/pages/main/index.dart';
@@ -70,7 +69,26 @@ class DesktopController extends GetxController {
   // }
 }
 
-Future<bool> desktopToNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
-  await Get.find<DesktopController>().toNamed<T>(route, arguments: arguments, parameters: parameters);
-  return GetPlatform.isDesktop;
+Future<void> getToNamed(String route, {dynamic arguments, Map<String, String>? parameters}) async {
+  if (GetPlatform.isDesktop) {
+    await Get.find<DesktopController>().toNamed(route, arguments: arguments, parameters: parameters);
+  } else {
+    await Get.toNamed(route, arguments: arguments, parameters: parameters);
+  }
+}
+
+dynamic get getArguments {
+  if (GetPlatform.isDesktop) {
+    return Get.find<DesktopController>().delegate.arguments();
+  } else {
+    return Get.arguments;
+  }
+}
+
+Map<String, String?> get getParameters {
+  if (GetPlatform.isDesktop) {
+    return Get.find<DesktopController>().delegate.parameters;
+  } else {
+    return Get.parameters;
+  }
 }
