@@ -15,7 +15,7 @@ class OverlayPop extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(
@@ -42,7 +42,7 @@ class OverlayPop extends StatelessWidget {
                           const BorderRadius.all(Radius.circular(20))),
                   child: IconButton(
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                     ),
                     onPressed: () => closeFn!(),
                     icon: const Icon(

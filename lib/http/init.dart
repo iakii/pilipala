@@ -27,7 +27,8 @@ class Request {
   late bool enableSystemProxy;
   late String systemProxyHost;
   late String systemProxyPort;
-  static final RegExp spmPrefixExp = RegExp(r'<meta name="spm_prefix" content="([^"]+?)">');
+  static final RegExp spmPrefixExp =
+      RegExp(r'<meta name="spm_prefix" content="([^"]+?)">');
 
   /// 设置cookie
   static setCookie() async {
@@ -94,27 +95,24 @@ class Request {
     var html = await Request().get(Api.dynamicSpmPrefix);
     String spmPrefix = spmPrefixExp.firstMatch(html.data)!.group(1)!;
     Random rand = Random();
-    String rand_png_end = base64.encode(
-      List<int>.generate(32, (_) => rand.nextInt(256)) +
-      List<int>.filled(4, 0) +
-      [73, 69, 78, 68] +
-      List<int>.generate(4, (_) => rand.nextInt(256))
-    );
+    String randPngEnd = base64.encode(
+        List<int>.generate(32, (_) => rand.nextInt(256)) +
+            List<int>.filled(4, 0) +
+            [73, 69, 78, 68] +
+            List<int>.generate(4, (_) => rand.nextInt(256)));
 
     String jsonData = json.encode({
       '3064': 1,
-      '39c8': '${spmPrefix}.fp.risk',
+      '39c8': '$spmPrefix.fp.risk',
       '3c43': {
         'adca': 'Linux',
-        'bfe9': rand_png_end.substring(rand_png_end.length - 50),
+        'bfe9': randPngEnd.substring(randPngEnd.length - 50),
       },
     });
 
-    await Request().post(
-      Api.activateBuvidApi,
-      data: {'payload': jsonData},
-      options: Options(contentType: 'application/json')
-    );
+    await Request().post(Api.activateBuvidApi,
+        data: {'payload': jsonData},
+        options: Options(contentType: 'application/json'));
   }
 
   /*

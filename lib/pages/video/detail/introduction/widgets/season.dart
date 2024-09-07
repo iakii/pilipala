@@ -133,7 +133,7 @@ class _SeasonPanelState extends State<SeasonPanel> {
                   });
                   return Container(
                     height: widget.sheetHeight,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                     child: Column(
                       children: [
                         Container(

@@ -142,10 +142,10 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog>
 
   @override
   Widget build(BuildContext context) {
-    double _keyboardHeight = EdgeInsets.fromViewPadding(
+    double keyboardHeight = EdgeInsets.fromViewPadding(
             View.of(context).viewInsets, View.of(context).devicePixelRatio)
         .bottom;
-    print('_keyboardHeight: $_keyboardHeight');
+    print('_keyboardHeight: $keyboardHeight');
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -153,7 +153,7 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog>
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
         ),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -237,8 +237,8 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog>
             child: SizedBox(
               width: double.infinity,
               height: toolbarType == 'input'
-                  ? (_keyboardHeight > keyboardHeight
-                      ? _keyboardHeight
+                  ? (keyboardHeight > keyboardHeight
+                      ? keyboardHeight
                       : keyboardHeight)
                   : emoteHeight,
               child: EmotePanel(

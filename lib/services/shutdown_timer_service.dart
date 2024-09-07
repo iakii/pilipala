@@ -29,8 +29,8 @@ class ShutdownTimerService {
       return;
     }
     SmartDialog.showToast("设置 $scheduledExitInMinutes 分钟后定时关闭");
-    _shutdownTimer = Timer(Duration(minutes: scheduledExitInMinutes),
-        () => _shutdownDecider());
+    _shutdownTimer = Timer(
+        Duration(minutes: scheduledExitInMinutes), () => _shutdownDecider());
   }
 
   void _showTimeUpButPauseDialog() {
@@ -59,7 +59,7 @@ class ShutdownTimerService {
         // Start the 10-second timer to auto close the dialog
         _autoCloseDialogTimer?.cancel();
         _autoCloseDialogTimer = Timer(const Duration(seconds: 10), () {
-          SmartDialog.dismiss();// Close the dialog
+          SmartDialog.dismiss(); // Close the dialog
           _executeShutdown();
         });
         return AlertDialog(
@@ -108,12 +108,14 @@ class ShutdownTimerService {
     //该方法依赖耦合实现，不够优雅
     isWaiting = true;
   }
-  void handleWaitingFinished(){
-    if(isWaiting){
+
+  void handleWaitingFinished() {
+    if (isWaiting) {
       _showShutdownDialog();
       isWaiting = false;
     }
   }
+
   void _executeShutdown() {
     if (exitApp) {
       //退出app

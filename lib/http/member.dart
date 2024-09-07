@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:hive/hive.dart';
 import '../common/constants.dart';

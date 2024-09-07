@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:hive/hive.dart';
 import '../models/bangumi/info.dart';

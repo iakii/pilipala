@@ -89,9 +89,8 @@ class _MemberPageState extends State<MemberPage>
                             () => Text(
                               _memberController.memberInfo.value.name ?? '',
                               style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                   fontSize: 14),
                             ),
                           ),

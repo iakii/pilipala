@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/pages/mine/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
+
 import './controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,8 +16,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   final HomeController _homeController = Get.put(HomeController());
   List videoList = [];
   late Stream<bool> stream;
@@ -50,17 +50,13 @@ class _HomePageState extends State<HomePage>
     // 设置状态栏图标的亮度
     if (_homeController.enableGradientBg) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarIconBrightness: currentBrightness == Brightness.light
-            ? Brightness.dark
-            : Brightness.light,
+        statusBarIconBrightness: currentBrightness == Brightness.light ? Brightness.dark : Brightness.light,
       ));
     }
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: _homeController.enableGradientBg
-          ? null
-          : AppBar(toolbarHeight: 0, elevation: 0),
+      appBar: _homeController.enableGradientBg ? null : AppBar(toolbarHeight: 0, elevation: 0),
       body: Stack(
         children: [
           // gradient background
@@ -73,21 +69,7 @@ class _HomePageState extends State<HomePage>
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.9),
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.5),
-                          Theme.of(context).colorScheme.surface
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0, 0.0034, 0.34]),
+                    gradient: LinearGradient(colors: [Theme.of(context).colorScheme.primary.withOpacity(0.9), Theme.of(context).colorScheme.primary.withOpacity(0.5), Theme.of(context).colorScheme.surface], begin: Alignment.topLeft, end: Alignment.bottomRight, stops: const [0, 0.0034, 0.34]),
                   ),
                 ),
               ),
@@ -96,9 +78,7 @@ class _HomePageState extends State<HomePage>
           Column(
             children: [
               CustomAppBar(
-                stream: _homeController.hideSearchBar
-                    ? stream
-                    : StreamController<bool>.broadcast().stream,
+                stream: _homeController.hideSearchBar ? stream : StreamController<bool>.broadcast().stream,
                 ctr: _homeController,
                 callback: showUserBottomSheet,
               ),
@@ -114,10 +94,7 @@ class _HomePageState extends State<HomePage>
                       alignment: Alignment.center,
                       child: TabBar(
                         controller: _homeController.tabController,
-                        tabs: [
-                          for (var i in _homeController.tabs)
-                            Tab(text: i['label'])
-                        ],
+                        tabs: [for (var i in _homeController.tabs) Tab(text: i['label'])],
                         isScrollable: true,
                         dividerColor: Colors.transparent,
                         enableFeedback: true,
@@ -244,10 +221,7 @@ class UserInfoWidget extends StatelessWidget {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () => callback?.call(),
-                          splashColor: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer
-                              .withOpacity(0.3),
+                          splashColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(50),
                           ),
@@ -274,8 +248,8 @@ class DefaultUser extends StatelessWidget {
       height: 38,
       child: IconButton(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(EdgeInsets.zero),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
+          padding: WidgetStateProperty.all(EdgeInsets.zero),
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
             return Theme.of(context).colorScheme.onInverseSurface;
           }),
         ),
@@ -353,22 +327,16 @@ class CustomChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorTheme = Theme.of(context).colorScheme;
     final Color secondaryContainer = colorTheme.secondaryContainer;
-    final TextStyle chipTextStyle = selected
-        ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)
-        : const TextStyle(fontSize: 13);
+    final TextStyle chipTextStyle = selected ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 13) : const TextStyle(fontSize: 13);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    const VisualDensity visualDensity =
-        VisualDensity(horizontal: -4.0, vertical: -2.0);
+    const VisualDensity visualDensity = VisualDensity(horizontal: -4.0, vertical: -2.0);
     return InputChip(
       side: BorderSide(
-        color: selected
-            ? colorScheme.onSecondaryContainer.withOpacity(0.2)
-            : Colors.transparent,
+        color: selected ? colorScheme.onSecondaryContainer.withOpacity(0.2) : Colors.transparent,
       ),
       backgroundColor: secondaryContainer,
       selectedColor: secondaryContainer,
-      color: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) => secondaryContainer.withAlpha(200)),
+      color: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) => secondaryContainer.withAlpha(200)),
       padding: const EdgeInsets.fromLTRB(7, 1, 7, 1),
       label: Text(label, style: chipTextStyle),
       onPressed: () => onTap(),

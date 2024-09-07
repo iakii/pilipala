@@ -78,7 +78,7 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel> {
   Widget build(BuildContext context) {
     return Container(
       height: widget.source == 'videoDetail' ? sheetHeight : null,
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           if (widget.source == 'videoDetail')

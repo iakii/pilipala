@@ -92,7 +92,7 @@ class _HeaderControlState extends State<HeaderControl> {
           height: 460,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.all(Radius.circular(12)),
           ),
           margin: const EdgeInsets.all(12),
@@ -315,7 +315,7 @@ class _HeaderControlState extends State<HeaderControl> {
             height: 500,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.all(Radius.circular(12)),
             ),
             margin: const EdgeInsets.all(12),
@@ -375,7 +375,7 @@ class _HeaderControlState extends State<HeaderControl> {
                           inactiveThumbColor:
                               Theme.of(context).colorScheme.primaryContainer,
                           inactiveTrackColor:
-                              Theme.of(context).colorScheme.background,
+                              Theme.of(context).colorScheme.surface,
                           splashRadius: 10.0,
                           // boolean variable value
                           value: shutdownTimerService.waitForPlayingCompleted,
@@ -560,7 +560,7 @@ class _HeaderControlState extends State<HeaderControl> {
           height: 310,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.all(Radius.circular(12)),
           ),
           margin: const EdgeInsets.all(12),
@@ -650,7 +650,7 @@ class _HeaderControlState extends State<HeaderControl> {
           height: 250,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.all(Radius.circular(12)),
           ),
           margin: const EdgeInsets.all(12),
@@ -724,13 +724,13 @@ class _HeaderControlState extends State<HeaderControl> {
           height: 250,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.all(Radius.circular(12)),
           ),
           margin: const EdgeInsets.all(12),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                   height: 45,
                   child: Center(child: Text('选择解码格式', style: titleStyle))),
               Expanded(
@@ -815,7 +815,7 @@ class _HeaderControlState extends State<HeaderControl> {
             height: 580,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.all(Radius.circular(12)),
             ),
             margin: const EdgeInsets.all(12),
@@ -1071,13 +1071,13 @@ class _HeaderControlState extends State<HeaderControl> {
           height: 250,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.all(Radius.circular(12)),
           ),
           margin: const EdgeInsets.all(12),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                   height: 45,
                   child: Center(child: Text('选择播放顺序', style: titleStyle))),
               Expanded(
@@ -1214,7 +1214,7 @@ class _HeaderControlState extends State<HeaderControl> {
               height: 34,
               child: TextButton(
                 style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  padding: WidgetStateProperty.all(EdgeInsets.zero),
                 ),
                 onPressed: () => showShootDanmakuSheet(),
                 child: const Text(
@@ -1229,7 +1229,7 @@ class _HeaderControlState extends State<HeaderControl> {
               child: Obx(
                 () => IconButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    padding: WidgetStateProperty.all(EdgeInsets.zero),
                   ),
                   onPressed: () {
                     _.isOpenDanmu.value = !_.isOpenDanmu.value;
@@ -1252,7 +1252,7 @@ class _HeaderControlState extends State<HeaderControl> {
               height: 34,
               child: IconButton(
                 style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  padding: WidgetStateProperty.all(EdgeInsets.zero),
                 ),
                 onPressed: () async {
                   bool canUsePiP = false;
@@ -1310,7 +1310,7 @@ class _HeaderControlState extends State<HeaderControl> {
               height: 34,
               child: TextButton(
                 style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  padding: WidgetStateProperty.all(EdgeInsets.zero),
                 ),
                 onPressed: () => showSetSpeedSheet(),
                 child: Text(

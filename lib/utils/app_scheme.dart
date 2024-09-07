@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:appscheme/appscheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';

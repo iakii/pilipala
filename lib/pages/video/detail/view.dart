@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:floating/floating.dart';
@@ -262,7 +261,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   Widget build(BuildContext context) {
     // final double videoHeight = MediaQuery.sizeOf(context).width * 9 / 16;
     final sizeContext = MediaQuery.sizeOf(context);
-    final _context = MediaQuery.of(context);
+    final context0 = MediaQuery.of(context);
     late double defaultVideoHeight = sizeContext.width * 9 / 16;
     late RxDouble videoHeight = defaultVideoHeight.obs;
     final double pinnedHeaderHeight =
@@ -270,9 +269,9 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     // ignore: no_leading_underscores_for_local_identifiers
 
     // 竖屏
-    final bool isPortrait = _context.orientation == Orientation.portrait;
+    final bool isPortrait = context0.orientation == Orientation.portrait;
     // 横屏
-    final bool isLandscape = _context.orientation == Orientation.landscape;
+    final bool isLandscape = context0.orientation == Orientation.landscape;
     final Rx<bool> isFullScreen = plPlayerController?.isFullScreen ?? false.obs;
     // 全屏时高度撑满
     if (isLandscape || isFullScreen.value == true) {
@@ -355,7 +354,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                         height: 32,
                         child: TextButton(
                           style: ButtonStyle(
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                            padding: WidgetStateProperty.all(EdgeInsets.zero),
                           ),
                           onPressed: () => vdCtr.showShootDanmakuSheet(),
                           child:
@@ -490,7 +489,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                           background: PopScope(
                               canPop: plPlayerController?.isFullScreen.value !=
                                   true,
-                              onPopInvoked: (bool didPop) {
+                              onPopInvokedWithResult: (bool didPop, _) {
                                 if (plPlayerController?.isFullScreen.value ==
                                     true) {
                                   plPlayerController!
@@ -549,7 +548,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
               onlyOneScrollInBody: true,
               body: ColoredBox(
                 key: Key(heroTag),
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
                 child: Column(
                   children: [
                     tabbarBuild,

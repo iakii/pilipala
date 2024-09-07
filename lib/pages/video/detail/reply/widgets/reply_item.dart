@@ -12,10 +12,10 @@ import 'package:pilipala/pages/preview/index.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/pages/video/detail/reply_new/index.dart';
 import 'package:pilipala/utils/feed_back.dart';
-import 'package:pilipala/utils/id_utils.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:pilipala/utils/url_utils.dart';
 import 'package:pilipala/utils/utils.dart';
+
 import 'zan.dart';
 
 Box setting = GStrorage.setting;
@@ -100,7 +100,7 @@ class ReplyItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
               ),
               child: Icon(
                 Icons.offline_bolt,
@@ -117,7 +117,7 @@ class ReplyItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
               ),
               child: Image.asset(
                 'assets/images/big-vip.png',

@@ -112,7 +112,7 @@ class _PagesPanelState extends State<PagesPanel> {
                 height: 34,
                 child: TextButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    padding: WidgetStateProperty.all(EdgeInsets.zero),
                   ),
                   onPressed: () {
                     showBottomSheet(
@@ -128,7 +128,7 @@ class _PagesPanelState extends State<PagesPanel> {
                           });
                           return Container(
                             height: widget.sheetHeight,
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
                             child: Column(
                               children: [
                                 Container(

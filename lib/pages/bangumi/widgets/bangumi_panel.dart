@@ -124,7 +124,7 @@ class _BangumiPanelState extends State<BangumiPanel> {
             // 在这里使用 setState 更新状态
             return Container(
               height: widget.sheetHeight,
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               child: Column(
                 children: [
                   AppBar(
@@ -225,7 +225,7 @@ class _BangumiPanelState extends State<BangumiPanel> {
                 height: 34,
                 child: TextButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    padding: WidgetStateProperty.all(EdgeInsets.zero),
                   ),
                   onPressed: () => showBangumiPanel(),
                   child: Text(

@@ -139,12 +139,15 @@ dependencies:
   nil: ^1.1.1
   catcher_2: ^1.2.3
   logger: ^2.0.2+1
-  path: 1.8.3
+  path: ^1.9.0
   # 电池优化
   disable_battery_optimization: ^1.1.1
   # 展开/收起
   expandable: ^5.0.1
 
+  intl: any
+  window_manager: ^0.4.2
+  styled_widget: ^0.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

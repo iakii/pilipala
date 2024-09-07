@@ -136,8 +136,7 @@ class _PlDanmakuState extends State<PlDanmaku> {
               hideTop: blockTypes.contains(5),
               hideScroll: blockTypes.contains(2),
               hideBottom: blockTypes.contains(4),
-              duration:
-                  danmakuDurationVal / playerController.playbackSpeed,
+              duration: danmakuDurationVal / playerController.playbackSpeed,
               strokeWidth: strokeWidth,
               // initDuration /
               //     (danmakuSpeedVal * widget.playerController.playbackSpeed),

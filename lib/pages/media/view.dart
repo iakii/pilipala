@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/models/user/fav_folder.dart';
 import 'package:pilipala/pages/main/index.dart';
@@ -195,10 +194,10 @@ class _MediaPageState extends State<MediaPage>
                                   child: Center(
                                     child: IconButton(
                                       style: ButtonStyle(
-                                        padding: MaterialStateProperty.all(
+                                        padding: WidgetStateProperty.all(
                                             EdgeInsets.zero),
                                         backgroundColor:
-                                            MaterialStateProperty.resolveWith(
+                                            WidgetStateProperty.resolveWith(
                                                 (states) {
                                           return Theme.of(context)
                                               .colorScheme

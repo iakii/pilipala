@@ -25,12 +25,15 @@ class _ActionPanelState extends State<ActionPanel> {
   late ModuleStatModel stat;
   bool isProcessing = false;
   void Function()? handleState(Future Function() action) {
-    return isProcessing ? null : () async {
-      setState(() => isProcessing = true);
-      await action();
-      setState(() => isProcessing = false);
-    };
+    return isProcessing
+        ? null
+        : () async {
+            setState(() => isProcessing = true);
+            await action();
+            setState(() => isProcessing = false);
+          };
   }
+
   @override
   void initState() {
     super.initState();
