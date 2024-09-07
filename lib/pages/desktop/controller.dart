@@ -69,3 +69,7 @@ class DesktopController extends GetxController {
   //   super.onClose();
   // }
 }
+
+Future<void> desktopToNamed<T>(String route, {dynamic arguments, Map<String, String>? parameters}) async {
+  await Get.find<DesktopController>().toNamed<T>(route, arguments: arguments, parameters: parameters);
+}
