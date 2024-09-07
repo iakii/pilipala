@@ -29,31 +29,16 @@ class DynamicsController extends GetxController {
   RxInt mid = (-1).obs;
   Rx<UpItem> upInfo = UpItem().obs;
   List filterTypeList = [
-    {
-      'label': DynamicsType.all.labels,
-      'value': DynamicsType.all,
-      'enabled': true
-    },
-    {
-      'label': DynamicsType.video.labels,
-      'value': DynamicsType.video,
-      'enabled': true
-    },
-    {
-      'label': DynamicsType.pgc.labels,
-      'value': DynamicsType.pgc,
-      'enabled': true
-    },
-    {
-      'label': DynamicsType.article.labels,
-      'value': DynamicsType.article,
-      'enabled': true
-    },
+    {'label': DynamicsType.all.labels, 'value': DynamicsType.all, 'enabled': true},
+    {'label': DynamicsType.video.labels, 'value': DynamicsType.video, 'enabled': true},
+    {'label': DynamicsType.pgc.labels, 'value': DynamicsType.pgc, 'enabled': true},
+    {'label': DynamicsType.article.labels, 'value': DynamicsType.article, 'enabled': true},
   ];
   bool flag = false;
   RxInt initialValue = 0.obs;
   Box userInfoCache = GStrorage.userInfo;
   RxBool userLogin = false.obs;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
   RxBool isLoadingDynamic = false.obs;
   Box setting = GStrorage.setting;
@@ -63,8 +48,7 @@ class DynamicsController extends GetxController {
     userInfo = userInfoCache.get('userInfoCache');
     userLogin.value = userInfo != null;
     super.onInit();
-    initialValue.value =
-        setting.get(SettingBoxKey.defaultDynamicType, defaultValue: 0);
+    initialValue.value = setting.get(SettingBoxKey.defaultDynamicType, defaultValue: 0);
     dynamicsType = DynamicsType.values[initialValue.value].obs;
   }
 
@@ -117,29 +101,25 @@ class DynamicsController extends GetxController {
 
     /// 点击评论action 直接查看评论
     if (action == 'comment') {
-      Get.toNamed('/dynamicDetail',
-          arguments: {'item': item, 'floor': floor, 'action': action});
+      Get.toNamed('/dynamicDetail', arguments: {'item': item, 'floor': floor, 'action': action});
       return false;
     }
     switch (item!.type) {
       /// 转发的动态
       case 'DYNAMIC_TYPE_FORWARD':
-        Get.toNamed('/dynamicDetail',
-            arguments: {'item': item, 'floor': floor});
+        Get.toNamed('/dynamicDetail', arguments: {'item': item, 'floor': floor});
         break;
 
       /// 图文动态查看
       case 'DYNAMIC_TYPE_DRAW':
-        Get.toNamed('/dynamicDetail',
-            arguments: {'item': item, 'floor': floor});
+        Get.toNamed('/dynamicDetail', arguments: {'item': item, 'floor': floor});
         break;
       case 'DYNAMIC_TYPE_AV':
         String bvid = item.modules.moduleDynamic.major.archive.bvid;
         String cover = item.modules.moduleDynamic.major.archive.cover;
         try {
           int cid = await SearchHttp.ab2c(bvid: bvid);
-          Get.toNamed('/video?bvid=$bvid&cid=$cid',
-              arguments: {'pic': cover, 'heroTag': bvid});
+          Get.toNamed('/video?bvid=$bvid&cid=$cid', arguments: {'pic': cover, 'heroTag': bvid});
         } catch (err) {
           SmartDialog.showToast(err.toString());
         }
@@ -156,20 +136,11 @@ class DynamicsController extends GetxController {
           if (url.contains('read')) {
             number = 'cv$number';
           }
-          Get.toNamed('/htmlRender', parameters: {
-            'url': url.startsWith('//') ? url.split('//').last : url,
-            'title': title,
-            'id': number,
-            'dynamicType': url.split('//').last.split('/')[1]
-          });
+          Get.toNamed('/htmlRender', parameters: {'url': url.startsWith('//') ? url.split('//').last : url, 'title': title, 'id': number, 'dynamicType': url.split('//').last.split('/')[1]});
         } else {
           Get.toNamed(
             '/webview',
-            parameters: {
-              'url': 'https:$url',
-              'type': 'note',
-              'pageTitle': title
-            },
+            parameters: {'url': 'https:$url', 'type': 'note', 'pageTitle': title},
           );
         }
 
@@ -182,8 +153,7 @@ class DynamicsController extends GetxController {
       /// 纯文字动态查看
       case 'DYNAMIC_TYPE_WORD':
         print('纯文本');
-        Get.toNamed('/dynamicDetail',
-            arguments: {'item': item, 'floor': floor});
+        Get.toNamed('/dynamicDetail', arguments: {'item': item, 'floor': floor});
         break;
       case 'DYNAMIC_TYPE_LIVE_RCMD':
         DynamicLiveModel liveRcmd = item.modules.moduleDynamic.major.liveRcmd;
@@ -197,22 +167,17 @@ class DynamicsController extends GetxController {
           'roomid': liveRcmd.roomId,
           'watched_show': liveRcmd.watchedShow,
         });
-        Get.toNamed('/liveRoom?roomid=${liveItem.roomId}', arguments: {
-          'liveItem': liveItem,
-          'heroTag': liveItem.roomId.toString()
-        });
+        Get.toNamed('/liveRoom?roomid=${liveItem.roomId}', arguments: {'liveItem': liveItem, 'heroTag': liveItem.roomId.toString()});
         break;
 
       /// 合集查看
       case 'DYNAMIC_TYPE_UGC_SEASON':
-        DynamicArchiveModel ugcSeason =
-            item.modules.moduleDynamic.major.ugcSeason;
+        DynamicArchiveModel ugcSeason = item.modules.moduleDynamic.major.ugcSeason;
         int aid = ugcSeason.aid!;
         String bvid = IdUtils.av2bv(aid);
         String cover = ugcSeason.cover!;
         int cid = await SearchHttp.ab2c(bvid: bvid);
-        Get.toNamed('/video?bvid=$bvid&cid=$cid',
-            arguments: {'pic': cover, 'heroTag': bvid});
+        Get.toNamed('/video?bvid=$bvid&cid=$cid', arguments: {'pic': cover, 'heroTag': bvid});
         break;
 
       /// 番剧查看
@@ -281,12 +246,10 @@ class DynamicsController extends GetxController {
 
   // 返回顶部并刷新
   void animateToTop() async {
-    if (scrollController.offset >=
-        MediaQuery.of(Get.context!).size.height * 5) {
+    if (scrollController.offset >= MediaQuery.of(Get.context!).size.height * 5) {
       scrollController.jumpTo(0);
     } else {
-      await scrollController.animateTo(0,
-          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+      await scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     }
   }
 

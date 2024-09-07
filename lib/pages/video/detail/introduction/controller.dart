@@ -50,6 +50,7 @@ class VideoIntroController extends GetxController {
   int _tempThemeValue = -1;
 
   RxInt lastPlayCid = 0.obs;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
 
   // 同时观看
@@ -69,8 +70,7 @@ class VideoIntroController extends GetxController {
     } catch (_) {}
     userLogin = userInfo != null;
     lastPlayCid.value = int.parse(Get.parameters['cid']!);
-    isShowOnlineTotal =
-        setting.get(SettingBoxKey.enableOnlineTotal, defaultValue: false);
+    isShowOnlineTotal = setting.get(SettingBoxKey.enableOnlineTotal, defaultValue: false);
     if (isShowOnlineTotal) {
       queryOnlineTotal();
       startTimer(); // 在页面加载时启动定时器
@@ -85,8 +85,7 @@ class VideoIntroController extends GetxController {
       if (videoDetail.value.pages!.isNotEmpty && lastPlayCid.value == 0) {
         lastPlayCid.value = videoDetail.value.pages!.first.cid!;
       }
-      final VideoDetailController videoDetailCtr =
-          Get.find<VideoDetailController>(tag: heroTag);
+      final VideoDetailController videoDetailCtr = Get.find<VideoDetailController>(tag: heroTag);
       videoDetailCtr.tabs.value = ['简介', '评论 ${result['data']?.stat?.reply}'];
       // 获取到粉丝数再返回
       await queryUserStat();
@@ -158,9 +157,7 @@ class VideoIntroController extends GetxController {
           title: const Text('提示'),
           content: const Text('一键三连 给UP送温暖'),
           actions: [
-            TextButton(
-                onPressed: () => SmartDialog.dismiss(),
-                child: const Text('点错了')),
+            TextButton(onPressed: () => SmartDialog.dismiss(), child: const Text('点错了')),
             TextButton(
               onPressed: () async {
                 var result = await VideoHttp.oneThree(bvid: bvid);
@@ -247,13 +244,11 @@ class VideoIntroController extends GetxController {
               TextButton(onPressed: () => Get.back(), child: const Text('取消')),
               TextButton(
                   onPressed: () async {
-                    var res = await VideoHttp.coinVideo(
-                        bvid: bvid, multiply: _tempThemeValue);
+                    var res = await VideoHttp.coinVideo(bvid: bvid, multiply: _tempThemeValue);
                     if (res['status']) {
                       SmartDialog.showToast('投币成功 👏');
                       hasCoin.value = true;
-                      videoDetail.value.stat!.coin =
-                          videoDetail.value.stat!.coin! + _tempThemeValue;
+                      videoDetail.value.stat!.coin = videoDetail.value.stat!.coin! + _tempThemeValue;
                     } else {
                       SmartDialog.showToast(res['msg']);
                     }
@@ -299,10 +294,7 @@ class VideoIntroController extends GetxController {
       print(e);
     }
     SmartDialog.showLoading(msg: '请求中');
-    var result = await VideoHttp.favVideo(
-        aid: IdUtils.bv2av(bvid),
-        addIds: addMediaIdsNew.join(','),
-        delIds: delMediaIdsNew.join(','));
+    var result = await VideoHttp.favVideo(aid: IdUtils.bv2av(bvid), addIds: addMediaIdsNew.join(','), delIds: delMediaIdsNew.join(','));
     SmartDialog.dismiss();
     if (result['status']) {
       addMediaIdsNew = [];
@@ -318,15 +310,12 @@ class VideoIntroController extends GetxController {
 
   // 分享视频
   Future actionShareVideo() async {
-    var result = await Share.share(
-            '${videoDetail.value.title} UP主: ${videoDetail.value.owner!.name!} - ${HttpString.baseUrl}/video/$bvid')
-        .whenComplete(() {});
+    var result = await Share.share('${videoDetail.value.title} UP主: ${videoDetail.value.owner!.name!} - ${HttpString.baseUrl}/video/$bvid').whenComplete(() {});
     return result;
   }
 
   Future queryVideoInFolder() async {
-    var result = await VideoHttp.videoInFolder(
-        mid: userInfo.mid, rid: IdUtils.bv2av(bvid));
+    var result = await VideoHttp.videoInFolder(mid: userInfo.mid, rid: IdUtils.bv2av(bvid));
     if (result['status']) {
       favFolderData.value = result['data'];
     }
@@ -340,9 +329,7 @@ class VideoIntroController extends GetxController {
     for (var i = 0; i < datalist.length; i++) {
       if (i == index) {
         datalist[i].favState = checkValue == true ? 1 : 0;
-        datalist[i].mediaCount = checkValue == true
-            ? datalist[i].mediaCount! + 1
-            : datalist[i].mediaCount! - 1;
+        datalist[i].mediaCount = checkValue == true ? datalist[i].mediaCount! + 1 : datalist[i].mediaCount! - 1;
       }
     }
     favFolderData.value.list = datalist;
@@ -446,10 +433,8 @@ class VideoIntroController extends GetxController {
   // 修改分P或番剧分集
   Future changeSeasonOrbangu(bvid, cid, aid) async {
     // 重新获取视频资源
-    final VideoDetailController videoDetailCtr =
-        Get.find<VideoDetailController>(tag: heroTag);
-    final ReleatedController releatedCtr =
-        Get.find<ReleatedController>(tag: heroTag);
+    final VideoDetailController videoDetailCtr = Get.find<VideoDetailController>(tag: heroTag);
+    final ReleatedController releatedCtr = Get.find<ReleatedController>(tag: heroTag);
     videoDetailCtr.bvid = bvid;
     videoDetailCtr.oid.value = aid ?? IdUtils.bv2av(bvid);
     videoDetailCtr.cid.value = cid;
@@ -460,8 +445,7 @@ class VideoIntroController extends GetxController {
     // 重新请求评论
     try {
       /// 未渲染回复组件时可能异常
-      final VideoReplyController videoReplyCtr =
-          Get.find<VideoReplyController>(tag: heroTag);
+      final VideoReplyController videoReplyCtr = Get.find<VideoReplyController>(tag: heroTag);
       videoReplyCtr.aid = aid;
       videoReplyCtr.queryReplyList(type: 'init');
     } catch (_) {}
@@ -516,11 +500,9 @@ class VideoIntroController extends GetxController {
       episodes.addAll(pages);
     }
 
-    final int currentIndex =
-        episodes.indexWhere((e) => e.cid == lastPlayCid.value);
+    final int currentIndex = episodes.indexWhere((e) => e.cid == lastPlayCid.value);
     int nextIndex = currentIndex + 1;
-    final VideoDetailController videoDetailCtr =
-        Get.find<VideoDetailController>(tag: heroTag);
+    final VideoDetailController videoDetailCtr = Get.find<VideoDetailController>(tag: heroTag);
     final PlayRepeat platRepeat = videoDetailCtr.plPlayerController.playRepeat;
 
     // 列表循环

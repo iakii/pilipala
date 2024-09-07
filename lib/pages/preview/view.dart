@@ -27,14 +27,14 @@ class ImagePreview extends StatefulWidget {
   _ImagePreviewState createState() => _ImagePreviewState();
 }
 
-class _ImagePreviewState extends State<ImagePreview>
-    with TickerProviderStateMixin {
+class _ImagePreviewState extends State<ImagePreview> with TickerProviderStateMixin {
   final PreviewController _previewController = Get.put(PreviewController());
   // late AnimationController animationController;
   late AnimationController _doubleClickAnimationController;
   Animation<double>? _doubleClickAnimation;
   late DoubleClickAnimationListener _doubleClickAnimationListener;
   List<double> doubleTapScales = <double>[1.0, 2.0];
+  // ignore: unused_field
   bool _dismissDisabled = false;
 
   @override
@@ -48,8 +48,7 @@ class _ImagePreviewState extends State<ImagePreview>
     // animationController = AnimationController(
     //     vsync: this, duration: const Duration(milliseconds: 400));
     setStatusBar();
-    _doubleClickAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 250), vsync: this);
+    _doubleClickAnimationController = AnimationController(duration: const Duration(milliseconds: 250), vsync: this);
   }
 
   onOpenMenu() {
@@ -72,9 +71,7 @@ class _ImagePreviewState extends State<ImagePreview>
               ),
               ListTile(
                 onTap: () {
-                  Clipboard.setData(
-                          ClipboardData(text: _previewController.currentImgUrl))
-                      .then((value) {
+                  Clipboard.setData(ClipboardData(text: _previewController.currentImgUrl)).then((value) {
                     Get.back();
                     SmartDialog.showToast('已复制到粘贴板');
                   }).catchError((err) {
@@ -105,8 +102,7 @@ class _ImagePreviewState extends State<ImagePreview>
   // 隐藏状态栏，避免遮挡图片内容
   setStatusBar() async {
     if (Platform.isIOS || Platform.isAndroid) {
-      await StatusBarControl.setHidden(true,
-          animation: StatusBarAnimation.SLIDE);
+      await StatusBarControl.setHidden(true, animation: StatusBarAnimation.SLIDE);
     }
   }
 
@@ -143,8 +139,7 @@ class _ImagePreviewState extends State<ImagePreview>
                 pageSpacing: 0,
               ),
               onPageChanged: (int index) => _previewController.onChange(index),
-              canScrollPage: (GestureDetails? gestureDetails) =>
-                  gestureDetails!.totalScale! <= 1.0,
+              canScrollPage: (GestureDetails? gestureDetails) => gestureDetails!.totalScale! <= 1.0,
               itemCount: widget.imgList!.length,
               itemBuilder: (BuildContext context, int index) {
                 return ExtendedImage.network(
@@ -152,14 +147,12 @@ class _ImagePreviewState extends State<ImagePreview>
                   fit: BoxFit.contain,
                   mode: ExtendedImageMode.gesture,
                   onDoubleTap: (ExtendedImageGestureState state) {
-                    final Offset? pointerDownPosition =
-                        state.pointerDownPosition;
+                    final Offset? pointerDownPosition = state.pointerDownPosition;
                     final double? begin = state.gestureDetails!.totalScale;
                     double end;
 
                     //remove old
-                    _doubleClickAnimation
-                        ?.removeListener(_doubleClickAnimationListener);
+                    _doubleClickAnimation?.removeListener(_doubleClickAnimationListener);
 
                     //stop pre
                     _doubleClickAnimationController.stop();
@@ -180,28 +173,19 @@ class _ImagePreviewState extends State<ImagePreview>
                     }
 
                     _doubleClickAnimationListener = () {
-                      state.handleDoubleTap(
-                          scale: _doubleClickAnimation!.value,
-                          doubleTapPosition: pointerDownPosition);
+                      state.handleDoubleTap(scale: _doubleClickAnimation!.value, doubleTapPosition: pointerDownPosition);
                     };
-                    _doubleClickAnimation = _doubleClickAnimationController
-                        .drive(Tween<double>(begin: begin, end: end));
+                    _doubleClickAnimation = _doubleClickAnimationController.drive(Tween<double>(begin: begin, end: end));
 
-                    _doubleClickAnimation!
-                        .addListener(_doubleClickAnimationListener);
+                    _doubleClickAnimation!.addListener(_doubleClickAnimationListener);
 
                     _doubleClickAnimationController.forward();
                   },
                   // ignore: body_might_complete_normally_nullable
                   loadStateChanged: (ExtendedImageState state) {
                     if (state.extendedImageLoadState == LoadState.loading) {
-                      final ImageChunkEvent? loadingProgress =
-                          state.loadingProgress;
-                      final double? progress =
-                          loadingProgress?.expectedTotalBytes != null
-                              ? loadingProgress!.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null;
+                      final ImageChunkEvent? loadingProgress = state.loadingProgress;
+                      final double? progress = loadingProgress?.expectedTotalBytes != null ? loadingProgress!.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null;
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -239,10 +223,7 @@ class _ImagePreviewState extends State<ImagePreview>
             right: 0,
             bottom: 0,
             child: Container(
-                padding: EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom: MediaQuery.of(context).padding.bottom + 30),
+                padding: EdgeInsets.only(left: 20, right: 20, bottom: MediaQuery.of(context).padding.bottom + 30),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -261,18 +242,11 @@ class _ImagePreviewState extends State<ImagePreview>
                         ? Obx(
                             () => Text.rich(
                               textAlign: TextAlign.center,
-                              TextSpan(
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                  children: [
-                                    TextSpan(
-                                        text: _previewController.currentPage
-                                            .toString()),
-                                    const TextSpan(text: ' / '),
-                                    TextSpan(
-                                        text:
-                                            widget.imgList!.length.toString()),
-                                  ]),
+                              TextSpan(style: const TextStyle(color: Colors.white, fontSize: 16), children: [
+                                TextSpan(text: _previewController.currentPage.toString()),
+                                const TextSpan(text: ' / '),
+                                TextSpan(text: widget.imgList!.length.toString()),
+                              ]),
                             ),
                           )
                         : const SizedBox(),

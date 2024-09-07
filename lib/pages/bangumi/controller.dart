@@ -14,6 +14,7 @@ class BangumiController extends GetxController {
   Box userInfoCache = GStrorage.userInfo;
   RxBool userLogin = false.obs;
   late int mid;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
 
   @override
@@ -63,12 +64,10 @@ class BangumiController extends GetxController {
 
   // 返回顶部并刷新
   void animateToTop() async {
-    if (scrollController.offset >=
-        MediaQuery.of(Get.context!).size.height * 5) {
+    if (scrollController.offset >= MediaQuery.of(Get.context!).size.height * 5) {
       scrollController.jumpTo(0);
     } else {
-      await scrollController.animateTo(0,
-          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+      await scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     }
   }
 }

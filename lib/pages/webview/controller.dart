@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/init.dart';
 import 'package:pilipala/http/user.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/home/index.dart';
 import 'package:pilipala/pages/media/index.dart';
 import 'package:pilipala/utils/cookie.dart';
@@ -28,9 +29,9 @@ class WebviewController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    url = Get.parameters['url']!;
-    type.value = Get.parameters['type']!;
-    pageTitle = Get.parameters['pageTitle']!;
+    url = getParameters['url']!;
+    type.value = getParameters['type']!;
+    pageTitle = getParameters['pageTitle']!;
 
     if (type.value == 'login') {
       controller.clearCache();
@@ -68,14 +69,12 @@ class WebviewController extends GetxController {
           onUrlChange: (UrlChange urlChange) async {
             loadShow.value = false;
             String url = urlChange.url ?? '';
-            if (type.value == 'login' &&
-                (url.startsWith(
-                        'https://passport.bilibili.com/web/sso/exchange_cookie') ||
-                    url.startsWith('https://m.bilibili.com/'))) {
+            if (type.value == 'login' && (url.startsWith('https://passport.bilibili.com/web/sso/exchange_cookie') || url.startsWith('https://m.bilibili.com/'))) {
               confirmLogin(url);
             }
           },
           onWebResourceError: (WebResourceError error) {},
+
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.startsWith('bilibili://')) {
               if (request.url.startsWith('bilibili://video/')) {

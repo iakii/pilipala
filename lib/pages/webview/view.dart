@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -19,6 +20,10 @@ class _WebviewPageState extends State<WebviewPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => getBack(),
+          ),
           titleSpacing: 0,
           title: Text(
             _webviewController.pageTitle,
@@ -30,15 +35,13 @@ class _WebviewPageState extends State<WebviewPage> {
               onPressed: () {
                 _webviewController.controller.reload();
               },
-              icon: Icon(Icons.refresh_outlined,
-                  color: Theme.of(context).colorScheme.primary),
+              icon: Icon(Icons.refresh_outlined, color: Theme.of(context).colorScheme.primary),
             ),
             IconButton(
               onPressed: () {
                 launchUrl(Uri.parse(_webviewController.url));
               },
-              icon: Icon(Icons.open_in_browser_outlined,
-                  color: Theme.of(context).colorScheme.primary),
+              icon: Icon(Icons.open_in_browser_outlined, color: Theme.of(context).colorScheme.primary),
             ),
             Obx(
               () => _webviewController.type.value == 'login'
@@ -68,8 +71,7 @@ class _WebviewPageState extends State<WebviewPage> {
               Container(
                 width: double.infinity,
                 color: Theme.of(context).colorScheme.onInverseSurface,
-                padding: const EdgeInsets.only(
-                    left: 12, right: 12, top: 6, bottom: 6),
+                padding: const EdgeInsets.only(left: 12, right: 12, top: 6, bottom: 6),
                 child: const Text('登录成功未自动跳转?  请点击右上角「刷新登录状态」'),
               ),
             Expanded(

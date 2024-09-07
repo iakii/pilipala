@@ -4,6 +4,7 @@ import 'package:pilipala/common/skeleton/video_card_h.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
 import 'package:pilipala/common/widgets/video_card_h.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/later/index.dart';
 
 class LaterPage extends StatefulWidget {
@@ -28,6 +29,10 @@ class _LaterPageState extends State<LaterPage> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => getBack(),
+        ),
         centerTitle: false,
         title: Obx(
           () => _laterController.laterList.isNotEmpty
@@ -75,17 +80,11 @@ class _LaterPageState extends State<LaterPage> {
                 Map data = snapshot.data as Map;
                 if (data['status']) {
                   return Obx(
-                    () => _laterController.laterList.isNotEmpty &&
-                            !_laterController.isLoading.value
+                    () => _laterController.laterList.isNotEmpty && !_laterController.isLoading.value
                         ? SliverList(
-                            delegate:
-                                SliverChildBuilderDelegate((context, index) {
+                            delegate: SliverChildBuilderDelegate((context, index) {
                               var videoItem = _laterController.laterList[index];
-                              return VideoCardH(
-                                  videoItem: videoItem,
-                                  source: 'later',
-                                  longPress: () => _laterController.toViewDel(
-                                      aid: videoItem.aid));
+                              return VideoCardH(videoItem: videoItem, source: 'later', longPress: () => _laterController.toViewDel(aid: videoItem.aid));
                             }, childCount: _laterController.laterList.length),
                           )
                         : _laterController.isLoading.value

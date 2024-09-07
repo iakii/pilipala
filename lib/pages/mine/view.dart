@@ -7,6 +7,7 @@ import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/models/common/theme_type.dart';
 import 'package:pilipala/models/user/info.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'controller.dart';
 
 class MinePage extends StatefulWidget {
@@ -57,14 +58,15 @@ class _MinePageState extends State<MinePage> {
           IconButton(
             onPressed: () => mineController.onChangeTheme(),
             icon: Icon(
-              mineController.themeType.value == ThemeType.dark
-                  ? CupertinoIcons.sun_max
-                  : CupertinoIcons.moon,
+              mineController.themeType.value == ThemeType.dark ? CupertinoIcons.sun_max : CupertinoIcons.moon,
               size: 22,
             ),
           ),
           IconButton(
-            onPressed: () => Get.toNamed('/setting', preventDuplicates: false),
+            onPressed: () {
+              Navigator.of(context).pop();
+              getToNamed('/setting', preventDuplicates: false);
+            },
             icon: const Icon(
               CupertinoIcons.slider_horizontal_3,
             ),
@@ -89,8 +91,7 @@ class _MinePageState extends State<MinePage> {
                           return const SizedBox();
                         }
                         if (snapshot.data['status']) {
-                          return Obx(
-                              () => userInfoBuild(mineController, context));
+                          return Obx(() => userInfoBuild(mineController, context));
                         } else {
                           return userInfoBuild(mineController, context);
                         }
@@ -113,7 +114,10 @@ class _MinePageState extends State<MinePage> {
       children: [
         const SizedBox(height: 5),
         GestureDetector(
-          onTap: () => _mineController.onLogin(),
+          onTap: () {
+            Navigator.of(context).pop();
+            _mineController.onLogin();
+          },
           child: ClipOval(
             child: Container(
               width: 85,
@@ -124,7 +128,8 @@ class _MinePageState extends State<MinePage> {
                     ? NetworkImgLayer(
                         src: _mineController.userInfo.value.face,
                         width: 85,
-                        height: 85)
+                        height: 85,
+                      )
                     : Image.asset('assets/images/noface.jpeg'),
               ),
             ),
@@ -150,15 +155,8 @@ class _MinePageState extends State<MinePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text.rich(TextSpan(children: [
-              TextSpan(
-                  text: '硬币: ',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.outline)),
-              TextSpan(
-                  text: (_mineController.userInfo.value.money ?? 'pilipala')
-                      .toString(),
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary)),
+              TextSpan(text: '硬币: ', style: TextStyle(color: Theme.of(context).colorScheme.outline)),
+              TextSpan(text: (_mineController.userInfo.value.money ?? 'pilipala').toString(), style: TextStyle(color: Theme.of(context).colorScheme.primary)),
             ]))
           ],
         ),
@@ -179,10 +177,8 @@ class _MinePageState extends State<MinePage> {
                       child: Container(
                         color: Theme.of(context).colorScheme.primary,
                         height: 24,
-                        constraints:
-                            const BoxConstraints(minWidth: 100), // 设置最小宽度为100
-                        width: box.maxWidth *
-                            (1 - (levelInfo.currentExp! / levelInfo.nextExp!)),
+                        constraints: const BoxConstraints(minWidth: 100), // 设置最小宽度为100
+                        width: box.maxWidth * (1 - (levelInfo.currentExp! / levelInfo.nextExp!)),
                         child: Center(
                           child: Text(
                             '${levelInfo.currentExp!}/${levelInfo.nextExp!}',
@@ -199,11 +195,7 @@ class _MinePageState extends State<MinePage> {
                       left: 0,
                       bottom: 0,
                       child: Container(
-                        width: box.maxWidth *
-                            (_mineController
-                                    .userInfo.value.levelInfo!.currentExp! /
-                                _mineController
-                                    .userInfo.value.levelInfo!.nextExp!),
+                        width: box.maxWidth * (_mineController.userInfo.value.levelInfo!.currentExp! / _mineController.userInfo.value.levelInfo!.nextExp!),
                         height: 1,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
@@ -221,10 +213,7 @@ class _MinePageState extends State<MinePage> {
           padding: const EdgeInsets.only(left: 12, right: 12),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              TextStyle style = TextStyle(
-                  fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold);
+              TextStyle style = TextStyle(fontSize: Theme.of(context).textTheme.titleMedium!.fontSize, color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold);
               return SizedBox(
                 height: constraints.maxWidth / 3 * 0.6,
                 child: GridView.count(
@@ -241,19 +230,10 @@ class _MinePageState extends State<MinePage> {
                         children: [
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 400),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return ScaleTransition(
-                                  scale: animation, child: child);
+                            transitionBuilder: (Widget child, Animation<double> animation) {
+                              return ScaleTransition(scale: animation, child: child);
                             },
-                            child: Text(
-                                (_mineController.userStat.value.dynamicCount ??
-                                        '-')
-                                    .toString(),
-                                key: ValueKey<String>(_mineController
-                                    .userStat.value.dynamicCount
-                                    .toString()),
-                                style: style),
+                            child: Text((_mineController.userStat.value.dynamicCount ?? '-').toString(), key: ValueKey<String>(_mineController.userStat.value.dynamicCount.toString()), style: style),
                           ),
                           const SizedBox(height: 8),
                           Text(
@@ -271,19 +251,10 @@ class _MinePageState extends State<MinePage> {
                         children: [
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 400),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return ScaleTransition(
-                                  scale: animation, child: child);
+                            transitionBuilder: (Widget child, Animation<double> animation) {
+                              return ScaleTransition(scale: animation, child: child);
                             },
-                            child: Text(
-                                (_mineController.userStat.value.following ??
-                                        '-')
-                                    .toString(),
-                                key: ValueKey<String>(_mineController
-                                    .userStat.value.following
-                                    .toString()),
-                                style: style),
+                            child: Text((_mineController.userStat.value.following ?? '-').toString(), key: ValueKey<String>(_mineController.userStat.value.following.toString()), style: style),
                           ),
                           const SizedBox(height: 8),
                           Text(
@@ -301,18 +272,10 @@ class _MinePageState extends State<MinePage> {
                         children: [
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 400),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return ScaleTransition(
-                                  scale: animation, child: child);
+                            transitionBuilder: (Widget child, Animation<double> animation) {
+                              return ScaleTransition(scale: animation, child: child);
                             },
-                            child: Text(
-                                (_mineController.userStat.value.follower ?? '-')
-                                    .toString(),
-                                key: ValueKey<String>(_mineController
-                                    .userStat.value.follower
-                                    .toString()),
-                                style: style),
+                            child: Text((_mineController.userStat.value.follower ?? '-').toString(), key: ValueKey<String>(_mineController.userStat.value.follower.toString()), style: style),
                           ),
                           const SizedBox(height: 8),
                           Text(

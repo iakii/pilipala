@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -13,6 +14,7 @@ class FansController extends GetxController {
   RxList<FansItemModel> fansList = <FansItemModel>[].obs;
   late int mid;
   late String name;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
   RxString loadingText = '加载中...'.obs;
   RxBool isOwner = false.obs;
@@ -21,9 +23,7 @@ class FansController extends GetxController {
   void onInit() {
     super.onInit();
     userInfo = userInfoCache.get('userInfoCache');
-    mid = Get.parameters['mid'] != null
-        ? int.parse(Get.parameters['mid']!)
-        : userInfo.mid;
+    mid = Get.parameters['mid'] != null ? int.parse(Get.parameters['mid']!) : userInfo.mid;
     isOwner.value = mid == userInfo.mid;
     name = Get.parameters['name'] ?? userInfo.uname;
   }
@@ -49,7 +49,7 @@ class FansController extends GetxController {
       } else if (type == 'onLoad') {
         fansList.addAll(res['data'].list);
       }
-      print(total);
+      debugPrint(total.toString());
       if ((pn == 1 && total < ps) || res['data'].list.isEmpty) {
         loadingText.value = '没有更多了';
       }

@@ -6,6 +6,7 @@ import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/common/theme_type.dart';
 import 'package:pilipala/models/user/info.dart';
 import 'package:pilipala/models/user/stat.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/storage.dart';
 
 class MineController extends GetxController {
@@ -27,25 +28,24 @@ class MineController extends GetxController {
       userLogin.value = true;
     }
 
-    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode,
-        defaultValue: ThemeType.system.code)];
+    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode, defaultValue: ThemeType.system.code)];
   }
 
   onLogin() async {
     if (!userLogin.value) {
-      Get.toNamed(
-        '/webview',
-        parameters: {
-          'url': 'https://passport.bilibili.com/h5-app/passport/login',
-          'type': 'login',
-          'pageTitle': '登录bilibili',
-        },
-      );
-      // Get.toNamed('/loginPage');
+      // getToNamed(
+      //   '/webview',
+      //   parameters: {
+      //     'url': 'https://passport.bilibili.com/h5-app/passport/login',
+      //     'type': 'login',
+      //     'pageTitle': '登录bilibili',
+      //   },
+      // );
+      getToNamed('/loginPage');
     } else {
       int mid = userInfo.value.mid!;
       String face = userInfo.value.face!;
-      Get.toNamed(
+      getToNamed(
         '/member?mid=$mid',
         arguments: {'face': face},
       );
@@ -88,8 +88,7 @@ class MineController extends GetxController {
   }
 
   onChangeTheme() {
-    Brightness currentBrightness =
-        MediaQuery.of(Get.context!).platformBrightness;
+    Brightness currentBrightness = MediaQuery.of(Get.context!).platformBrightness;
     ThemeType currentTheme = themeType.value;
     switch (currentTheme) {
       case ThemeType.dark:
@@ -119,7 +118,7 @@ class MineController extends GetxController {
       SmartDialog.showToast('账号未登录');
       return;
     }
-    Get.toNamed('/follow?mid=${userInfo.value.mid}', preventDuplicates: false);
+    getToNamed('/follow?mid=${userInfo.value.mid}', preventDuplicates: false);
   }
 
   pushFans() {
@@ -127,7 +126,7 @@ class MineController extends GetxController {
       SmartDialog.showToast('账号未登录');
       return;
     }
-    Get.toNamed('/fan?mid=${userInfo.value.mid}', preventDuplicates: false);
+    getToNamed('/fan?mid=${userInfo.value.mid}', preventDuplicates: false);
   }
 
   pushDynamic() {
@@ -135,7 +134,6 @@ class MineController extends GetxController {
       SmartDialog.showToast('账号未登录');
       return;
     }
-    Get.toNamed('/memberDynamics?mid=${userInfo.value.mid}',
-        preventDuplicates: false);
+    getToNamed('/memberDynamics?mid=${userInfo.value.mid}', preventDuplicates: false);
   }
 }

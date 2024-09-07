@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/skeleton/video_card_h.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/history/index.dart';
 
 import 'widgets/item.dart';
@@ -27,8 +28,7 @@ class _HistoryPageState extends State<HistoryPage> {
     scrollController = _historyController.scrollController;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 300) {
+        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 300) {
           if (!_historyController.isLoadingMore.value) {
             EasyThrottle.throttle('history', const Duration(seconds: 1), () {
               _historyController.onLoad();
@@ -44,10 +44,8 @@ class _HistoryPageState extends State<HistoryPage> {
 
   // 选中
   onChoose(index) {
-    _historyController.historyList[index].checked =
-        !_historyController.historyList[index].checked!;
-    _historyController.checkedCount.value =
-        _historyController.historyList.where((item) => item.checked!).length;
+    _historyController.historyList[index].checked = !_historyController.historyList[index].checked!;
+    _historyController.checkedCount.value = _historyController.historyList.where((item) => item.checked!).length;
     _historyController.historyList.refresh();
   }
 
@@ -69,6 +67,10 @@ class _HistoryPageState extends State<HistoryPage> {
         visible: _historyController.enableMultiple.value,
         child1: AppBar(
           titleSpacing: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => getBack(),
+          ),
           centerTitle: false,
           title: Text(
             '观看记录',
@@ -103,9 +105,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 PopupMenuItem<String>(
                   value: 'pause',
                   child: Obx(
-                    () => Text(!_historyController.pauseStatus.value
-                        ? '暂停观看记录'
-                        : '恢复观看记录'),
+                    () => Text(!_historyController.pauseStatus.value ? '暂停观看记录' : '恢复观看记录'),
                   ),
                 ),
                 const PopupMenuItem<String>(
@@ -151,8 +151,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 for (var item in _historyController.historyList) {
                   item.checked = true;
                 }
-                _historyController.checkedCount.value =
-                    _historyController.historyList.length;
+                _historyController.checkedCount.value = _historyController.historyList.length;
                 _historyController.historyList.refresh();
               },
               child: const Text('全选'),
@@ -188,18 +187,14 @@ class _HistoryPageState extends State<HistoryPage> {
                     return Obx(
                       () => _historyController.historyList.isNotEmpty
                           ? SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                  (context, index) {
+                              delegate: SliverChildBuilderDelegate((context, index) {
                                 return HistoryItem(
-                                  videoItem:
-                                      _historyController.historyList[index],
+                                  videoItem: _historyController.historyList[index],
                                   ctr: _historyController,
                                   onChoose: () => onChoose(index),
                                   onUpdateMultiple: () => onUpdateMultiple(),
                                 );
-                              },
-                                  childCount:
-                                      _historyController.historyList.length),
+                              }, childCount: _historyController.historyList.length),
                             )
                           : _historyController.isLoadingMore.value
                               ? const SliverToBoxAdapter(

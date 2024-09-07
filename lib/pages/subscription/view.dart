@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'controller.dart';
 import 'widgets/item.dart';
 
@@ -24,8 +25,7 @@ class _SubPageState extends State<SubPage> {
     scrollController = _subController.scrollController;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 300) {
+        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 300) {
           EasyThrottle.throttle('history', const Duration(seconds: 1), () {
             _subController.onLoad();
           });
@@ -39,6 +39,10 @@ class _SubPageState extends State<SubPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => getBack(),
+        ),
         titleSpacing: 0,
         title: Text(
           '我的订阅',
@@ -56,10 +60,7 @@ class _SubPageState extends State<SubPage> {
                   controller: scrollController,
                   itemCount: _subController.subFolderData.value.list!.length,
                   itemBuilder: (context, index) {
-                    return SubItem(
-                        subFolderItem:
-                            _subController.subFolderData.value.list![index],
-                        cancelSub: _subController.cancelSub);
+                    return SubItem(subFolderItem: _subController.subFolderData.value.list![index], cancelSub: _subController.cancelSub);
                   },
                 ),
               );

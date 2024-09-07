@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/user/fav_folder.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/utils/storage.dart';
 
 class MediaController extends GetxController {
@@ -21,24 +22,25 @@ class MediaController extends GetxController {
     {
       'icon': Icons.history,
       'title': '观看记录',
-      'onTap': () => Get.toNamed('/history'),
+      'onTap': () => getToNamed('/history'),
     },
     {
       'icon': Icons.star_border,
       'title': '我的收藏',
-      'onTap': () => Get.toNamed('/fav'),
+      'onTap': () => getToNamed('/fav'),
     },
     {
       'icon': Icons.subscriptions_outlined,
       'title': '我的订阅',
-      'onTap': () => Get.toNamed('/subscription'),
+      'onTap': () => getToNamed('/subscription'),
     },
     {
       'icon': Icons.watch_later_outlined,
       'title': '稍后再看',
-      'onTap': () => Get.toNamed('/later'),
+      'onTap': () => getToNamed('/later'),
     },
   ];
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
   int? mid;
   final ScrollController scrollController = ScrollController();

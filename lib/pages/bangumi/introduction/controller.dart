@@ -18,12 +18,8 @@ import 'package:share_plus/share_plus.dart';
 class BangumiIntroController extends GetxController {
   // 视频bvid
   String bvid = Get.parameters['bvid']!;
-  var seasonId = Get.parameters['seasonId'] != null
-      ? int.parse(Get.parameters['seasonId']!)
-      : null;
-  var epId = Get.parameters['epId'] != null
-      ? int.tryParse(Get.parameters['epId']!)
-      : null;
+  var seasonId = Get.parameters['seasonId'] != null ? int.parse(Get.parameters['seasonId']!) : null;
+  var epId = Get.parameters['epId'] != null ? int.tryParse(Get.parameters['epId']!) : null;
 
   // 请求状态
   RxBool isLoading = false.obs;
@@ -51,6 +47,7 @@ class BangumiIntroController extends GetxController {
   // 关注状态 默认未关注
   RxMap followStatus = {}.obs;
   int _tempThemeValue = -1;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
 
   @override
@@ -107,8 +104,7 @@ class BangumiIntroController extends GetxController {
     if (result['status']) {
       SmartDialog.showToast(!hasLike.value ? '点赞成功 👍' : '取消赞');
       hasLike.value = !hasLike.value;
-      bangumiDetail.value.stat!['likes'] =
-          bangumiDetail.value.stat!['likes'] + (!hasLike.value ? 1 : -1);
+      bangumiDetail.value.stat!['likes'] = bangumiDetail.value.stat!['likes'] + (!hasLike.value ? 1 : -1);
       hasLike.refresh();
     } else {
       SmartDialog.showToast(result['msg']);
@@ -156,13 +152,11 @@ class BangumiIntroController extends GetxController {
               TextButton(onPressed: () => Get.back(), child: const Text('取消')),
               TextButton(
                 onPressed: () async {
-                  var res = await VideoHttp.coinVideo(
-                      bvid: bvid, multiply: _tempThemeValue);
+                  var res = await VideoHttp.coinVideo(bvid: bvid, multiply: _tempThemeValue);
                   if (res['status']) {
                     SmartDialog.showToast('投币成功 👏');
                     hasCoin.value = true;
-                    bangumiDetail.value.stat!['coins'] =
-                        bangumiDetail.value.stat!['coins'] + _tempThemeValue;
+                    bangumiDetail.value.stat!['coins'] = bangumiDetail.value.stat!['coins'] + _tempThemeValue;
                   } else {
                     SmartDialog.showToast(res['msg']);
                   }
@@ -186,10 +180,7 @@ class BangumiIntroController extends GetxController {
         }
       }
     } catch (_) {}
-    var result = await VideoHttp.favVideo(
-        aid: IdUtils.bv2av(bvid),
-        addIds: addMediaIdsNew.join(','),
-        delIds: delMediaIdsNew.join(','));
+    var result = await VideoHttp.favVideo(aid: IdUtils.bv2av(bvid), addIds: addMediaIdsNew.join(','), delIds: delMediaIdsNew.join(','));
     if (result['status']) {
       addMediaIdsNew = [];
       delMediaIdsNew = [];
@@ -202,8 +193,7 @@ class BangumiIntroController extends GetxController {
 
   // 分享视频
   Future actionShareVideo() async {
-    var result = await Share.share('${HttpString.baseUrl}/video/$bvid')
-        .whenComplete(() {});
+    var result = await Share.share('${HttpString.baseUrl}/video/$bvid').whenComplete(() {});
     return result;
   }
 
@@ -214,9 +204,7 @@ class BangumiIntroController extends GetxController {
     for (var i = 0; i < datalist.length; i++) {
       if (i == index) {
         datalist[i].favState = checkValue == true ? 1 : 0;
-        datalist[i].mediaCount = checkValue == true
-            ? datalist[i].mediaCount! + 1
-            : datalist[i].mediaCount! - 1;
+        datalist[i].mediaCount = checkValue == true ? datalist[i].mediaCount! + 1 : datalist[i].mediaCount! - 1;
       }
     }
     favFolderData.value.list = datalist;
@@ -226,8 +214,7 @@ class BangumiIntroController extends GetxController {
   // 修改分P或番剧分集
   Future changeSeasonOrbangu(bvid, cid, aid) async {
     // 重新获取视频资源
-    VideoDetailController videoDetailCtr =
-        Get.find<VideoDetailController>(tag: Get.arguments['heroTag']);
+    VideoDetailController videoDetailCtr = Get.find<VideoDetailController>(tag: Get.arguments['heroTag']);
     videoDetailCtr.bvid = bvid;
     videoDetailCtr.cid.value = cid;
     videoDetailCtr.danmakuCid.value = cid;
@@ -235,8 +222,7 @@ class BangumiIntroController extends GetxController {
     // 重新请求评论
     try {
       /// 未渲染回复组件时可能异常
-      VideoReplyController videoReplyCtr =
-          Get.find<VideoReplyController>(tag: Get.arguments['heroTag']);
+      VideoReplyController videoReplyCtr = Get.find<VideoReplyController>(tag: Get.arguments['heroTag']);
       videoReplyCtr.aid = aid;
       videoReplyCtr.queryReplyList(type: 'init');
     } catch (_) {}
@@ -244,21 +230,18 @@ class BangumiIntroController extends GetxController {
 
   // 追番
   Future bangumiAdd() async {
-    var result =
-        await VideoHttp.bangumiAdd(seasonId: bangumiDetail.value.seasonId);
+    var result = await VideoHttp.bangumiAdd(seasonId: bangumiDetail.value.seasonId);
     SmartDialog.showToast(result['msg']);
   }
 
   // 取消追番
   Future bangumiDel() async {
-    var result =
-        await VideoHttp.bangumiDel(seasonId: bangumiDetail.value.seasonId);
+    var result = await VideoHttp.bangumiDel(seasonId: bangumiDetail.value.seasonId);
     SmartDialog.showToast(result['msg']);
   }
 
   Future queryVideoInFolder() async {
-    var result = await VideoHttp.videoInFolder(
-        mid: userInfo.mid, rid: IdUtils.bv2av(bvid));
+    var result = await VideoHttp.videoInFolder(mid: userInfo.mid, rid: IdUtils.bv2av(bvid));
     if (result['status']) {
       favFolderData.value = result['data'];
     }
@@ -271,10 +254,8 @@ class BangumiIntroController extends GetxController {
     if (bangumiDetail.value.episodes != null) {
       episodes = bangumiDetail.value.episodes!;
     }
-    VideoDetailController videoDetailCtr =
-        Get.find<VideoDetailController>(tag: Get.arguments['heroTag']);
-    int currentIndex =
-        episodes.indexWhere((e) => e.cid == videoDetailCtr.cid.value);
+    VideoDetailController videoDetailCtr = Get.find<VideoDetailController>(tag: Get.arguments['heroTag']);
+    int currentIndex = episodes.indexWhere((e) => e.cid == videoDetailCtr.cid.value);
     int nextIndex = currentIndex + 1;
     PlayRepeat platRepeat = videoDetailCtr.plPlayerController.playRepeat;
     // 列表循环
@@ -283,8 +264,7 @@ class BangumiIntroController extends GetxController {
         nextIndex = 0;
       }
     }
-    if (nextIndex <= episodes.length - 1 &&
-        platRepeat == PlayRepeat.listOrder) {}
+    if (nextIndex <= episodes.length - 1 && platRepeat == PlayRepeat.listOrder) {}
 
     int cid = episodes[nextIndex].cid!;
     String bvid = episodes[nextIndex].bvid!;

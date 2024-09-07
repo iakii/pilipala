@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/video/play/quality.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/setting/widgets/select_dialog.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
 import 'package:pilipala/services/service_locator.dart';
@@ -32,18 +33,12 @@ class _PlaySettingState extends State<PlaySetting> {
   @override
   void initState() {
     super.initState();
-    defaultVideoQa = setting.get(SettingBoxKey.defaultVideoQa,
-        defaultValue: VideoQuality.values.last.code);
-    defaultLiveQa = setting.get(SettingBoxKey.defaultLiveQa,
-        defaultValue: LiveQuality.values.last.code);
-    defaultAudioQa = setting.get(SettingBoxKey.defaultAudioQa,
-        defaultValue: AudioQuality.values.last.code);
-    defaultDecode = setting.get(SettingBoxKey.defaultDecode,
-        defaultValue: VideoDecodeFormats.values.last.code);
-    defaultFullScreenMode = setting.get(SettingBoxKey.fullScreenMode,
-        defaultValue: FullScreenMode.values.first.code);
-    defaultBtmProgressBehavior = setting.get(SettingBoxKey.btmProgressBehavior,
-        defaultValue: BtmProgresBehavior.values.first.code);
+    defaultVideoQa = setting.get(SettingBoxKey.defaultVideoQa, defaultValue: VideoQuality.values.last.code);
+    defaultLiveQa = setting.get(SettingBoxKey.defaultLiveQa, defaultValue: LiveQuality.values.last.code);
+    defaultAudioQa = setting.get(SettingBoxKey.defaultAudioQa, defaultValue: AudioQuality.values.last.code);
+    defaultDecode = setting.get(SettingBoxKey.defaultDecode, defaultValue: VideoDecodeFormats.values.last.code);
+    defaultFullScreenMode = setting.get(SettingBoxKey.fullScreenMode, defaultValue: FullScreenMode.values.first.code);
+    defaultBtmProgressBehavior = setting.get(SettingBoxKey.btmProgressBehavior, defaultValue: BtmProgresBehavior.values.first.code);
   }
 
   @override
@@ -57,14 +52,15 @@ class _PlaySettingState extends State<PlaySetting> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle = Theme.of(context).textTheme.titleMedium!;
-    TextStyle subTitleStyle = Theme.of(context)
-        .textTheme
-        .labelMedium!
-        .copyWith(color: Theme.of(context).colorScheme.outline);
+    TextStyle subTitleStyle = Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.outline);
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         titleSpacing: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => getBack(),
+        ),
         title: Text(
           '播放设置',
           style: Theme.of(context).textTheme.titleMedium,

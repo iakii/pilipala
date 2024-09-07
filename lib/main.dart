@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:catcher_2/catcher_2.dart';
+import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,8 +28,13 @@ import 'package:pilipala/utils/storage.dart';
 
 import './services/loggeer.dart';
 
-void main() async {
+void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (runWebViewTitleBarWidget(args)) {
+    return;
+  }
+
   MediaKit.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) async {
     await GStrorage.init();
@@ -72,8 +78,8 @@ void main() async {
       statusBarColor: Colors.transparent,
     ));
     Data.init();
-    PiliSchame.init();
-    DisableBatteryOpt();
+    if (GetPlatform.isMobile) PiliSchame.init();
+    disableAndroidBatteryOpt();
   });
 }
 

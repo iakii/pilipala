@@ -32,9 +32,7 @@ class _FollowPageState extends State<FollowPage> {
         titleSpacing: 0,
         centerTitle: false,
         title: Text(
-          _followController.isOwner.value
-              ? '我的关注'
-              : '${_followController.name}的关注',
+          _followController.isOwner.value ? '我的关注' : '${_followController.name}的关注',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         actions: [
@@ -72,22 +70,16 @@ class _FollowPageState extends State<FollowPage> {
                     if (data['status']) {
                       return Column(
                         children: [
-                          TabBar(
-                              controller: _followController.tabController,
-                              isScrollable: true,
-                              tabAlignment: TabAlignment.start,
-                              tabs: [
-                                for (var i in data['data']) ...[
-                                  Tab(text: i.name),
-                                ]
-                              ]),
+                          TabBar(controller: _followController.tabController, isScrollable: true, tabAlignment: TabAlignment.start, tabs: [
+                            for (var i in data['data']) ...[
+                              Tab(text: i.name),
+                            ]
+                          ]),
                           Expanded(
                             child: TabBarView(
                               controller: _followController.tabController,
                               children: [
-                                for (var i = 0;
-                                    i < _followController.tabController.length;
-                                    i++) ...[
+                                for (var i = 0; i < _followController.tabController.length; i++) ...[
                                   OwnerFollowList(
                                     ctr: _followController,
                                     tagItem: _followController.followTags[i],
@@ -111,6 +103,7 @@ class _FollowPageState extends State<FollowPage> {
   }
 }
 
+// ignore: unused_element
 class _FakeAPI {
   static const List<String> _kOptions = <String>[
     'aardvark',
@@ -118,9 +111,9 @@ class _FakeAPI {
     'chameleon',
   ];
   // Searches the options, but injects a fake "network" delay.
+  // ignore: unused_element
   static Future<Iterable<String>> search(String query) async {
-    await Future<void>.delayed(
-        const Duration(seconds: 1)); // Fake 1 second delay.
+    await Future<void>.delayed(const Duration(seconds: 1)); // Fake 1 second delay.
     if (query == '') {
       return const Iterable<String>.empty();
     }

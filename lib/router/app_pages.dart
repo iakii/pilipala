@@ -62,12 +62,22 @@ Box<dynamic> setting = GStrorage.setting;
 class Routes {
   static final List<GetPage<dynamic>> getPages = [
     ..._commonRoutes,
-    CustomGetPage(
+    GetPage(
       // participatesInRootNavigator: true,
       // preventDuplicates: false,
       page: () => const DestktopApp(),
+      transitionDuration: 0.milliseconds,
       name: "/desktop",
-      children: _commonRoutes,
+      children: _commonRoutes.map(
+        (getPage) {
+          return GetPage(
+            name: getPage.name,
+            page: getPage.page,
+            transitionDuration: 0.milliseconds,
+            transition: Transition.native,
+          );
+        },
+      ).toList(),
       // children: [
       //   CustomGetPage(name: '/desktop/home', page: () => const HomePage()),
       // ]
@@ -192,7 +202,7 @@ class CustomGetPage extends GetPage<dynamic> {
     required super.name,
     required super.page,
     this.fullscreen,
-    super.transitionDuration,
+    super.transitionDuration, //=    0.milliseconds,,
     super.children,
   }) : super(
           curve: Curves.linear,

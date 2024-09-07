@@ -358,6 +358,15 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "0.7.10"
+  desktop_webview_window:
+    dependency: "direct main"
+    description:
+      path: "packages/desktop_webview_window"
+      ref: main
+      resolved-ref: bd5dbc30b71e825ba6d53d2d27f8a5796ea25802
+      url: "https://github.com/MixinNetwork/flutter-plugins.git"
+    source: git
+    version: "0.2.4"
   device_info_plus:
     dependency: "direct main"
     description:

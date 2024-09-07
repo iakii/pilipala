@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:pilipala/http/login.dart';
 import 'package:gt3_flutter_plugin/gt3_flutter_plugin.dart';
+import 'package:pilipala/http/login.dart';
 import 'package:pilipala/models/login/index.dart';
 
 class LoginPageController extends GetxController {
@@ -103,7 +103,7 @@ class LoginPageController extends GetxController {
         validate: captchaData.validate!,
         seccode: captchaData.seccode!,
       );
-      print(res);
+      debugPrint(res);
     });
   }
 
@@ -130,8 +130,7 @@ class LoginPageController extends GetxController {
           SmartDialog.showToast('验证成功');
           captchaData.validate = message['result']['geetest_validate'];
           captchaData.seccode = message['result']['geetest_seccode'];
-          captchaData.geetest!.challenge =
-              message['result']['geetest_challenge'];
+          captchaData.geetest!.challenge = message['result']['geetest_challenge'];
           oncall(captchaData);
         } else {
           // 终端用户完成验证失败，自动重试 If the verification fails, it will be automatically retried.

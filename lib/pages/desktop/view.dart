@@ -29,40 +29,12 @@ class DestktopApp extends GetView<DesktopController> {
                 child: Column(
                   children: [
                     SizedBox(height: kWindowCaptionHeight, child: WindowCaption(brightness: Theme.of(context).brightness)),
-
                     GetRouterOutlet(
                       initialRoute: "/desktop/home",
                       anchorRoute: "/desktop",
                       key: state.desktopRoute,
                       delegate: state.delegate,
                     ).expanded(),
-                    // Row(
-                    //   children: [
-                    //     Navigator(
-                    //   key: state.desktopRoute,
-                    //   initialRoute: '/',
-                    //   onGenerateRoute: (settings) {
-                    //     if (settings.name == '/') {
-                    //       return GetPageRoute(page: () => const HomePage());
-                    //     } else if (settings.name == '/rank') {
-                    //       return GetPageRoute(page: () => const RankPage());
-                    //     } else if (settings.name == '/dynamic') {
-                    //       return GetPageRoute(page: () => const DynamicsPage());
-                    //     } else if (settings.name == '/media') {
-                    //       return GetPageRoute(page: () => const MediaPage());
-                    //     } else if (settings.name == '/search') {
-                    //       return GetPageRoute(page: () => const SearchPage());
-                    //     } else if (settings.name == '/setting') {
-                    //       return GetPageRoute(page: () => const SettingPage());
-                    //     } else if (settings.name == '/login') {
-                    //       return GetPageRoute(page: () => const LoginPage());
-                    //     }
-                    //     return GetPageRoute(page: () => const Text("404"));
-                    //   },
-                    // ).expanded(),
-                    //     Container().backgroundColor(Colors.red).width(375),
-                    //   ],
-                    // ).expanded(),
                   ],
                 ),
               ),
@@ -106,10 +78,8 @@ class SlideNavigation extends StatelessWidget {
               const SizedBox(height: 24),
               ...items.map((e) {
                 final currentRoute = state.delegate.currentConfiguration?.currentPage?.name;
-                debugPrint("widget.currentRoute==========: $currentRoute");
                 final currentIndex = items.indexOf(e);
                 final selected = currentRoute == '/desktop${state.routeUrl[currentIndex]}';
-                debugPrint("selected==========: $selected");
                 final selectIconColor = selected ? Colors.white : Colors.black;
                 final selectBgColor = selected ? Theme.of(context).primaryColor.withOpacity(1) : Colors.transparent;
                 final selectLabelColor = selected ? Theme.of(context).primaryColor.withOpacity(.9) : Colors.black;
@@ -164,7 +134,13 @@ class SlideNavigation extends StatelessWidget {
                           userLogin: isUserLoggedIn,
                           top: 0,
                           userFace: state.ctx.userFace.value,
-                          callback: !isUserLoggedIn.value ? () => state.toNamed("/loginPage") : () => showUserBottomSheet(context),
+                          // callback: !isUserLoggedIn.value
+                          //     ? () => state.toNamed(
+                          //           "/loginPage",
+                          //         )
+                          //     : () => showUserBottomSheet(context),
+
+                          callback: () => showUserBottomSheet(context),
                           ctr: state.ctx,
                         ),
                       ],

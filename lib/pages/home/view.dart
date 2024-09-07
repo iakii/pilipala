@@ -202,7 +202,7 @@ class UserInfoWidget extends StatelessWidget {
     return Row(
       children: [
         if (searchBarVisible) SearchBar(ctr: ctr),
-        if (userInfoVisible && userLogin.value) ...[
+        if (searchBarVisible && userLogin.value) ...[
           const SizedBox(width: 4),
           ClipRect(
             child: IconButton(
@@ -229,9 +229,7 @@ class UserInfoWidget extends StatelessWidget {
                           child: InkWell(
                             onTap: () => callback?.call(),
                             splashColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(50),
-                            ),
+                            borderRadius: const BorderRadius.all(Radius.circular(50)),
                           ),
                         ),
                       )

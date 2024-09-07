@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../models/dynamics/result.dart';
 import '../models/dynamics/up.dart';
 import 'index.dart';
@@ -9,13 +11,7 @@ class DynamicsHttp {
     String? offset,
     int? mid,
   }) async {
-    Map<String, dynamic> data = {
-      'type': type ?? 'all',
-      'page': page ?? 1,
-      'timezone_offset': '-480',
-      'offset': page == 1 ? '' : offset,
-      'features': 'itemOpusStyle'
-    };
+    Map<String, dynamic> data = {'type': type ?? 'all', 'page': page ?? 1, 'timezone_offset': '-480', 'offset': page == 1 ? '' : offset, 'features': 'itemOpusStyle'};
     if (mid != -1) {
       data['host_mid'] = mid;
       data.remove('timezone_offset');
@@ -28,7 +24,7 @@ class DynamicsHttp {
           'data': DynamicsDataModel.fromJson(res.data['data']),
         };
       } catch (err) {
-        print(err);
+        debugPrint(err.toString());
         return {
           'status': false,
           'data': [],

@@ -25,8 +25,7 @@ import '../../../http/danmaku.dart';
 import '../../../utils/id_utils.dart';
 import 'widgets/header_control.dart';
 
-class VideoDetailController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class VideoDetailController extends GetxController with GetSingleTickerProviderStateMixin {
   /// 路由传参
   String bvid = Get.parameters['bvid']!;
   RxInt cid = int.parse(Get.parameters['cid']!).obs;
@@ -83,6 +82,7 @@ class VideoDetailController extends GetxController
   double? brightness;
   // 默认记录历史记录
   bool enableHeart = true;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
   late bool isFirstTime = true;
   Floating? floating;
@@ -94,8 +94,7 @@ class VideoDetailController extends GetxController
   late int defaultAudioQa;
 
   PersistentBottomSheetController? replyReplyBottomSheetCtr;
-  RxList<SubTitileContentModel> subtitleContents =
-      <SubTitileContentModel>[].obs;
+  RxList<SubTitileContentModel> subtitleContents = <SubTitileContentModel>[].obs;
   late bool enableRelatedVideo;
   List subtitles = [];
 
@@ -117,13 +116,10 @@ class VideoDetailController extends GetxController
       }
     }
     tabCtr = TabController(length: 2, vsync: this);
-    autoPlay.value =
-        setting.get(SettingBoxKey.autoPlayEnable, defaultValue: true);
+    autoPlay.value = setting.get(SettingBoxKey.autoPlayEnable, defaultValue: true);
     enableHA.value = setting.get(SettingBoxKey.enableHA, defaultValue: true);
-    enableRelatedVideo =
-        setting.get(SettingBoxKey.enableRelatedVideo, defaultValue: true);
-    if (userInfo == null ||
-        localCache.get(LocalCacheKey.historyPause) == true) {
+    enableRelatedVideo = setting.get(SettingBoxKey.enableRelatedVideo, defaultValue: true);
+    if (userInfo == null || localCache.get(LocalCacheKey.historyPause) == true) {
       enableHeart = false;
     }
     danmakuCid.value = cid.value;
@@ -144,17 +140,14 @@ class VideoDetailController extends GetxController
     // 预设的画质
     cacheVideoQa = setting.get(SettingBoxKey.defaultVideoQa);
     // 预设的解码格式
-    cacheDecode = setting.get(SettingBoxKey.defaultDecode,
-        defaultValue: VideoDecodeFormats.values.last.code);
-    defaultAudioQa = setting.get(SettingBoxKey.defaultAudioQa,
-        defaultValue: AudioQuality.hiRes.code);
+    cacheDecode = setting.get(SettingBoxKey.defaultDecode, defaultValue: VideoDecodeFormats.values.last.code);
+    defaultAudioQa = setting.get(SettingBoxKey.defaultAudioQa, defaultValue: AudioQuality.hiRes.code);
     oid.value = IdUtils.bv2av(Get.parameters['bvid']!);
     getSubtitle();
   }
 
   showReplyReplyPanel() {
-    replyReplyBottomSheetCtr =
-        scaffoldKey.currentState?.showBottomSheet((BuildContext context) {
+    replyReplyBottomSheetCtr = scaffoldKey.currentState?.showBottomSheet((BuildContext context) {
       return VideoReplyReplyPanel(
         oid: oid.value,
         rpid: fRpid,
@@ -180,23 +173,17 @@ class VideoDetailController extends GetxController
     plPlayerController.buffered.value = Duration.zero;
 
     /// 根据currentVideoQa和currentDecodeFormats 重新设置videoUrl
-    List<VideoItem> videoList =
-        data.dash!.video!.where((i) => i.id == currentVideoQa.code).toList();
+    List<VideoItem> videoList = data.dash!.video!.where((i) => i.id == currentVideoQa.code).toList();
     try {
-      firstVideo = videoList
-          .firstWhere((i) => i.codecs!.startsWith(currentDecodeFormats.code));
+      firstVideo = videoList.firstWhere((i) => i.codecs!.startsWith(currentDecodeFormats.code));
     } catch (_) {
       if (currentVideoQa == VideoQuality.dolbyVision) {
         firstVideo = videoList.first;
-        currentDecodeFormats =
-            VideoDecodeFormatsCode.fromString(videoList.first.codecs!)!;
+        currentDecodeFormats = VideoDecodeFormatsCode.fromString(videoList.first.codecs!)!;
       } else {
         // 当前格式不可用
-        currentDecodeFormats = VideoDecodeFormatsCode.fromString(setting.get(
-            SettingBoxKey.defaultDecode,
-            defaultValue: VideoDecodeFormats.values.last.code))!;
-        firstVideo = videoList
-            .firstWhere((i) => i.codecs!.startsWith(currentDecodeFormats.code));
+        currentDecodeFormats = VideoDecodeFormatsCode.fromString(setting.get(SettingBoxKey.defaultDecode, defaultValue: VideoDecodeFormats.values.last.code))!;
+        firstVideo = videoList.firstWhere((i) => i.codecs!.startsWith(currentDecodeFormats.code));
       }
     }
     videoUrl = firstVideo.baseUrl!;
@@ -231,22 +218,14 @@ class VideoDetailController extends GetxController
         videoSource: video ?? videoUrl,
         audioSource: audio ?? audioUrl,
         type: DataSourceType.network,
-        httpHeaders: {
-          'user-agent':
-              'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15',
-          'referer': HttpString.baseUrl
-        },
+        httpHeaders: {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15', 'referer': HttpString.baseUrl},
       ),
       // 硬解
       enableHA: enableHA.value,
       seekTo: seekToTime ?? defaultST,
       duration: duration ?? Duration(milliseconds: data.timeLength ?? 0),
       // 宽>高 水平 否则 垂直
-      direction: firstVideo.width != null && firstVideo.height != null
-          ? ((firstVideo.width! - firstVideo.height!) > 0
-              ? 'horizontal'
-              : 'vertical')
-          : null,
+      direction: firstVideo.width != null && firstVideo.height != null ? ((firstVideo.width! - firstVideo.height!) > 0 ? 'horizontal' : 'vertical') : null,
       bvid: bvid,
       cid: cid.value,
       enableHeart: enableHeart,
@@ -289,22 +268,18 @@ class VideoDetailController extends GetxController
         int resVideoQa = currentHighVideoQa;
         if (cacheVideoQa! <= currentHighVideoQa) {
           // 如果预设的画质低于当前最高
-          final List<int> numbers = data.acceptQuality!
-              .where((e) => e <= currentHighVideoQa)
-              .toList();
+          final List<int> numbers = data.acceptQuality!.where((e) => e <= currentHighVideoQa).toList();
           resVideoQa = Utils.findClosestNumber(cacheVideoQa!, numbers);
         }
         currentVideoQa = VideoQualityCode.fromCode(resVideoQa)!;
 
         /// 取出符合当前画质的videoList
-        final List<VideoItem> videosList =
-            allVideosList.where((e) => e.quality!.code == resVideoQa).toList();
+        final List<VideoItem> videosList = allVideosList.where((e) => e.quality!.code == resVideoQa).toList();
 
         /// 优先顺序 设置中指定解码格式 -> 当前可选的首个解码格式
         final List<FormatItem> supportFormats = data.supportFormats!;
         // 根据画质选编码格式
-        final List supportDecodeFormats =
-            supportFormats.firstWhere((e) => e.quality == resVideoQa).codecs!;
+        final List supportDecodeFormats = supportFormats.firstWhere((e) => e.quality == resVideoQa).codecs!;
         // 默认从设置中取AVC
         currentDecodeFormats = VideoDecodeFormatsCode.fromString(cacheDecode)!;
         try {
@@ -315,23 +290,18 @@ class VideoDetailController extends GetxController
               flag = true;
             }
           }
-          currentDecodeFormats = flag
-              ? currentDecodeFormats
-              : VideoDecodeFormatsCode.fromString(supportDecodeFormats.first)!;
+          currentDecodeFormats = flag ? currentDecodeFormats : VideoDecodeFormatsCode.fromString(supportDecodeFormats.first)!;
         } catch (err) {
           SmartDialog.showToast('DecodeFormats error: $err');
         }
 
         /// 取出符合当前解码格式的videoItem
         try {
-          firstVideo = videosList.firstWhere(
-              (e) => e.codecs!.startsWith(currentDecodeFormats.code));
+          firstVideo = videosList.firstWhere((e) => e.codecs!.startsWith(currentDecodeFormats.code));
         } catch (_) {
           firstVideo = videosList.first;
         }
-        videoUrl = enableCDN
-            ? VideoUtils.getCdnUrl(firstVideo)
-            : (firstVideo.backupUrl ?? firstVideo.baseUrl!);
+        videoUrl = enableCDN ? VideoUtils.getCdnUrl(firstVideo) : (firstVideo.backupUrl ?? firstVideo.baseUrl!);
       } catch (err) {
         SmartDialog.showToast('firstVideo error: $err');
       }
@@ -354,8 +324,7 @@ class VideoDetailController extends GetxController
         if (audiosList.isNotEmpty) {
           final List<int> numbers = audiosList.map((map) => map.id!).toList();
           int closestNumber = Utils.findClosestNumber(defaultAudioQa, numbers);
-          if (!numbers.contains(defaultAudioQa) &&
-              numbers.any((e) => e > defaultAudioQa)) {
+          if (!numbers.contains(defaultAudioQa) && numbers.any((e) => e > defaultAudioQa)) {
             closestNumber = 30280;
           }
           firstAudio = audiosList.firstWhere((e) => e.id == closestNumber);
@@ -367,9 +336,7 @@ class VideoDetailController extends GetxController
         SmartDialog.showToast('firstAudio error: $err');
       }
 
-      audioUrl = enableCDN
-          ? VideoUtils.getCdnUrl(firstAudio)
-          : (firstAudio.backupUrl ?? firstAudio.baseUrl!);
+      audioUrl = enableCDN ? VideoUtils.getCdnUrl(firstAudio) : (firstAudio.backupUrl ?? firstAudio.baseUrl!);
       //
       if (firstAudio.id != null) {
         currentAudioQa = AudioQualityCode.fromCode(firstAudio.id!)!;
@@ -390,9 +357,7 @@ class VideoDetailController extends GetxController
 
   // mob端全屏状态关闭二级回复
   hiddenReplyReplyPanel() {
-    replyReplyBottomSheetCtr != null
-        ? replyReplyBottomSheetCtr!.close()
-        : print('replyReplyBottomSheetCtr is null');
+    replyReplyBottomSheetCtr != null ? replyReplyBottomSheetCtr!.close() : debugPrint('replyReplyBottomSheetCtr is null');
   }
 
   // 获取字幕配置
@@ -444,8 +409,7 @@ class VideoDetailController extends GetxController
         // TODO: 支持更多类型和颜色的弹幕
         return AlertDialog(
           title: const Text('发送弹幕'),
-          content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+          content: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
             return TextField(
               controller: textController,
             );
@@ -458,8 +422,7 @@ class VideoDetailController extends GetxController
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
-            StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
+            StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
               return TextButton(
                 onPressed: isSending
                     ? null
@@ -481,8 +444,7 @@ class VideoDetailController extends GetxController
                           oid: cid.value,
                           msg: textController.text,
                           bvid: bvid,
-                          progress:
-                              plPlayerController.position.value.inMilliseconds,
+                          progress: plPlayerController.position.value.inMilliseconds,
                           type: 1,
                         );
                         setState(() {
@@ -496,8 +458,7 @@ class VideoDetailController extends GetxController
                             DanmakuItem(
                               msg,
                               color: Colors.white,
-                              time: plPlayerController
-                                  .position.value.inMilliseconds,
+                              time: plPlayerController.position.value.inMilliseconds,
                               type: DanmakuItemType.scroll,
                               isSend: true,
                             )

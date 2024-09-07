@@ -4,13 +4,10 @@ class SelectDialog<T> extends StatefulWidget {
   final T value;
   final String title;
   final List<dynamic> values;
-  const SelectDialog(
-      {super.key,
-      required this.value,
-      required this.values,
-      required this.title});
+  const SelectDialog({super.key, required this.value, required this.values, required this.title});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SelectDialogState<T> createState() => _SelectDialogState<T>();
 }
 

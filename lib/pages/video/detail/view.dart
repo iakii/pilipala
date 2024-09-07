@@ -63,7 +63,6 @@ class _VideoDetailPageState extends State<VideoDetailPage> with TickerProviderSt
   void initState() {
     super.initState();
     heroTag = getArguments['heroTag'];
-    print('heroTag=============<>================$heroTag');
     vdCtr = Get.put(VideoDetailController(), tag: heroTag);
     videoIntroController = Get.put(VideoIntroController(bvid: getParameters['bvid']!), tag: heroTag);
     videoIntroController.videoDetail.listen((value) {
@@ -257,6 +256,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> with TickerProviderSt
     // ignore: no_leading_underscores_for_local_identifiers
 
     // 竖屏
+    // ignore: unused_local_variable
     final bool isPortrait = context0.orientation == Orientation.portrait;
     // 横屏
     final bool isLandscape = context0.orientation == Orientation.landscape;

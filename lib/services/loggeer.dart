@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/rendering.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
@@ -16,8 +17,7 @@ class PiliLogger extends Logger {
   PiliLogger() : super();
 
   @override
-  void log(Level level, dynamic message,
-      {Object? error, StackTrace? stackTrace, DateTime? time}) async {
+  void log(Level level, dynamic message, {Object? error, StackTrace? stackTrace, DateTime? time}) async {
     if (level == Level.error) {
       String dir = (await getApplicationDocumentsDirectory()).path;
       // 创建logo文件
@@ -49,7 +49,7 @@ Future<bool> clearLogs() async {
   try {
     await file.writeAsString('');
   } catch (e) {
-    print('Error clearing file: $e');
+    debugPrint('Error clearing file: $e');
     return false;
   }
   return true;

@@ -18,10 +18,10 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   Box settingStorage = GStrorage.setting;
   RxBool userLogin = false.obs;
   RxString userFace = ''.obs;
+  // ignore: prefer_typing_uninitialized_variables
   var userInfo;
   Box setting = GStrorage.setting;
-  late final StreamController<bool> searchBarStream =
-      StreamController<bool>.broadcast();
+  late final StreamController<bool> searchBarStream = StreamController<bool>.broadcast();
   late bool hideSearchBar;
   late List defaultTabs;
   late List<String> tabbarSort;
@@ -34,13 +34,11 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     userInfo = userInfoCache.get('userInfoCache');
     userLogin.value = userInfo != null;
     userFace.value = userInfo != null ? userInfo.face : '';
-    hideSearchBar =
-        setting.get(SettingBoxKey.hideSearchBar, defaultValue: true);
+    hideSearchBar = setting.get(SettingBoxKey.hideSearchBar, defaultValue: true);
     if (setting.get(SettingBoxKey.enableSearchWord, defaultValue: true)) {
       searchDefault();
     }
-    enableGradientBg =
-        setting.get(SettingBoxKey.enableGradientBg, defaultValue: true);
+    enableGradientBg = setting.get(SettingBoxKey.enableGradientBg, defaultValue: true);
     // 进行tabs配置
     setTabConfig();
   }
@@ -67,13 +65,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   void setTabConfig() async {
     defaultTabs = [...tabsConfig];
-    tabbarSort = settingStorage.get(SettingBoxKey.tabbarSort,
-        defaultValue: ['live', 'rcmd', 'hot', 'bangumi']);
-    defaultTabs.retainWhere(
-        (item) => tabbarSort.contains((item['type'] as TabType).id));
-    defaultTabs.sort((a, b) => tabbarSort
-        .indexOf((a['type'] as TabType).id)
-        .compareTo(tabbarSort.indexOf((b['type'] as TabType).id)));
+    tabbarSort = settingStorage.get(SettingBoxKey.tabbarSort, defaultValue: ['live', 'rcmd', 'hot', 'bangumi']);
+    defaultTabs.retainWhere((item) => tabbarSort.contains((item['type'] as TabType).id));
+    defaultTabs.sort((a, b) => tabbarSort.indexOf((a['type'] as TabType).id).compareTo(tabbarSort.indexOf((b['type'] as TabType).id)));
 
     tabs.value = defaultTabs;
 

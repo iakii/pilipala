@@ -18,6 +18,7 @@ class BangumiCardV extends StatelessWidget {
     this.longPressEnd,
   });
 
+  // ignore: prefer_typing_uninitialized_variables
   final bangumiItem;
   final Function()? longPress;
   final Function()? longPressEnd;
@@ -92,13 +93,7 @@ class BangumiCardV extends StatelessWidget {
                             height: maxHeight,
                           ),
                         ),
-                        if (bangumiItem.badge != null)
-                          PBadge(
-                              text: bangumiItem.badge,
-                              top: 6,
-                              right: 6,
-                              bottom: null,
-                              left: null),
+                        if (bangumiItem.badge != null) PBadge(text: bangumiItem.badge, top: 6, right: 6, bottom: null, left: null),
                         if (bangumiItem.order != null)
                           PBadge(
                             text: bangumiItem.order,

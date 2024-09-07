@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/fav/index.dart';
 import 'package:pilipala/pages/fav/widgets/item.dart';
 
@@ -24,8 +25,7 @@ class _FavPageState extends State<FavPage> {
     scrollController = _favController.scrollController;
     scrollController.addListener(
       () {
-        if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 300) {
+        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 300) {
           EasyThrottle.throttle('history', const Duration(seconds: 1), () {
             _favController.onLoad();
           });
@@ -39,6 +39,10 @@ class _FavPageState extends State<FavPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => getBack(),
+        ),
         titleSpacing: 0,
         title: Text(
           '我的收藏',
@@ -46,8 +50,7 @@ class _FavPageState extends State<FavPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () => Get.toNamed(
-                '/favSearch?searchType=1&mediaId=${_favController.favFolderData.value.list!.first.id}'),
+            onPressed: () => Get.toNamed('/favSearch?searchType=1&mediaId=${_favController.favFolderData.value.list!.first.id}'),
             icon: const Icon(Icons.search_outlined),
           ),
           const SizedBox(width: 6),
@@ -64,9 +67,7 @@ class _FavPageState extends State<FavPage> {
                   controller: scrollController,
                   itemCount: _favController.favFolderData.value.list!.length,
                   itemBuilder: (context, index) {
-                    return FavItem(
-                        favFolderItem:
-                            _favController.favFolderData.value.list![index]);
+                    return FavItem(favFolderItem: _favController.favFolderData.value.list![index]);
                   },
                 ),
               );

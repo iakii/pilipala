@@ -20,6 +20,7 @@ class SlideDialog<T extends num> extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _SlideDialogState<T> createState() => _SlideDialogState<T>();
 }
 
@@ -36,8 +37,7 @@ class _SlideDialogState<T extends num> extends State<SlideDialog<T>> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.title),
-      contentPadding:
-          const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
+      contentPadding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
       content: SizedBox(
         height: 40,
         child: Slider(

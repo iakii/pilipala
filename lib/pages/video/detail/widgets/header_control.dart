@@ -65,8 +65,7 @@ class _HeaderControlState extends State<HeaderControl> {
     speedsList = widget.controller!.speedsList;
     fullScreenStatusListener();
     heroTag = Get.arguments['heroTag'];
-    videoIntroController =
-        Get.put(VideoIntroController(bvid: widget.bvid!), tag: heroTag);
+    videoIntroController = Get.put(VideoIntroController(bvid: widget.bvid!), tag: heroTag);
   }
 
   void fullScreenStatusListener() {
@@ -104,13 +103,7 @@ class _HeaderControlState extends State<HeaderControl> {
                   child: Container(
                     width: 32,
                     height: 3,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondaryContainer
-                            .withOpacity(0.5),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(3))),
+                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.5), borderRadius: const BorderRadius.all(Radius.circular(3))),
                   ),
                 ),
               ),
@@ -144,8 +137,7 @@ class _HeaderControlState extends State<HeaderControl> {
                     // ),
                     ListTile(
                       onTap: () async {
-                        final res = await UserHttp.toViewLater(
-                            bvid: widget.videoDetailCtr!.bvid);
+                        final res = await UserHttp.toViewLater(bvid: widget.videoDetailCtr!.bvid);
                         SmartDialog.showToast(res['msg']);
                         Get.back();
                       },
@@ -156,8 +148,7 @@ class _HeaderControlState extends State<HeaderControl> {
                     ListTile(
                       onTap: () => {Get.back(), scheduleExit()},
                       dense: true,
-                      leading:
-                          const Icon(Icons.hourglass_top_outlined, size: 20),
+                      leading: const Icon(Icons.hourglass_top_outlined, size: 20),
                       title: const Text('定时关闭（测试）', style: titleStyle),
                     ),
                     ListTile(
@@ -165,9 +156,7 @@ class _HeaderControlState extends State<HeaderControl> {
                       dense: true,
                       leading: const Icon(Icons.play_circle_outline, size: 20),
                       title: const Text('选择画质', style: titleStyle),
-                      subtitle: Text(
-                          '当前画质 ${widget.videoDetailCtr!.currentVideoQa.description}',
-                          style: subTitleStyle),
+                      subtitle: Text('当前画质 ${widget.videoDetailCtr!.currentVideoQa.description}', style: subTitleStyle),
                     ),
                     if (widget.videoDetailCtr!.currentAudioQa != null)
                       ListTile(
@@ -175,26 +164,21 @@ class _HeaderControlState extends State<HeaderControl> {
                         dense: true,
                         leading: const Icon(Icons.album_outlined, size: 20),
                         title: const Text('选择音质', style: titleStyle),
-                        subtitle: Text(
-                            '当前音质 ${widget.videoDetailCtr!.currentAudioQa!.description}',
-                            style: subTitleStyle),
+                        subtitle: Text('当前音质 ${widget.videoDetailCtr!.currentAudioQa!.description}', style: subTitleStyle),
                       ),
                     ListTile(
                       onTap: () => {Get.back(), showSetDecodeFormats()},
                       dense: true,
                       leading: const Icon(Icons.av_timer_outlined, size: 20),
                       title: const Text('解码格式', style: titleStyle),
-                      subtitle: Text(
-                          '当前解码格式 ${widget.videoDetailCtr!.currentDecodeFormats.description}',
-                          style: subTitleStyle),
+                      subtitle: Text('当前解码格式 ${widget.videoDetailCtr!.currentDecodeFormats.description}', style: subTitleStyle),
                     ),
                     ListTile(
                       onTap: () => {Get.back(), showSetRepeat()},
                       dense: true,
                       leading: const Icon(Icons.repeat, size: 20),
                       title: const Text('播放顺序', style: titleStyle),
-                      subtitle: Text(widget.controller!.playRepeat.description,
-                          style: subTitleStyle),
+                      subtitle: Text(widget.controller!.playRepeat.description, style: subTitleStyle),
                     ),
                     ListTile(
                       onTap: () => {Get.back(), showSetDanmaku()},
@@ -224,8 +208,7 @@ class _HeaderControlState extends State<HeaderControl> {
         // TODO: 支持更多类型和颜色的弹幕
         return AlertDialog(
           title: const Text('发送弹幕（测试）'),
-          content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+          content: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
             return TextField(
               controller: textController,
             );
@@ -238,8 +221,7 @@ class _HeaderControlState extends State<HeaderControl> {
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
-            StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
+            StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
               return TextButton(
                 onPressed: isSending
                     ? null
@@ -260,8 +242,7 @@ class _HeaderControlState extends State<HeaderControl> {
                           oid: widget.videoDetailCtr!.cid.value,
                           msg: textController.text,
                           bvid: widget.videoDetailCtr!.bvid,
-                          progress:
-                              widget.controller!.position.value.inMilliseconds,
+                          progress: widget.controller!.position.value.inMilliseconds,
                           type: 1,
                         );
                         setState(() {
@@ -275,8 +256,7 @@ class _HeaderControlState extends State<HeaderControl> {
                             DanmakuItem(
                               msg,
                               color: Colors.white,
-                              time: widget
-                                  .controller!.position.value.inMilliseconds,
+                              time: widget.controller!.position.value.inMilliseconds,
                               type: DanmakuItemType.scroll,
                               isSend: true,
                             )
@@ -308,8 +288,7 @@ class _HeaderControlState extends State<HeaderControl> {
       elevation: 0,
       backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
+        return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
           return Container(
             width: double.infinity,
             height: 500,
@@ -322,97 +301,85 @@ class _HeaderControlState extends State<HeaderControl> {
             padding: const EdgeInsets.only(left: 14, right: 14),
             child: SingleChildScrollView(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                  const SizedBox(height: 30),
+                  const Center(child: Text('定时关闭', style: titleStyle)),
+                  const SizedBox(height: 10),
+                  for (final int choice in scheduleTimeChoices) ...<Widget>[
+                    ListTile(
+                      onTap: () {
+                        shutdownTimerService.scheduledExitInMinutes = choice;
+                        shutdownTimerService.startShutdownTimer();
+                        Get.back();
+                      },
+                      contentPadding: const EdgeInsets.only(),
+                      dense: true,
+                      title: Text(choice == -1 ? "禁用" : "$choice分钟后"),
+                      trailing: shutdownTimerService.scheduledExitInMinutes == choice
+                          ? Icon(
+                              Icons.done,
+                              color: Theme.of(context).colorScheme.primary,
+                            )
+                          : const SizedBox(),
+                    )
+                  ],
+                  const SizedBox(height: 6),
+                  const Center(
+                      child: SizedBox(
+                    width: 100,
+                    child: Divider(height: 1),
+                  )),
+                  const SizedBox(height: 10),
+                  ListTile(
+                    onTap: () {
+                      shutdownTimerService.waitForPlayingCompleted = !shutdownTimerService.waitForPlayingCompleted;
+                      setState(() {});
+                    },
+                    dense: true,
+                    contentPadding: const EdgeInsets.only(),
+                    title: const Text("额外等待视频播放完毕", style: titleStyle),
+                    trailing: Switch(
+                      // thumb color (round icon)
+                      activeColor: Theme.of(context).colorScheme.primary,
+                      activeTrackColor: Theme.of(context).colorScheme.primaryContainer,
+                      inactiveThumbColor: Theme.of(context).colorScheme.primaryContainer,
+                      inactiveTrackColor: Theme.of(context).colorScheme.surface,
+                      splashRadius: 10.0,
+                      // boolean variable value
+                      value: shutdownTimerService.waitForPlayingCompleted,
+                      // changes the state of the switch
+                      onChanged: (value) => setState(() => shutdownTimerService.waitForPlayingCompleted = value),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
                     children: <Widget>[
-                      const SizedBox(height: 30),
-                      const Center(child: Text('定时关闭', style: titleStyle)),
-                      const SizedBox(height: 10),
-                      for (final int choice in scheduleTimeChoices) ...<Widget>[
-                        ListTile(
-                          onTap: () {
-                            shutdownTimerService.scheduledExitInMinutes =
-                                choice;
-                            shutdownTimerService.startShutdownTimer();
-                            Get.back();
-                          },
-                          contentPadding: const EdgeInsets.only(),
-                          dense: true,
-                          title: Text(choice == -1 ? "禁用" : "$choice分钟后"),
-                          trailing: shutdownTimerService
-                                      .scheduledExitInMinutes ==
-                                  choice
-                              ? Icon(
-                                  Icons.done,
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                              : const SizedBox(),
-                        )
-                      ],
-                      const SizedBox(height: 6),
-                      const Center(
-                          child: SizedBox(
-                        width: 100,
-                        child: Divider(height: 1),
-                      )),
-                      const SizedBox(height: 10),
-                      ListTile(
+                      const Text('倒计时结束:', style: titleStyle),
+                      const Spacer(),
+                      ActionRowLineItem(
                         onTap: () {
-                          shutdownTimerService.waitForPlayingCompleted =
-                              !shutdownTimerService.waitForPlayingCompleted;
+                          shutdownTimerService.exitApp = false;
                           setState(() {});
+                          // Get.back();
                         },
-                        dense: true,
-                        contentPadding: const EdgeInsets.only(),
-                        title: const Text("额外等待视频播放完毕", style: titleStyle),
-                        trailing: Switch(
-                          // thumb color (round icon)
-                          activeColor: Theme.of(context).colorScheme.primary,
-                          activeTrackColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          inactiveThumbColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          inactiveTrackColor:
-                              Theme.of(context).colorScheme.surface,
-                          splashRadius: 10.0,
-                          // boolean variable value
-                          value: shutdownTimerService.waitForPlayingCompleted,
-                          // changes the state of the switch
-                          onChanged: (value) => setState(() =>
-                              shutdownTimerService.waitForPlayingCompleted =
-                                  value),
-                        ),
+                        text: " 暂停视频 ",
+                        selectStatus: !shutdownTimerService.exitApp,
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          const Text('倒计时结束:', style: titleStyle),
-                          const Spacer(),
-                          ActionRowLineItem(
-                            onTap: () {
-                              shutdownTimerService.exitApp = false;
-                              setState(() {});
-                              // Get.back();
-                            },
-                            text: " 暂停视频 ",
-                            selectStatus: !shutdownTimerService.exitApp,
-                          ),
-                          const Spacer(),
-                          // const SizedBox(width: 10),
-                          ActionRowLineItem(
-                            onTap: () {
-                              shutdownTimerService.exitApp = true;
-                              setState(() {});
-                              // Get.back();
-                            },
-                            text: " 退出APP ",
-                            selectStatus: shutdownTimerService.exitApp,
-                          )
-                        ],
-                      ),
-                    ]),
+                      const Spacer(),
+                      // const SizedBox(width: 10),
+                      ActionRowLineItem(
+                        onTap: () {
+                          shutdownTimerService.exitApp = true;
+                          setState(() {});
+                          // Get.back();
+                        },
+                        text: " 退出APP ",
+                        selectStatus: shutdownTimerService.exitApp,
+                      )
+                    ],
+                  ),
+                ]),
               ),
             ),
           );
@@ -479,8 +446,7 @@ class _HeaderControlState extends State<HeaderControl> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('播放速度'),
-          content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+          content: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
             return Wrap(
               spacing: 8,
               runSpacing: 2,
@@ -594,32 +560,27 @@ class _HeaderControlState extends State<HeaderControl> {
                         for (int i = 0; i < totalQaSam; i++) ...[
                           ListTile(
                             onTap: () {
-                              if (currentVideoQa.code ==
-                                  videoFormat[i].quality) {
+                              if (currentVideoQa.code == videoFormat[i].quality) {
                                 return;
                               }
                               final int quality = videoFormat[i].quality!;
-                              widget.videoDetailCtr!.currentVideoQa =
-                                  VideoQualityCode.fromCode(quality)!;
+                              widget.videoDetailCtr!.currentVideoQa = VideoQualityCode.fromCode(quality)!;
                               widget.videoDetailCtr!.updatePlayer();
                               Get.back();
                             },
                             dense: true,
                             // 可能包含会员解锁画质
                             enabled: i >= totalQaSam - userfulQaSam,
-                            contentPadding:
-                                const EdgeInsets.only(left: 20, right: 20),
+                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
                             title: Text(videoFormat[i].newDesc!),
                             subtitle: Text(
                               videoFormat[i].format!,
                               style: subTitleStyle,
                             ),
-                            trailing: currentVideoQa.code ==
-                                    videoFormat[i].quality
+                            trailing: currentVideoQa.code == videoFormat[i].quality
                                 ? Icon(
                                     Icons.done,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
+                                    color: Theme.of(context).colorScheme.primary,
                                   )
                                 : const SizedBox(),
                           ),
@@ -656,9 +617,7 @@ class _HeaderControlState extends State<HeaderControl> {
           margin: const EdgeInsets.all(12),
           child: Column(
             children: <Widget>[
-              const SizedBox(
-                  height: 45,
-                  child: Center(child: Text('选择音质', style: titleStyle))),
+              const SizedBox(height: 45, child: Center(child: Text('选择音质', style: titleStyle))),
               Expanded(
                 child: Material(
                   child: ListView(
@@ -670,14 +629,12 @@ class _HeaderControlState extends State<HeaderControl> {
                               return;
                             }
                             final int quality = i.id!;
-                            widget.videoDetailCtr!.currentAudioQa =
-                                AudioQualityCode.fromCode(quality)!;
+                            widget.videoDetailCtr!.currentAudioQa = AudioQualityCode.fromCode(quality)!;
                             widget.videoDetailCtr!.updatePlayer();
                             Get.back();
                           },
                           dense: true,
-                          contentPadding:
-                              const EdgeInsets.only(left: 20, right: 20),
+                          contentPadding: const EdgeInsets.only(left: 20, right: 20),
                           title: Text(i.quality!),
                           subtitle: Text(
                             i.codecs!,
@@ -705,14 +662,11 @@ class _HeaderControlState extends State<HeaderControl> {
   // 选择解码格式
   void showSetDecodeFormats() {
     // 当前选中的解码格式
-    final VideoDecodeFormats currentDecodeFormats =
-        widget.videoDetailCtr!.currentDecodeFormats;
+    final VideoDecodeFormats currentDecodeFormats = widget.videoDetailCtr!.currentDecodeFormats;
     final VideoItem firstVideo = widget.videoDetailCtr!.firstVideo;
     // 当前视频可用的解码格式
     final List<FormatItem> videoFormat = videoInfo.supportFormats!;
-    final List list = videoFormat
-        .firstWhere((FormatItem e) => e.quality == firstVideo.quality!.code)
-        .codecs!;
+    final List list = videoFormat.firstWhere((FormatItem e) => e.quality == firstVideo.quality!.code).codecs!;
 
     showModalBottomSheet(
       context: context,
@@ -730,9 +684,7 @@ class _HeaderControlState extends State<HeaderControl> {
           margin: const EdgeInsets.all(12),
           child: Column(
             children: [
-              const SizedBox(
-                  height: 45,
-                  child: Center(child: Text('选择解码格式', style: titleStyle))),
+              const SizedBox(height: 45, child: Center(child: Text('选择解码格式', style: titleStyle))),
               Expanded(
                 child: Material(
                   child: ListView(
@@ -741,16 +693,13 @@ class _HeaderControlState extends State<HeaderControl> {
                         ListTile(
                           onTap: () {
                             if (i.startsWith(currentDecodeFormats.code)) return;
-                            widget.videoDetailCtr!.currentDecodeFormats =
-                                VideoDecodeFormatsCode.fromString(i)!;
+                            widget.videoDetailCtr!.currentDecodeFormats = VideoDecodeFormatsCode.fromString(i)!;
                             widget.videoDetailCtr!.updatePlayer();
                             Get.back();
                           },
                           dense: true,
-                          contentPadding:
-                              const EdgeInsets.only(left: 20, right: 20),
-                          title: Text(VideoDecodeFormatsCode.fromString(i)!
-                              .description!),
+                          contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                          title: Text(VideoDecodeFormatsCode.fromString(i)!.description!),
                           subtitle: Text(
                             i!,
                             style: subTitleStyle,
@@ -801,15 +750,13 @@ class _HeaderControlState extends State<HeaderControl> {
     // 弹幕描边
     double strokeWidth = widget.controller!.strokeWidth;
 
-    final DanmakuController danmakuController =
-        widget.controller!.danmakuController!;
+    final DanmakuController danmakuController = widget.controller!.danmakuController!;
     await showModalBottomSheet(
       context: context,
       elevation: 0,
       backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
+        return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
           return Container(
             width: double.infinity,
             height: 580,
@@ -834,12 +781,10 @@ class _HeaderControlState extends State<HeaderControl> {
                     padding: const EdgeInsets.only(top: 12, bottom: 18),
                     child: Row(
                       children: <Widget>[
-                        for (final Map<String, dynamic> i
-                            in blockTypesList) ...<Widget>[
+                        for (final Map<String, dynamic> i in blockTypesList) ...<Widget>[
                           ActionRowLineItem(
                             onTap: () async {
-                              final bool isChoose =
-                                  blockTypes.contains(i['value']);
+                              final bool isChoose = blockTypes.contains(i['value']);
                               if (isChoose) {
                                 blockTypes.remove(i['value']);
                               } else {
@@ -848,10 +793,8 @@ class _HeaderControlState extends State<HeaderControl> {
                               widget.controller!.blockTypes = blockTypes;
                               setState(() {});
                               try {
-                                final DanmakuOption currentOption =
-                                    danmakuController.option;
-                                final DanmakuOption updatedOption =
-                                    currentOption.copyWith(
+                                final DanmakuOption currentOption = danmakuController.option;
+                                final DanmakuOption updatedOption = currentOption.copyWith(
                                   hideTop: blockTypes.contains(5),
                                   hideBottom: blockTypes.contains(4),
                                   hideScroll: blockTypes.contains(2),
@@ -880,10 +823,8 @@ class _HeaderControlState extends State<HeaderControl> {
                               widget.controller!.showArea = showArea;
                               setState(() {});
                               try {
-                                final DanmakuOption currentOption =
-                                    danmakuController.option;
-                                final DanmakuOption updatedOption =
-                                    currentOption.copyWith(area: i['value']);
+                                final DanmakuOption currentOption = danmakuController.option;
+                                final DanmakuOption updatedOption = currentOption.copyWith(area: i['value']);
                                 danmakuController.updateOption(updatedOption);
                               } catch (_) {}
                             },
@@ -909,8 +850,7 @@ class _HeaderControlState extends State<HeaderControl> {
                         thumbColor: Theme.of(context).colorScheme.primary,
                         activeTrackColor: Theme.of(context).colorScheme.primary,
                         trackHeight: 10,
-                        thumbShape: const RoundSliderThumbShape(
-                            enabledThumbRadius: 6.0),
+                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
                       ),
                       child: Slider(
                         min: 0,
@@ -923,10 +863,8 @@ class _HeaderControlState extends State<HeaderControl> {
                           widget.controller!.opacityVal = opacityVal;
                           setState(() {});
                           try {
-                            final DanmakuOption currentOption =
-                                danmakuController.option;
-                            final DanmakuOption updatedOption =
-                                currentOption.copyWith(opacity: val);
+                            final DanmakuOption currentOption = danmakuController.option;
+                            final DanmakuOption updatedOption = currentOption.copyWith(opacity: val);
                             danmakuController.updateOption(updatedOption);
                           } catch (_) {}
                         },
@@ -947,8 +885,7 @@ class _HeaderControlState extends State<HeaderControl> {
                         thumbColor: Theme.of(context).colorScheme.primary,
                         activeTrackColor: Theme.of(context).colorScheme.primary,
                         trackHeight: 10,
-                        thumbShape: const RoundSliderThumbShape(
-                            enabledThumbRadius: 6.0),
+                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
                       ),
                       child: Slider(
                         min: 0,
@@ -961,10 +898,8 @@ class _HeaderControlState extends State<HeaderControl> {
                           widget.controller!.strokeWidth = val;
                           setState(() {});
                           try {
-                            final DanmakuOption currentOption =
-                                danmakuController.option;
-                            final DanmakuOption updatedOption =
-                                currentOption.copyWith(strokeWidth: val);
+                            final DanmakuOption currentOption = danmakuController.option;
+                            final DanmakuOption updatedOption = currentOption.copyWith(strokeWidth: val);
                             danmakuController.updateOption(updatedOption);
                           } catch (_) {}
                         },
@@ -985,8 +920,7 @@ class _HeaderControlState extends State<HeaderControl> {
                         thumbColor: Theme.of(context).colorScheme.primary,
                         activeTrackColor: Theme.of(context).colorScheme.primary,
                         trackHeight: 10,
-                        thumbShape: const RoundSliderThumbShape(
-                            enabledThumbRadius: 6.0),
+                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
                       ),
                       child: Slider(
                         min: 0.5,
@@ -999,10 +933,8 @@ class _HeaderControlState extends State<HeaderControl> {
                           widget.controller!.fontSizeVal = fontSizeVal;
                           setState(() {});
                           try {
-                            final DanmakuOption currentOption =
-                                danmakuController.option;
-                            final DanmakuOption updatedOption =
-                                currentOption.copyWith(
+                            final DanmakuOption currentOption = danmakuController.option;
+                            final DanmakuOption updatedOption = currentOption.copyWith(
                               fontSize: (15 * fontSizeVal).toDouble(),
                             );
                             danmakuController.updateOption(updatedOption);
@@ -1025,8 +957,7 @@ class _HeaderControlState extends State<HeaderControl> {
                         thumbColor: Theme.of(context).colorScheme.primary,
                         activeTrackColor: Theme.of(context).colorScheme.primary,
                         trackHeight: 10,
-                        thumbShape: const RoundSliderThumbShape(
-                            enabledThumbRadius: 6.0),
+                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
                       ),
                       child: Slider(
                         min: 2,
@@ -1036,14 +967,10 @@ class _HeaderControlState extends State<HeaderControl> {
                         label: danmakuDurationVal.toString(),
                         onChanged: (double val) {
                           danmakuDurationVal = val;
-                          widget.controller!.danmakuDurationVal =
-                              danmakuDurationVal;
+                          widget.controller!.danmakuDurationVal = danmakuDurationVal;
                           setState(() {});
                           try {
-                            final DanmakuOption updatedOption =
-                                danmakuController.option.copyWith(
-                                    duration:
-                                        val / widget.controller!.playbackSpeed);
+                            final DanmakuOption updatedOption = danmakuController.option.copyWith(duration: val / widget.controller!.playbackSpeed);
                             danmakuController.updateOption(updatedOption);
                           } catch (_) {}
                         },
@@ -1077,9 +1004,7 @@ class _HeaderControlState extends State<HeaderControl> {
           margin: const EdgeInsets.all(12),
           child: Column(
             children: [
-              const SizedBox(
-                  height: 45,
-                  child: Center(child: Text('选择播放顺序', style: titleStyle))),
+              const SizedBox(height: 45, child: Center(child: Text('选择播放顺序', style: titleStyle))),
               Expanded(
                 child: Material(
                   child: ListView(
@@ -1091,8 +1016,7 @@ class _HeaderControlState extends State<HeaderControl> {
                             Get.back();
                           },
                           dense: true,
-                          contentPadding:
-                              const EdgeInsets.only(left: 20, right: 20),
+                          contentPadding: const EdgeInsets.only(left: 20, right: 20),
                           title: Text(i.description),
                           trailing: widget.controller!.playRepeat == i
                               ? Icon(
@@ -1120,8 +1044,7 @@ class _HeaderControlState extends State<HeaderControl> {
       color: Colors.white,
       fontSize: 12,
     );
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     return AppBar(
       backgroundColor: Colors.transparent,
       foregroundColor: Colors.white,
@@ -1144,8 +1067,7 @@ class _HeaderControlState extends State<HeaderControl> {
                 <void>{widget.controller!.triggerFullScreen(status: false)}
               else
                 <void>{
-                  if (MediaQuery.of(context).orientation ==
-                      Orientation.landscape)
+                  if (MediaQuery.of(context).orientation == Orientation.landscape)
                     {
                       SystemChrome.setPreferredOrientations([
                         DeviceOrientation.portraitUp,
@@ -1156,9 +1078,7 @@ class _HeaderControlState extends State<HeaderControl> {
             },
           ),
           SizedBox(width: buttonSpace),
-          if (isFullScreen.value &&
-              isLandscape &&
-              widget.videoType == SearchType.video) ...[
+          if (isFullScreen.value && isLandscape && widget.videoType == SearchType.video) ...[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1194,7 +1114,9 @@ class _HeaderControlState extends State<HeaderControl> {
                 await widget.controller!.dispose(type: 'all');
                 if (mounted) {
                   Navigator.popUntil(
-                      context, (Route<dynamic> route) => route.isFirst);
+                      // ignore: use_build_context_synchronously
+                      context,
+                      (Route<dynamic> route) => route.isFirst);
                 }
               },
             ),
@@ -1235,9 +1157,7 @@ class _HeaderControlState extends State<HeaderControl> {
                     _.isOpenDanmu.value = !_.isOpenDanmu.value;
                   },
                   icon: Icon(
-                    _.isOpenDanmu.value
-                        ? Icons.subtitles_outlined
-                        : Icons.subtitles_off_outlined,
+                    _.isOpenDanmu.value ? Icons.subtitles_outlined : Icons.subtitles_off_outlined,
                     size: 19,
                     color: Colors.white,
                   ),
@@ -1346,8 +1266,7 @@ class MSliderTrackShape extends RoundedRectSliderTrackShape {
   }) {
     const double trackHeight = 3;
     final double trackLeft = offset.dx;
-    final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2 + 4;
+    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2 + 4;
     final double trackWidth = parentBox.size.width;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }

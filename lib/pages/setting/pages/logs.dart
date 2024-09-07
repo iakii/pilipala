@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../services/loggeer.dart';
 
@@ -31,17 +32,9 @@ class _LogsPageState extends State<LogsPage> {
   }
 
   Future<List<Map<String, dynamic>>> parseLogs(String fileContent) async {
-    const String splitToken =
-        '======================================================================';
+    const String splitToken = '======================================================================';
     List contentList = fileContent.split(splitToken).map((item) {
-      return item
-          .replaceAll(
-              '============================== CATCHER 2 LOG ==============================',
-              'Pilipala错误日志 \n ********************')
-          .replaceAll('DEVICE INFO', '设备信息')
-          .replaceAll('APP INFO', '应用信息')
-          .replaceAll('ERROR', '错误信息')
-          .replaceAll('STACK TRACE', '错误堆栈');
+      return item.replaceAll('============================== CATCHER 2 LOG ==============================', 'Pilipala错误日志 \n ********************').replaceAll('DEVICE INFO', '设备信息').replaceAll('APP INFO', '应用信息').replaceAll('ERROR', '错误信息').replaceAll('STACK TRACE', '错误堆栈');
     }).toList();
     List<Map<String, dynamic>> result = [];
     for (String i in contentList) {
@@ -69,6 +62,7 @@ class _LogsPageState extends State<LogsPage> {
   void copyLogs() async {
     await Clipboard.setData(ClipboardData(text: fileContent));
     if (context.mounted) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('复制成功')),
       );
@@ -86,6 +80,7 @@ class _LogsPageState extends State<LogsPage> {
   void clearLogsHandle() async {
     if (await clearLogs()) {
       if (context.mounted) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('已清空')),
         );
@@ -101,6 +96,10 @@ class _LogsPageState extends State<LogsPage> {
       appBar: AppBar(
         centerTitle: false,
         titleSpacing: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => getBack(),
+        ),
         title: Text('日志', style: Theme.of(context).textTheme.titleMedium),
         actions: [
           PopupMenuButton<String>(
