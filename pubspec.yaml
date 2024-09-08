@@ -153,6 +153,9 @@ dependencies:
       url: https://github.com/MixinNetwork/flutter-plugins.git
       path: packages/desktop_webview_window
       ref: main
+  flutter_improved_scrolling:
+    git:
+      url: https://github.com/rustdesk-org/flutter_improved_scrolling
 
 dev_dependencies:
   flutter_test:

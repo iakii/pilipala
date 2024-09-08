@@ -154,7 +154,9 @@ class _RcmdPageState extends State<RcmdPage>
     // int crossAxisCount = ctr.crossAxisCount.value;
 
     final width = MediaQuery.of(context).size.width;
-    final crossAxisCount = ((width - 66) / 256).floor();
+    var crossAxisCount = ((width - 66) / 256).floor();
+
+    crossAxisCount = crossAxisCount < 3 ? 3 : crossAxisCount;
     double mainAxisExtent = (width / crossAxisCount / StyleString.aspectRatio) +
         (crossAxisCount == 1 ? 28 : MediaQuery.textScalerOf(context).scale(86));
     return SliverGrid(

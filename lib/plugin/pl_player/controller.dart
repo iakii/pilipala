@@ -965,7 +965,11 @@ class PlPlayerController {
   Future<void> triggerFullScreen({bool status = true}) async {
     FullScreenMode mode = FullScreenModeCode.fromCode(
         setting.get(SettingBoxKey.fullScreenMode, defaultValue: 0))!;
-    await StatusBarControl.setHidden(true, animation: StatusBarAnimation.FADE);
+
+    if (GetPlatform.isMobile)
+      await StatusBarControl.setHidden(true,
+          animation: StatusBarAnimation.FADE);
+
     if (!isFullScreen.value && status) {
       /// 按照视频宽高比决定全屏方向
       toggleFullScreen(true);
@@ -1011,7 +1015,8 @@ class PlPlayerController {
       //   toggleFullScreen(false);
       // }
     } else if (isFullScreen.value) {
-      StatusBarControl.setHidden(false, animation: StatusBarAnimation.FADE);
+      if (GetPlatform.isMobile)
+        StatusBarControl.setHidden(false, animation: StatusBarAnimation.FADE);
       // getBack();
       exitFullScreen();
       await verticalScreen();

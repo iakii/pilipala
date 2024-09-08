@@ -130,6 +130,7 @@ class VideoCardV extends StatelessWidget {
     String heroTag = Utils.makeHeroTag(videoItem.id);
     return Card(
       elevation: 0,
+      color: Colors.transparent,
       clipBehavior: Clip.hardEdge,
       margin: EdgeInsets.zero,
       child: GestureDetector(

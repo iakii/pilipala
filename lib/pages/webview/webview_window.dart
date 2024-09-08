@@ -29,7 +29,6 @@ class DesktopWebview {
 
     webview
       ..setApplicationNameForUserAgent(Request().headerUa())
-      ..openDevToolsWindow()
       ..addOnWebMessageReceivedCallback((message) {
         getLogger().d("addOnWebMessageReceivedCallback  $message");
       })

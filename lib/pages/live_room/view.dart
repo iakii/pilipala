@@ -4,7 +4,10 @@ import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
+import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
+import 'package:styled_widget/styled_widget.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'controller.dart';
 import 'widgets/bottom_control.dart';
@@ -63,12 +66,36 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
               liveRoomCtr: _liveRoomController,
               floating: floating,
             ),
+            headerControl: PreferredSize(
+                preferredSize: const Size.fromHeight(kWindowCaptionHeight),
+                child: Row(
+                  children: [
+                    ComBtn(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 18,
+                        color: Colors.white,
+                      ),
+                      fuc: () {
+                        plPlayerController?.videoPlayerClosed();
+                        getBack();
+                      },
+                    ),
+                    Text("${_liveRoomController.liveItem.title} 观看${_liveRoomController.liveItem.online}人")
+                        .textColor(Colors.white)
+                  ],
+                )),
           );
         } else {
           return const SizedBox();
         }
       },
     );
+
+    final windowHeight = MediaQuery.sizeOf(context).height;
+    final landscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
+    final height = windowHeight - kWindowCaptionHeight;
 
     Widget childWhenDisabled = Scaffold(
       primary: true,
@@ -186,11 +213,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                 },
                 child: SizedBox(
                   width: Get.size.width,
-                  height: MediaQuery.of(context).orientation ==
-                          Orientation.landscape
-                      ? Get.size.height
-                      : Get.size.width * 9 / 16,
-                  child: videoPlayerPanel,
+                  height: landscape ? height : Get.size.width * 9 / 16,
+                  child: videoPlayerPanel.clipRRect(all: 6).elevation(2),
                 ),
               ),
             ],
@@ -198,6 +222,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
         ],
       ),
     );
+
     if (Platform.isAndroid) {
       return PiPSwitcher(
         childWhenDisabled: childWhenDisabled,

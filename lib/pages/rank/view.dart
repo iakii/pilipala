@@ -59,20 +59,15 @@ class _RankPageState extends State<RankPage>
                   height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: [
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.9),
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.5),
-                          Theme.of(context).colorScheme.surface
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0, 0.0034, 0.34]),
+                      colors: [
+                        Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                        Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                        Theme.of(context).colorScheme.surface
+                      ],
+                      end: Alignment.topLeft,
+                      begin: Alignment.bottomRight,
+                      stops: const [0, 0.0034, 0.34],
+                    ),
                   ),
                 ),
               ),

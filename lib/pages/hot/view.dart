@@ -86,11 +86,13 @@ class _HotPageState extends State<HotPage> with AutomaticKeepAliveClientMixin {
               builder: (context, snapshot) {
                 final width = MediaQuery.of(context).size.width;
                 final crossAxisCount = ((width - 66) / 375).floor();
+                double mainAxisExtent = (width / crossAxisCount / 4) +
+                    (MediaQuery.textScalerOf(context).scale(32));
                 final gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount, //Grid按两列显示
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
-                  childAspectRatio: 4.0,
+                  mainAxisExtent: mainAxisExtent,
                 );
 
                 if (snapshot.connectionState == ConnectionState.done) {

@@ -15,9 +15,10 @@ class _SystemWindowManager {
       title: 'PCMaster',
       minimumSize: Size(640, 480),
       size: Size(1366, 768),
-      skipTaskbar: true,
+      skipTaskbar: false,
       titleBarStyle: TitleBarStyle.hidden,
       alwaysOnTop: false,
+      center: true,
       backgroundColor: Colors.transparent,
       windowButtonVisibility: false,
     );

@@ -167,6 +167,7 @@ class MyApp extends StatelessWidget {
                 ),
               },
             ),
+            // scaffoldBackgroundColor: Colors.transparent,
           ),
           darkTheme: ThemeData(
             // fontFamily: 'HarmonyOS',
@@ -174,6 +175,7 @@ class MyApp extends StatelessWidget {
                 ? lightColorScheme
                 : darkColorScheme,
             useMaterial3: true,
+
             snackBarTheme: SnackBarThemeData(
               actionTextColor: darkColorScheme.primary,
               backgroundColor: darkColorScheme.secondaryContainer,

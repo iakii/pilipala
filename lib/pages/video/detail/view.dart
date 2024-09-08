@@ -24,6 +24,7 @@ import 'package:pilipala/plugin/pl_player/models/play_repeat.dart';
 import 'package:pilipala/services/service_locator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../../../services/shutdown_timer_service.dart';
 import 'widgets/app_bar.dart';
@@ -457,16 +458,25 @@ class _VideoDetailPageState extends State<VideoDetailPage>
               controller: _extendNestCtr,
               headerSliverBuilder:
                   (BuildContext context2, bool innerBoxIsScrolled) {
+                final fullscreen = plPlayerController!.isFullScreen.isTrue;
+
+                final windowHeight = MediaQuery.sizeOf(context2).height;
+
+                final landscape =
+                    MediaQuery.orientationOf(context2) == Orientation.landscape;
                 return <Widget>[
                   Obx(
                     () {
                       if (MediaQuery.of(context).orientation ==
                               Orientation.landscape ||
-                          plPlayerController?.isFullScreen.value == true) {
+                          fullscreen) {
                         enterFullScreen();
                       } else {
                         exitFullScreen();
                       }
+
+                      final height = windowHeight - kWindowCaptionHeight;
+
                       return SliverAppBar(
                         automaticallyImplyLeading: false,
                         // 假装使用一个非空变量，避免Obx检测不到而罢工
@@ -476,30 +486,26 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                         forceElevated: innerBoxIsScrolled,
                         // expandedHeight: 480,
                         expandedHeight: GetPlatform.isDesktop
-                            ? 360
-                            : MediaQuery.of(context).orientation ==
-                                        Orientation.landscape ||
-                                    plPlayerController?.isFullScreen.value ==
-                                        true
-                                ? (MediaQuery.sizeOf(context).height -
-                                    (MediaQuery.of(context).orientation ==
-                                            Orientation.landscape
+                            ? fullscreen == true
+                                ? height
+                                : 360
+                            : landscape || fullscreen
+                                ? (windowHeight -
+                                    (landscape
                                         ? 0
                                         : MediaQuery.of(context).padding.top))
                                 : videoHeight.value,
-                        backgroundColor: Colors.white,
+                        backgroundColor: Colors.black,
                         flexibleSpace: FlexibleSpaceBar(
                           background: PopScope(
                             canPop:
                                 plPlayerController?.isFullScreen.value != true,
                             onPopInvokedWithResult: (bool didPop, _) {
-                              if (plPlayerController?.isFullScreen.value ==
-                                  true) {
+                              if (fullscreen) {
                                 plPlayerController!
                                     .triggerFullScreen(status: false);
                               }
-                              if (MediaQuery.of(context).orientation ==
-                                  Orientation.landscape) {
+                              if (landscape) {
                                 verticalScreen();
                               }
                             },
@@ -612,7 +618,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
             }),
           )
         ],
-      ).width(GetPlatform.isDesktop ? 640 : Get.width).center(),
+      )
+          .width(
+              GetPlatform.isDesktop && plPlayerController!.isFullScreen.isFalse
+                  ? 640
+                  : Get.width)
+          .center(),
     );
 
     return Builder(

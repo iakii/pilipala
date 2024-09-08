@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:auto_orientation/auto_orientation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 //横屏
 Future<void> landScape() async {
@@ -37,12 +38,14 @@ Future<void> landScape() async {
 
 //竖屏
 Future<void> verticalScreen() async {
+  if (GetPlatform.isDesktop) return;
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
 }
 
 Future<void> enterFullScreen() async {
+  if (GetPlatform.isDesktop) return;
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
   );
