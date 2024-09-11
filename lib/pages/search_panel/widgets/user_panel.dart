@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/utils.dart';
 
 Widget searchUserPanel(BuildContext context, ctr, list) {

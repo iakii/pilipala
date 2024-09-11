@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'controller.dart';
 import 'widgets/hot_keyword.dart';
 import 'widgets/search_text.dart';
@@ -44,6 +45,8 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => getBack(), icon: const Icon(Icons.arrow_back)),
         shape: Border(
           bottom: BorderSide(
             color: Theme.of(context).dividerColor.withOpacity(0.08),

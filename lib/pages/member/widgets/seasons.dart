@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/badge.dart';
 import 'package:pilipala/models/member/seasons.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/member_seasons/widgets/item.dart';
+import 'package:pilipala/router/navigator.dart';
 
 class MemberSeasonsPanel extends StatelessWidget {
   final MemberSeasonsDataModel? data;

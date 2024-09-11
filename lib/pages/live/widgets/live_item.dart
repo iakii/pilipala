@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/models/live/item.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/utils.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 

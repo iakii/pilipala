@@ -9,11 +9,11 @@ import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/models/common/reply_type.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/pages/video/detail/reply_new/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'controller.dart';
 import 'widgets/reply_item.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class VideoReplyPanel extends StatefulWidget {
   final String? bvid;

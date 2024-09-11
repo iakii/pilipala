@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/http/search.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 
 /// TODO 点击跳转
 Widget addWidget(item, context, type, {floor = 1}) {

@@ -8,7 +8,7 @@ import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/member/archive.dart';
 import 'package:pilipala/models/member/coin.dart';
 import 'package:pilipala/models/member/info.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:share_plus/share_plus.dart';
 

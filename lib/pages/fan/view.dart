@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
 import 'package:pilipala/models/fans/result.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'controller.dart';
 import 'widgets/fan_item.dart';
 
@@ -49,6 +49,8 @@ class _FansPageState extends State<FansPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => getBack(), icon: const Icon(Icons.arrow_back)),
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,

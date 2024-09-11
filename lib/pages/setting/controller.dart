@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/init.dart';
 import 'package:pilipala/models/common/theme_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/login.dart';
 import 'package:pilipala/utils/storage.dart';
+
 import '../../models/common/dynamic_badge_mode.dart';
 import '../../models/common/nav_bar_config.dart';
 import '../main/index.dart';

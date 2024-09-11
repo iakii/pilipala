@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/fan.dart';
 import 'package:pilipala/models/fans/result.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class FansController extends GetxController {
   Box userInfoCache = GStrorage.userInfo;

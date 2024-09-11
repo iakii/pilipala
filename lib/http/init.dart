@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:math' show Random;
+
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -11,6 +12,7 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 // import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/utils/id_utils.dart';
+
 import '../utils/storage.dart';
 import '../utils/utils.dart';
 import 'api.dart';
@@ -42,7 +44,7 @@ class Request {
     dio.interceptors.add(cookieManager);
     final List<Cookie> cookie = await cookieManager.cookieJar
         .loadForRequest(Uri.parse(HttpString.baseUrl));
-    final userInfo = userInfoCache.get('userInfoCache');
+    final userInfo = userInfoCache.get("userInfoCache");
     if (userInfo != null && userInfo.mid != null) {
       final List<Cookie> cookie2 = await cookieManager.cookieJar
           .loadForRequest(Uri.parse(HttpString.tUrl));
@@ -62,9 +64,14 @@ class Request {
       log("setCookie, ${e.toString()}");
     }
 
-    final String cookieString = cookie
+    String cookieString = cookie
         .map((Cookie cookie) => '${cookie.name}=${cookie.value}')
         .join('; ');
+
+    var desktopCookieString = localCache.get("desktop_cookies");
+    if (desktopCookieString != null) {
+      cookieString += "; $desktopCookieString";
+    }
     dio.options.headers['cookie'] = cookieString;
   }
 

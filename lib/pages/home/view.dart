@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/mine/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 
 import './controller.dart';

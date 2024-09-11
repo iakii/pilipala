@@ -6,8 +6,8 @@ import 'package:pilipala/http/follow.dart';
 import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/follow/result.dart';
 import 'package:pilipala/models/member/tags.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 /// 查看自己的关注时，可以查看分类
 /// 查看其他人的关注时，只可以看全部

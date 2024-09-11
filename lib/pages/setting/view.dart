@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilipala/pages/desktop/controller.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pilipala/pages/setting/index.dart';
+import 'package:pilipala/router/navigator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -67,6 +72,21 @@ class SettingPage extends StatelessWidget {
             title: const Text('关于'),
             trailing: const Icon(Icons.keyboard_arrow_right),
           ),
+          if (GetPlatform.isDesktop && kDebugMode)
+            ListTile(
+              onTap: () async {
+                final Directory dir = await getApplicationSupportDirectory();
+                if (Platform.isWindows) {
+                  await launchUrl(
+                      Uri.file(dir.path, windows: Platform.isWindows));
+                } else {
+                  await Process.start('open', [dir.path]);
+                }
+              },
+              dense: false,
+              title: const Text('打开配置页面'),
+              trailing: const Icon(Icons.keyboard_arrow_right),
+            ),
         ],
       ),
     );

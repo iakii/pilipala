@@ -19,32 +19,41 @@ class DestktopApp extends GetView<DesktopController> {
         return Stack(
           children: [
             const GlobalBackground(),
-            Scaffold(
-              body: Row(
-                children: [
-                  SlideNavigation(
-                    index: state.index,
-                    onChange: (value) => state.onTabpanel(value),
-                    items: state.items,
+            FutureBuilder(
+              builder: (context, snapshot) {
+                return Scaffold(
+                  body: Row(
+                    children: [
+                      snapshot.data != true
+                          ? SlideNavigation(
+                              index: state.index,
+                              onChange: (value) => state.onTabpanel(value),
+                              items: state.items,
+                            )
+                          : Container(),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            if (snapshot.data != true)
+                              SizedBox(
+                                  height: kWindowCaptionHeight,
+                                  child: WindowCaption(
+                                      brightness:
+                                          Theme.of(context).brightness)),
+                            GetRouterOutlet(
+                              initialRoute: "/desktop/home",
+                              anchorRoute: "/desktop",
+                              key: state.desktopRoute,
+                              delegate: state.delegate,
+                            ).expanded(),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            height: kWindowCaptionHeight,
-                            child: WindowCaption(
-                                brightness: Theme.of(context).brightness)),
-                        GetRouterOutlet(
-                          initialRoute: "/desktop/home",
-                          anchorRoute: "/desktop",
-                          key: state.desktopRoute,
-                          delegate: state.delegate,
-                        ).expanded(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                );
+              },
+              future: windowManager.isFullScreen(),
             ),
           ],
         );

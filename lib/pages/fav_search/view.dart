@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/common/skeleton/video_card_h.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
 import 'package:pilipala/pages/fav_detail/widget/fav_video_card.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'controller.dart';
 
 class FavSearchPage extends StatefulWidget {

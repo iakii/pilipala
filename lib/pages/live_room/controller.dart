@@ -5,10 +5,10 @@ import 'package:pilipala/http/live.dart';
 import 'package:pilipala/models/live/quality.dart';
 import 'package:pilipala/models/live/room_info.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import '../../models/live/room_info_h5.dart';
 import '../../utils/storage.dart';
 import '../../utils/video_utils.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class LiveRoomController extends GetxController {
   String cover = '';

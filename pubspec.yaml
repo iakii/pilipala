@@ -168,26 +168,23 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.13.1
-  # flutter_launcher_icons:
-  #   git:
-  #     url: https://github.com/nvi9/flutter_launcher_icons.git
-  #     ref: e045d40
   hive_generator: ^2.0.0
   build_runner: ^2.4.8
 
+# flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: assets/images/logo/logo_android_2.png
-  image_path_android: assets/images/logo/logo_android_2.png
+  image_path: assets/1024.png
+  image_path_android: assets/1024.png
   image_path_ios: assets/images/logo/logo_ios.png
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: assets/images/logo/logo_android_2.png
-  adaptive_icon_monochrome: assets/images/logo/logo_android_2.png
+  adaptive_icon_foreground: assets/1024.png
+  adaptive_icon_monochrome: assets/1024.png
   macos:
     generate: true
-    image_path: assets/images/logo/logo_ios.png
+    image_path: assets/1024.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

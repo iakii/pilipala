@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/mine/view.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 
 Box userInfoCache = GStrorage.userInfo;

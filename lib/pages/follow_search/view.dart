@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/pages/follow_search/index.dart';
+import 'package:pilipala/router/navigator.dart';
 
 import '../follow/widgets/follow_item.dart';
 
@@ -47,6 +48,8 @@ class _FollowSearchPageState extends State<FollowSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => getBack(), icon: const Icon(Icons.arrow_back)),
         titleSpacing: 0,
         actions: [
           IconButton(

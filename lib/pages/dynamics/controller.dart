@@ -12,7 +12,7 @@ import 'package:pilipala/models/common/search_type.dart';
 import 'package:pilipala/models/dynamics/result.dart';
 import 'package:pilipala/models/dynamics/up.dart';
 import 'package:pilipala/models/live/item.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/services/loggeer.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/id_utils.dart';
@@ -63,7 +63,7 @@ class DynamicsController extends GetxController {
 
   @override
   void onInit() {
-    userInfo = userInfoCache.get('userInfoCache');
+    userInfo = userInfoCache.get("userInfoCache");
     userLogin.value = userInfo != null;
     super.onInit();
     initialValue.value =

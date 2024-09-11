@@ -6,7 +6,7 @@ import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/models/common/search_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/utils.dart';
 
 Widget searchMbangumiPanel(BuildContext context, ctr, list) {

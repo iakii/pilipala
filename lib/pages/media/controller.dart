@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/user/fav_folder.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 
 class MediaController extends GetxController {

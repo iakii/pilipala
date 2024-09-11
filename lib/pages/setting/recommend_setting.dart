@@ -3,8 +3,8 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/common/rcmd_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/setting/widgets/select_dialog.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/recommend_filter.dart';
 import 'package:pilipala/utils/storage.dart';
 

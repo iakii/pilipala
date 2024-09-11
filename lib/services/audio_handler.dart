@@ -2,8 +2,8 @@ import 'package:audio_service/audio_service.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/models/video_detail_res.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 
 Future<VideoPlayerServiceHandler> initAudioService() async {

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:pilipala/http/user.dart';
+import 'package:pilipala/router/navigator.dart';
 
 import '../../models/user/sub_detail.dart';
 import '../../models/user/sub_folder.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class SubDetailController extends GetxController {
   late SubFolderItemData item;

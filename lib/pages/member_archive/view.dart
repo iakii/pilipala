@@ -2,10 +2,10 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/common/widgets/video_card_h.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/utils.dart';
 import '../../common/widgets/http_error.dart';
 import 'controller.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberArchivePage extends StatefulWidget {
   const MemberArchivePage({super.key});

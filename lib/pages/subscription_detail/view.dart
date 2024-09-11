@@ -7,7 +7,7 @@ import 'package:pilipala/common/skeleton/video_card_h.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/no_data.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 
 import '../../models/user/sub_folder.dart';
 import '../../utils/utils.dart';

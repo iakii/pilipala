@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/init.dart';
 import 'package:pilipala/http/user.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/home/controller.dart';
 import 'package:pilipala/pages/media/controller.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/services/loggeer.dart';
 import 'package:pilipala/utils/login.dart';
 import 'package:pilipala/utils/storage.dart';
@@ -38,12 +38,15 @@ class DesktopWebview {
                 'https://passport.bilibili.com/web/sso/exchange_cookie') ||
             url.startsWith('https://m.bilibili.com/')) {
           webview.getAllCookies().then((cookies) async {
-            // getLogger().e(cookies.map((e) => e.toJson()).toList());
+            getLogger().e(cookies.map((e) => e.domain).toList());
             webview.close();
             if (cookies.isNotEmpty) {
               var cookieString = cookies
                   .map((cookie) => '${cookie.name}=${cookie.value}')
                   .join('; ');
+              Box localCache = GStrorage.localCache;
+
+              await localCache.put("desktop_cookies", cookieString);
 
               Request.dio.options.headers['cookie'] = cookieString;
 
@@ -68,7 +71,7 @@ class DesktopWebview {
         try {
           Box userInfoCache = GStrorage.userInfo;
           await userInfoCache.put('userInfoCache', result['data']);
-
+          // await userInfoCache.close();
           final HomeController homeCtr = Get.find<HomeController>();
           homeCtr.updateLoginStatus(true);
           homeCtr.userFace.value = result['data'].face;

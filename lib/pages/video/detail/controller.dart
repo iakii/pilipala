@@ -15,11 +15,11 @@ import 'package:pilipala/models/video/play/url.dart';
 import 'package:pilipala/models/video/reply/item.dart';
 import 'package:pilipala/pages/video/detail/reply_reply/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:pilipala/utils/utils.dart';
 import 'package:pilipala/utils/video_utils.dart';
 import 'package:screen_brightness/screen_brightness.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 import '../../../models/video/subTitile/content.dart';
 import '../../../http/danmaku.dart';

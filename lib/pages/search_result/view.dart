@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/models/common/search_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/search_panel/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'controller.dart';
 
 class SearchResultPage extends StatefulWidget {
@@ -34,6 +34,8 @@ class _SearchResultPageState extends State<SearchResultPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => getBack(), icon: const Icon(Icons.arrow_back)),
         shape: Border(
           bottom: BorderSide(
             color: Theme.of(context).dividerColor.withOpacity(0.08),

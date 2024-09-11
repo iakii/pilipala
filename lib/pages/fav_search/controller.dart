@@ -3,7 +3,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/user/fav_detail.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import '../../http/video.dart';
 
 class FavSearchController extends GetxController {

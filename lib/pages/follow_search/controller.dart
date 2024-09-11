@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/member.dart';
+import 'package:pilipala/router/navigator.dart';
 
 import '../../models/follow/result.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class FollowSearchController extends GetxController {
   Rx<TextEditingController> controller = TextEditingController().obs;

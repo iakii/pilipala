@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pilipala/pages/dynamics/index.dart';
 import 'package:pilipala/pages/home/index.dart';
 import 'package:pilipala/pages/main/index.dart';
-import 'package:pilipala/pages/webview/webview_window.dart';
+import 'package:pilipala/pages/media/index.dart';
 
 class DesktopController extends GetxController {
-  final MainController _mainController = Get.put(MainController());
-  final HomeController _homeController = Get.put(HomeController());
+  final MainController _mainController =
+      Get.put(MainController(), permanent: true);
+  final HomeController _homeController =
+      Get.put(HomeController(), permanent: true);
+  final DynamicsController namicsController =
+      Get.put(DynamicsController(), permanent: true);
+  final mediaController = Get.put(MediaController());
 
   DesktopController();
 
@@ -93,88 +99,5 @@ class DesktopController extends GetxController {
   void onReady() {
     super.onReady();
     _initData();
-  }
-
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
-}
-
-Future<void> getToNamed<T>(
-  String route, {
-  dynamic arguments,
-  Map<String, String>? parameters,
-  int? id,
-  bool preventDuplicates = true,
-}) async {
-  if (GetPlatform.isDesktop) {
-    // getLogger
-    if (["/webview", "/loginPage"].contains(route)) {
-      final url = parameters?['url'] ??
-          "https://passport.bilibili.com/h5-app/passport/login";
-      final type = parameters?['type'] ?? "login";
-      final title = parameters?['pageTitle'] ?? "登录bilibili";
-      return await DesktopWebview.login(url, type, title);
-    }
-    await desktopDelegate.toNamed<T>("/desktop$route",
-        arguments: arguments, parameters: parameters);
-  } else {
-    await Get.toNamed<T>(
-      route,
-      arguments: arguments,
-      parameters: parameters,
-      id: id,
-      preventDuplicates: preventDuplicates,
-    );
-  }
-}
-
-Future<void> getOffNamed(
-  String route, {
-  dynamic arguments,
-  Map<String, String>? parameters,
-  int? id,
-  bool preventDuplicates = true,
-}) async {
-  if (GetPlatform.isDesktop) {
-    await desktopDelegate.offNamed("/desktop$route",
-        arguments: arguments, parameters: parameters);
-  } else {
-    await Get.offNamed(
-      route,
-      arguments: arguments,
-      parameters: parameters,
-      id: id,
-      preventDuplicates: preventDuplicates,
-    );
-  }
-}
-
-dynamic get getArguments {
-  if (GetPlatform.isDesktop) {
-    return desktopDelegate.arguments();
-  } else {
-    return Get.arguments;
-  }
-}
-
-Map<String, String?> get getParameters {
-  if (GetPlatform.isDesktop) {
-    return desktopDelegate.parameters;
-  } else {
-    return Get.parameters;
-  }
-}
-
-final desktopDelegate = Get.find<DesktopController>().delegate;
-
-void getBack<T>(
-    {T? result, bool closeOverlays = false, bool canPop = true, int? id}) {
-  if (GetPlatform.isDesktop) {
-    desktopDelegate.popRoute(result: result, popMode: PopMode.History);
-  } else {
-    Get.back(
-        result: result, closeOverlays: closeOverlays, canPop: canPop, id: id);
   }
 }

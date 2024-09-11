@@ -15,13 +15,13 @@ import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/pages/video/detail/introduction/widgets/menu_row.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
 import 'package:pilipala/plugin/pl_player/models/play_repeat.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:pilipala/services/shutdown_timer_service.dart';
 import '../../../../http/danmaku.dart';
 import '../../../../models/common/search_type.dart';
 import '../../../../models/video_detail_res.dart';
 import '../introduction/index.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class HeaderControl extends StatefulWidget implements PreferredSizeWidget {
   const HeaderControl({

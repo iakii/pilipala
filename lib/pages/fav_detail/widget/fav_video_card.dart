@@ -6,7 +6,7 @@ import 'package:pilipala/common/widgets/stat/view.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/common/search_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'package:pilipala/utils/utils.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';

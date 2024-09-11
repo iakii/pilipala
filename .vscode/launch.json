@@ -8,9 +8,7 @@
       "name": "pilipala",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "-v"
-      ],
+      "args": [],
     },
     {
       "name": "pilipala (profile mode)",

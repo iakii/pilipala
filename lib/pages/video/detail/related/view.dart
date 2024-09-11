@@ -5,8 +5,8 @@ import 'package:pilipala/common/widgets/animated_dialog.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/overlay_pop.dart';
 import 'package:pilipala/common/widgets/video_card_h.dart';
+import 'package:pilipala/router/navigator.dart';
 import './controller.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class RelatedVideoPanel extends StatefulWidget {
   const RelatedVideoPanel({super.key});

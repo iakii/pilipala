@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 
 import '../http/search.dart';
 import 'id_utils.dart';

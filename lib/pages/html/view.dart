@@ -9,10 +9,10 @@ import 'package:pilipala/common/widgets/html_render.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/models/common/reply_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/video/detail/reply/widgets/reply_item.dart';
 import 'package:pilipala/pages/video/detail/reply_new/index.dart';
 import 'package:pilipala/pages/video/detail/reply_reply/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 
 import 'controller.dart';
@@ -128,11 +128,13 @@ class _HtmlRenderPageState extends State<HtmlRenderPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => getBack(), icon: const Icon(Icons.arrow_back)),
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
           title,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
           const SizedBox(width: 4),

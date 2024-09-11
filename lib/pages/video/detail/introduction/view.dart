@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/http_error.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/common/widgets/stat/danmu.dart';
@@ -14,6 +13,7 @@ import 'package:pilipala/common/widgets/stat/view.dart';
 import 'package:pilipala/models/video_detail_res.dart';
 import 'package:pilipala/pages/video/detail/introduction/controller.dart';
 import 'package:pilipala/pages/video/detail/widgets/ai_detail.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:pilipala/utils/utils.dart';
@@ -160,7 +160,7 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
     videoIntroController =
         Get.put(VideoIntroController(bvid: widget.bvid), tag: heroTag);
     videoDetailCtr = Get.find<VideoDetailController>(tag: heroTag);
-    sheetHeight = localCache.get('sheetHeight');
+    sheetHeight = localCache.get('sheetHeight') ?? 0;
 
     owner = widget.videoDetail!.owner;
     follower = Utils.numFormat(videoIntroController.userStat['follower']);

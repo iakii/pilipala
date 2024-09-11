@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';

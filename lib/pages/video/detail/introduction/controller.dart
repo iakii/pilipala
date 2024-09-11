@@ -13,11 +13,11 @@ import 'package:pilipala/models/video_detail_res.dart';
 import 'package:pilipala/pages/video/detail/controller.dart';
 import 'package:pilipala/pages/video/detail/reply/index.dart';
 import 'package:pilipala/plugin/pl_player/models/play_repeat.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/id_utils.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 import '../related/index.dart';
 import 'widgets/group_panel.dart';

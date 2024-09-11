@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/http/member.dart';
 import 'package:pilipala/models/dynamics/result.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 
 class MemberDynamicsController extends GetxController {
   final ScrollController scrollController = ScrollController();

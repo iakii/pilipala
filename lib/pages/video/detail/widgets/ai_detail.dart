@@ -4,8 +4,8 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/video/ai.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:pilipala/utils/utils.dart';
 

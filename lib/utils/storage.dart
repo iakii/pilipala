@@ -26,6 +26,7 @@ class GStrorage {
         return deletedEntries > 2;
       },
     );
+
     // 本地缓存
     localCache = await Hive.openBox(
       'localCache',

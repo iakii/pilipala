@@ -85,7 +85,7 @@ class Routes {
   ];
 
   static final List<GetPage<dynamic>> _commonRoutes = [
-    CustomGetPage(name: '/app', page: () => const MainApp()),
+    CustomGetPage(name: '/', page: () => const MainApp()),
     // 首页(推荐)
 
     CustomGetPage(name: '/home', page: () => const HomePage()),

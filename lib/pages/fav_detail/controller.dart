@@ -4,8 +4,7 @@ import 'package:pilipala/http/user.dart';
 import 'package:pilipala/http/video.dart';
 import 'package:pilipala/models/user/fav_detail.dart';
 import 'package:pilipala/models/user/fav_folder.dart';
-
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 
 class FavDetailController extends GetxController {
   FavFolderItemData? item;

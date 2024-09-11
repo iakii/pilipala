@@ -14,13 +14,13 @@ import 'package:pilipala/http/user.dart';
 import 'package:pilipala/models/common/search_type.dart';
 import 'package:pilipala/pages/bangumi/introduction/index.dart';
 import 'package:pilipala/pages/danmaku/view.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/video/detail/controller.dart';
 import 'package:pilipala/pages/video/detail/introduction/index.dart';
 import 'package:pilipala/pages/video/detail/related/index.dart';
 import 'package:pilipala/pages/video/detail/reply/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
 import 'package:pilipala/plugin/pl_player/models/play_repeat.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/services/service_locator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -82,7 +82,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       videoPlayerServiceHandler.onVideoDetailChange(
           bangumiIntroController.bangumiDetail.value, p0);
     });
-    statusBarHeight = localCache.get('statusBarHeight');
+    statusBarHeight = localCache.get('statusBarHeight') ?? 0;
     autoExitFullcreen =
         setting.get(SettingBoxKey.enableAutoExit, defaultValue: false);
     autoPlayEnable =
@@ -488,7 +488,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
                         expandedHeight: GetPlatform.isDesktop
                             ? fullscreen == true
                                 ? height
-                                : 360
+                                : 500
                             : landscape || fullscreen
                                 ? (windowHeight -
                                     (landscape
@@ -621,7 +621,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       )
           .width(
               GetPlatform.isDesktop && plPlayerController!.isFullScreen.isFalse
-                  ? 640
+                  ? 800
                   : Get.width)
           .center(),
     );

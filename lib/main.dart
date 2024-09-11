@@ -23,6 +23,7 @@ import 'package:pilipala/services/disable_battery_opt.dart';
 import 'package:pilipala/services/service_locator.dart';
 import 'package:pilipala/utils/app_scheme.dart';
 import 'package:pilipala/utils/data.dart';
+import 'package:pilipala/utils/event_bus.dart';
 import 'package:pilipala/utils/recommend_filter.dart';
 import 'package:pilipala/utils/storage.dart';
 
@@ -145,6 +146,11 @@ class MyApp extends StatelessWidget {
         // 图片缓存
         // PaintingBinding.instance.imageCache.maximumSizeBytes = 1000 << 20;
         return GetMaterialApp(
+          onDispose: () async {
+            getLogger().d('onClose===>>>>called');
+            await GStrorage.close();
+            EventBus().off(EventName.loginEvent);
+          },
           title: 'PiLiPaLa',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

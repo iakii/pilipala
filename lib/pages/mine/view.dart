@@ -7,7 +7,7 @@ import 'package:pilipala/common/constants.dart';
 import 'package:pilipala/common/widgets/network_img_layer.dart';
 import 'package:pilipala/models/common/theme_type.dart';
 import 'package:pilipala/models/user/info.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'controller.dart';
 
 class MinePage extends StatefulWidget {
@@ -242,7 +242,10 @@ class _MinePageState extends State<MinePage> {
                   childAspectRatio: 1.67,
                   children: <Widget>[
                     InkWell(
-                      onTap: () => _mineController.pushDynamic(),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _mineController.pushDynamic();
+                      },
                       borderRadius: StyleString.mdRadius,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -272,7 +275,10 @@ class _MinePageState extends State<MinePage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => _mineController.pushFollow(),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _mineController.pushFollow();
+                      },
                       borderRadius: StyleString.mdRadius,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -302,7 +308,10 @@ class _MinePageState extends State<MinePage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => _mineController.pushFans(),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _mineController.pushFans();
+                      },
                       borderRadius: StyleString.mdRadius,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

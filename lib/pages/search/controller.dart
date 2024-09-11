@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:pilipala/http/search.dart';
 import 'package:pilipala/models/search/hot.dart';
 import 'package:pilipala/models/search/suggest.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 
 class SSearchController extends GetxController {

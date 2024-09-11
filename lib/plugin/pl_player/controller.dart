@@ -13,9 +13,9 @@ import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:ns_danmaku/ns_danmaku.dart';
 import 'package:pilipala/http/video.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/plugin/pl_player/index.dart';
 import 'package:pilipala/plugin/pl_player/models/play_repeat.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/services/service_locator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
@@ -966,9 +966,10 @@ class PlPlayerController {
     FullScreenMode mode = FullScreenModeCode.fromCode(
         setting.get(SettingBoxKey.fullScreenMode, defaultValue: 0))!;
 
-    if (GetPlatform.isMobile)
+    if (GetPlatform.isMobile) {
       await StatusBarControl.setHidden(true,
           animation: StatusBarAnimation.FADE);
+    }
 
     if (!isFullScreen.value && status) {
       /// 按照视频宽高比决定全屏方向
@@ -1015,8 +1016,9 @@ class PlPlayerController {
       //   toggleFullScreen(false);
       // }
     } else if (isFullScreen.value) {
-      if (GetPlatform.isMobile)
+      if (GetPlatform.isMobile) {
         StatusBarControl.setHidden(false, animation: StatusBarAnimation.FADE);
+      }
       // getBack();
       exitFullScreen();
       await verticalScreen();

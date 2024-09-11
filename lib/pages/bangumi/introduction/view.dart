@@ -13,10 +13,10 @@ import 'package:pilipala/pages/bangumi/widgets/bangumi_panel.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
 import 'package:pilipala/pages/video/detail/introduction/widgets/action_item.dart';
 import 'package:pilipala/pages/video/detail/introduction/widgets/fav_panel.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
 import '../../../common/widgets/http_error.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'controller.dart';
 import 'widgets/intro_detail.dart';
 
@@ -135,7 +135,7 @@ class _BangumiInfoState extends State<BangumiInfo> {
     super.initState();
     bangumiIntroController = Get.put(BangumiIntroController(), tag: heroTag);
     videoDetailCtr = Get.find<VideoDetailController>(tag: heroTag);
-    sheetHeight = localCache.get('sheetHeight');
+    sheetHeight = localCache.get('sheetHeight') ?? 0;
     cid = widget.cid!;
     videoDetailCtr.cid.listen((p0) {
       cid = p0;

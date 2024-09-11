@@ -5,10 +5,10 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/common/theme_type.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/setting/pages/color_select.dart';
 import 'package:pilipala/pages/setting/widgets/select_dialog.dart';
 import 'package:pilipala/pages/setting/widgets/slide_dialog.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/global_data.dart';
 import 'package:pilipala/utils/storage.dart';
 

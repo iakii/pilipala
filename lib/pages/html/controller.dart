@@ -5,7 +5,7 @@ import 'package:pilipala/http/html.dart';
 import 'package:pilipala/http/reply.dart';
 import 'package:pilipala/models/common/reply_sort_type.dart';
 import 'package:pilipala/models/video/reply/item.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:pilipala/utils/storage.dart';
 

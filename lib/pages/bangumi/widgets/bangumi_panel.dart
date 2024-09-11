@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/models/bangumi/info.dart';
 import 'package:pilipala/pages/video/detail/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class BangumiPanel extends StatefulWidget {
   const BangumiPanel({

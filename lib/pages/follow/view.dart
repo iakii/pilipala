@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'controller.dart';
 import 'widgets/follow_list.dart';
 import 'widgets/owner_follow_list.dart';

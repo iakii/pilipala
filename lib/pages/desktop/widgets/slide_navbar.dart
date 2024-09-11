@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pilipala/pages/desktop/index.dart';
 import 'package:pilipala/pages/home/index.dart';
 import 'package:pilipala/pages/mine/index.dart';
+import 'package:pilipala/services/loggeer.dart';
 import 'package:pilipala/utils/feed_back.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -46,7 +47,8 @@ class SlideNavigation extends StatelessWidget {
               const SizedBox(height: 24),
               ...items.map((e) {
                 final currentRoute =
-                    state.delegate.currentConfiguration?.currentPage?.name;
+                    state.delegate.currentConfiguration?.currentPage?.name ??
+                        "/desktop/home";
                 final currentIndex = items.indexOf(e);
                 final selected =
                     currentRoute == '/desktop${state.routeUrl[currentIndex]}';
@@ -118,12 +120,6 @@ class SlideNavigation extends StatelessWidget {
                           userLogin: isUserLoggedIn,
                           top: 0,
                           userFace: state.ctx.userFace.value,
-                          // callback: !isUserLoggedIn.value
-                          //     ? () => state.toNamed(
-                          //           "/loginPage",
-                          //         )
-                          //     : () => showUserBottomSheet(context),
-
                           callback: () => showUserBottomSheet(context),
                           ctr: state.ctx,
                         ),

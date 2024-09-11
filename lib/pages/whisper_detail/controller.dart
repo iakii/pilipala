@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pilipala/http/msg.dart';
 import 'package:pilipala/models/msg/session.dart';
+import 'package:pilipala/router/navigator.dart';
 import '../../utils/feed_back.dart';
 import '../../utils/storage.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class WhisperDetailController extends GetxController {
   late int talkerId;

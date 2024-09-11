@@ -2,11 +2,12 @@ import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pilipala/pages/member_dynamics/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/utils.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 import '../../common/widgets/http_error.dart';
 import '../dynamics/widgets/dynamic_panel.dart';
-import 'package:pilipala/pages/desktop/index.dart';
 
 class MemberDynamicsPage extends StatefulWidget {
   const MemberDynamicsPage({super.key});
@@ -54,6 +55,8 @@ class _MemberDynamicsPageState extends State<MemberDynamicsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => getBack(), icon: const Icon(Icons.arrow_back)),
         titleSpacing: 0,
         centerTitle: false,
         title: Text('他的动态', style: Theme.of(context).textTheme.titleMedium),

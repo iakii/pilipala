@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pilipala/http/index.dart';
 import 'package:pilipala/models/github/latest.dart';
-import 'package:pilipala/pages/desktop/index.dart';
+import 'package:pilipala/router/navigator.dart';
 import 'package:pilipala/utils/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../utils/cache_manage.dart';
